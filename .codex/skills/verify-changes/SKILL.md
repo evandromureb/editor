@@ -5,7 +5,7 @@ description: Use when validating code changes in this repository, especially by 
 
 # Verify Changes
 
-## Use This Skill
+## When to Use
 
 Use this skill when you need to confirm a change is correct, reproduce a bug, or choose the right validation command for the scope of a change.
 
@@ -28,6 +28,6 @@ Use this skill when you need to confirm a change is correct, reproduce a bug, or
 ## Guardrails
 
 - Prefer targeted commands over full-suite runs unless the change is broad.
-- Do not claim success without running at least one relevant verification step.
-- If a validation command fails because of the environment, capture the failure mode before changing code again.
-
+- Do not claim success without running at least one relevant verification step via Shell.
+- If a validation command fails because of the environment (permissions, missing binaries) rather than the code, diagnose the environment issue first — don't work around it by skipping the check or adding `--no-verify`.
+- `node_modules/.bin/*` and native binaries (e.g. `@esbuild/linux-x64/bin/esbuild`) have occasionally lost their executable bit or symlink in this environment, breaking `npm run lint`/`build`/`test` with `EACCES` or "command not found". If that happens, check permissions before assuming the code is broken.
