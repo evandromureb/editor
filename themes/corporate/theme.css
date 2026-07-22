@@ -1,0 +1,61 @@
+/*
+ * Tema Corporativo — paleta profissional com suporte a light e dark via appearance.
+ */
+.editor[data-theme='corporate'][data-appearance='light'] {
+  --editor-accent: #2563eb;
+  --editor-accent-fg: #ffffff;
+  --editor-surface: #ffffff;
+  --editor-bg: var(--editor-surface);
+  --editor-fg: #1e293b;
+  --editor-border: #cbd5e1;
+  --editor-shell-border: #bfdbfe;
+  --editor-chrome-bg: #f8fafc;
+  --editor-chrome-border: #e2e8f0;
+  --editor-chrome-fg: #334155;
+  --editor-chrome-fg-muted: #64748b;
+  --editor-input-bg: #ffffff;
+  --editor-focus: var(--editor-accent);
+  --editor-active-bg: #dbeafe;
+  --editor-active-border: #93c5fd;
+  --editor-hover-bg: #f1f5f9;
+  --editor-btn-bg: #ffffff;
+  --editor-btn-border: #cbd5e1;
+  --editor-toolbar-btn-bg: #ffffff;
+  --editor-toolbar-btn-border: #cbd5e1;
+  --editor-toolbar-btn-hover-bg: #f1f5f9;
+  --editor-toolbar-btn-active-bg: var(--editor-active-bg);
+  --editor-toolbar-btn-active-border: var(--editor-accent);
+  --editor-toolbar-btn-active-fg: #1d4ed8;
+  --editor-popover-bg: #ffffff;
+  --editor-menu-bg: #ffffff;
+  --editor-dialog-bg: #ffffff;
+}
+
+.editor[data-theme='corporate'][data-appearance='dark'] {
+  --editor-accent: #2563eb;
+  --editor-accent-fg: #ffffff;
+  --editor-surface: #0f172a;
+  --editor-bg: var(--editor-surface);
+  --editor-fg: #e2e8f0;
+  --editor-border: #334155;
+  --editor-shell-border: #334155;
+  --editor-chrome-bg: #1e293b;
+  --editor-chrome-border: #334155;
+  --editor-chrome-fg: #e2e8f0;
+  --editor-chrome-fg-muted: #94a3b8;
+  --editor-input-bg: #0f172a;
+  --editor-focus: var(--editor-accent);
+  --editor-active-bg: #1e3a8a;
+  --editor-active-border: #2563eb;
+  --editor-hover-bg: #334155;
+  --editor-btn-bg: #1e293b;
+  --editor-btn-border: #475569;
+  --editor-toolbar-btn-bg: #1e293b;
+  --editor-toolbar-btn-border: #475569;
+  --editor-toolbar-btn-hover-bg: #334155;
+  --editor-toolbar-btn-active-bg: var(--editor-accent);
+  --editor-toolbar-btn-active-fg: var(--editor-accent-fg);
+  --editor-popover-bg: #1e293b;
+  --editor-menu-bg: #1e293b;
+  --editor-dialog-bg: #1e293b;
+}

@@ -1,0 +1,67 @@
+/* Popover override — fixed-width form panel, similar to Word/Google Docs' link editor */
+.editor__popover:has(> .editor__link-popover) {
+  padding: 0;
+  min-width: 280px;
+  max-width: calc(100vw - 1.5rem);
+}
+
+.editor__link-popover {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-spacing-md);
+  padding: var(--editor-spacing-md);
+  width: 280px;
+  max-width: 100%;
+}
+
+.editor__link-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-spacing-xs);
+}
+
+.editor__link-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--editor-chrome-fg);
+}
+
+.editor__link-input,
+.editor__link-select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.editor__link-submit {
+  width: 100%;
+  padding: var(--editor-spacing-sm) var(--editor-spacing-md);
+  border: none;
+  border-radius: var(--editor-radius-control);
+  background: var(--editor-accent);
+  color: #fff;
+  font-family: var(--editor-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.1s ease;
+}
+
+.editor__link-submit:hover {
+  opacity: 0.9;
+}
+
+.editor__link-remove {
+  width: 100%;
+  padding: var(--editor-spacing-xs) var(--editor-spacing-md);
+  border: none;
+  border-radius: var(--editor-radius-control);
+  background: transparent;
+  color: var(--editor-danger, #dc2626);
+  font-family: var(--editor-font-family);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.editor__link-remove:hover {
+  background: var(--editor-hover-bg);
+}

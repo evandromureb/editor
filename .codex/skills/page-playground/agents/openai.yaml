@@ -1,0 +1,5 @@
+interface:
+  display_name: "Page Playground"
+  short_description: "Edit the config playground"
+  default_prompt: "Use $page-playground to update the configuration playground or demo pages while keeping them aligned with the real editor."
+

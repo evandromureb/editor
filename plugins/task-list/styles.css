@@ -1,0 +1,76 @@
+[data-task-list] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+[data-task-item] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--editor-spacing-sm, 0.5em);
+  padding: var(--editor-spacing-xs, 4px) 0;
+}
+
+[data-task-checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  flex: 0 0 auto;
+  width: 1.25em;
+  height: 1.25em;
+  margin: 0.15em 0 0;
+  /* --editor-border is tuned for subtle chrome dividers and reads as
+     near-invisible against --editor-surface in the dark theme — use
+     --editor-fg (the same color as the item's own text) so the box always
+     has real contrast against the content background, in every theme. */
+  border: 2px solid var(--editor-fg);
+  border-radius: var(--editor-radius-sm, 3px);
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+[data-task-checkbox]:hover {
+  border-color: var(--editor-accent);
+  background: var(--editor-hover-bg);
+}
+
+[data-task-checkbox]:focus-visible {
+  outline: 2px solid var(--editor-focus);
+  outline-offset: 2px;
+}
+
+[data-task-checkbox]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+[data-task-item][data-checked='true'] [data-task-checkbox] {
+  background: var(--editor-accent);
+  border-color: var(--editor-accent);
+}
+
+[data-task-item][data-checked='true'] [data-task-checkbox]::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 0.3em;
+  height: 0.55em;
+  border: solid var(--editor-accent-fg);
+  border-width: 0 0.14em 0.14em 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+[data-task-content] {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--editor-fg);
+}
+
+[data-task-item][data-checked='true'] [data-task-content] {
+  text-decoration: line-through;
+  color: var(--editor-chrome-fg-muted);
+}
