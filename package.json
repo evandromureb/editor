@@ -29,7 +29,8 @@
     "test": "node --test tests/**/*.test.js",
     "validate:dist": "node scripts/validate-dist.js",
     "prepush": "node scripts/ensure-deps.js && npm run lint && npm run typecheck && npm run test && npm run build && npm run validate:dist",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "husky"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
