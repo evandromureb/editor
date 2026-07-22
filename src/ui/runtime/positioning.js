@@ -21,7 +21,10 @@ const VIEWPORT_MARGIN = 8
 /**
  * Bounds within which the popover must be kept, clamped to the viewport so
  * a boundary that is itself partially offscreen doesn't push the popover
- * off the screen.
+ * off the screen. When a boundary is given, it is inset by VIEWPORT_MARGIN
+ * too — the popover must stay inside the boundary with a margin, not flush
+ * against its edge (popover.left = boundary.left + margin, popover.right =
+ * boundary.right - margin).
  *
  * @param {HTMLElement} [boundary]
  */
@@ -31,10 +34,10 @@ function getBoundaryRect(boundary) {
 
   const rect = boundary.getBoundingClientRect()
   return {
-    left: Math.max(viewport.left, rect.left),
-    top: Math.max(viewport.top, rect.top),
-    right: Math.min(viewport.right, rect.right),
-    bottom: Math.min(viewport.bottom, rect.bottom),
+    left: Math.max(viewport.left, rect.left + VIEWPORT_MARGIN),
+    top: Math.max(viewport.top, rect.top + VIEWPORT_MARGIN),
+    right: Math.min(viewport.right, rect.right - VIEWPORT_MARGIN),
+    bottom: Math.min(viewport.bottom, rect.bottom - VIEWPORT_MARGIN),
   }
 }
 
@@ -91,13 +94,16 @@ export function positionElement({ anchor, element, placement = 'bottom', offset 
 
   /** @type {Record<Placement, { top: number, left: number }>} */
   const positions = {
+    // Aligned to the anchor's left edge by default (Notion/Docs/CKEditor
+    // style) — horizontal clamping below shifts it right/left only when it
+    // would otherwise overflow the boundary.
     bottom: {
       top: anchorRect.bottom + offset,
-      left: anchorRect.left + anchorRect.width / 2 - elRect.width / 2,
+      left: anchorRect.left,
     },
     top: {
       top: anchorRect.top - elRect.height - offset,
-      left: anchorRect.left + anchorRect.width / 2 - elRect.width / 2,
+      left: anchorRect.left,
     },
     left: {
       top: anchorRect.top + anchorRect.height / 2 - elRect.height / 2,
@@ -124,6 +130,7 @@ export function positionElement({ anchor, element, placement = 'bottom', offset 
   element.style.left = `${left}px`
   element.style.maxWidth = `${maxWidth}px`
   element.style.maxHeight = `${maxHeight}px`
+  element.style.overflowX = 'auto'
   element.style.overflowY = 'auto'
   element.style.zIndex = ''
 }

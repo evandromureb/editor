@@ -28,8 +28,8 @@ const plugins = [
 ]
 
 const toolbar = [
-  'undo redo | font-family font-size paragraph | bold italic underline subscript superscript',
-  'text-color highlight | quote hr bullet-list numbered-list task-list clear-formatting code-block link image | text-left text-center text-right justify | outdent indent',
+  'undo redo | font-family font-size paragraph | bold italic underline subscript superscript text-center text-right justify | bullet-list numbered-list',
+  'text-color highlight | quote hr  task-list clear-formatting code-block link image | text-left text-center text-right justify | outdent indent | bullet-list numbered-list',
 ]
 
 try {

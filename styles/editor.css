@@ -185,6 +185,22 @@ wysiwyg-editor {
   font-size: 14px;
 }
 
+/*
+ * `position: fixed` must already be set here, in the stylesheet, rather
+ * than relying solely on the inline style `positioning.js` applies. These
+ * elements are appended as plain block children of `.editor__overlay-root`
+ * (which spans the full viewport) — without this rule, their very first
+ * `getBoundingClientRect()` (used by positioning.js to size/place them) is
+ * taken while they're still in normal flow, reporting the overlay root's
+ * full width instead of their real shrink-to-fit content width, which
+ * throws off the boundary clamp and can misplace the popover far from its
+ * anchor on first open.
+ */
+.editor__popover,
+.editor__floating-panel {
+  position: fixed;
+}
+
 .editor__popover {
   padding: var(--editor-spacing-sm);
   min-width: 160px;

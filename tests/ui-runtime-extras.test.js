@@ -84,6 +84,53 @@ describe('ui/runtime/positioning', () => {
     assert.equal(element.style.left, '8px')
   })
 
+  it('positionElement aligns to the anchor left edge by default (not centered)', () => {
+    const anchor = document.createElement('div')
+    const element = document.createElement('div')
+    document.body.append(anchor, element)
+
+    stubRect(anchor, { top: 100, bottom: 120, left: 200, width: 40, height: 20 })
+    stubRect(element, { width: 30, height: 10 })
+
+    positionElement({ anchor, element })
+
+    assert.equal(element.style.left, '200px')
+  })
+
+  it('positionElement never touches the boundary edges (keeps a margin on both sides)', () => {
+    const boundary = document.createElement('div')
+    const anchor = document.createElement('div')
+    const element = document.createElement('div')
+    document.body.append(boundary, anchor, element)
+
+    stubRect(boundary, { left: 100, right: 500, top: 0, bottom: 400 })
+    // Anchor near the boundary's right edge — popover would overflow past it.
+    stubRect(anchor, { top: 10, bottom: 30, left: 480, right: 495, width: 15, height: 20 })
+    stubRect(element, { width: 200, height: 50 })
+
+    positionElement({ anchor, element, boundary })
+
+    const left = Number.parseFloat(element.style.left)
+    assert.ok(left >= 108, `left (${left}) should not be closer than the 8px margin to the boundary's left edge`)
+    assert.ok(left + 200 <= 492, `right edge (${left + 200}) should not be closer than the 8px margin to the boundary's right edge`)
+  })
+
+  it('positionElement stays within the boundary even when anchor is near its left edge', () => {
+    const boundary = document.createElement('div')
+    const anchor = document.createElement('div')
+    const element = document.createElement('div')
+    document.body.append(boundary, anchor, element)
+
+    stubRect(boundary, { left: 100, right: 500, top: 0, bottom: 400 })
+    stubRect(anchor, { top: 10, bottom: 30, left: 105, right: 120, width: 15, height: 20 })
+    stubRect(element, { width: 200, height: 50 })
+
+    positionElement({ anchor, element, boundary })
+
+    const left = Number.parseFloat(element.style.left)
+    assert.ok(left >= 108, `left (${left}) should not be closer than the 8px margin to the boundary's left edge`)
+  })
+
   it('flipPlacement inverts bottom→top when no space below in viewport', () => {
     const anchor = document.createElement('div')
     const element = document.createElement('div')
