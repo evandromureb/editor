@@ -28,7 +28,8 @@
     "typecheck": "tsc -p tsconfig.build.json --noEmit",
     "test": "node --test tests/**/*.test.js",
     "validate:dist": "node scripts/validate-dist.js",
-    "prepush": "node scripts/ensure-deps.js && npm run lint && npm run typecheck && npm run test && npm run build && npm run validate:dist"
+    "prepush": "node scripts/ensure-deps.js && npm run lint && npm run typecheck && npm run test && npm run build && npm run validate:dist",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
@@ -36,6 +37,7 @@
     "eslint": "^9.39.2",
     "eslint-plugin-jsdoc": "^50.8.0",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "lightningcss": "^1.30.2",
     "linkedom": "^0.18.12",
     "typescript": "^5.9.3"
