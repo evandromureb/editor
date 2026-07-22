@@ -1,0 +1,6 @@
+.editor__surface strong,
+.editor__surface b,
+.editor__preview strong,
+.editor__preview b {
+  font-weight: 700;
+}

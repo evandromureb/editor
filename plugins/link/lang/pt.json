@@ -1,0 +1,11 @@
+{
+  "link.button": "Link",
+  "link.url": "URL",
+  "link.title": "Título do link",
+  "link.target": "Abrir link em",
+  "link.current": "Janela atual",
+  "link.blank": "Nova aba",
+  "link.insert": "Inserir link",
+  "link.save": "Salvar alterações",
+  "link.remove": "Remover link"
+}

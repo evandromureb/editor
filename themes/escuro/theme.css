@@ -1,0 +1,61 @@
+/*
+ * Tema Escuro — paleta alternativa com suporte a light e dark via appearance.
+ */
+.editor[data-theme='escuro'][data-appearance='dark'] {
+  --editor-accent: #60a5fa;
+  --editor-accent-fg: #0f172a;
+  --editor-surface: #0a101f;
+  --editor-bg: var(--editor-surface);
+  --editor-fg: #e2e8f0;
+  --editor-border: #1e293b;
+  --editor-shell-border: #1e293b;
+  --editor-chrome-bg: #111827;
+  --editor-chrome-border: #1e293b;
+  --editor-chrome-fg: #cbd5e1;
+  --editor-chrome-fg-muted: #94a3b8;
+  --editor-input-bg: #0a101f;
+  --editor-focus: var(--editor-accent);
+  --editor-active-bg: #1e3a5f;
+  --editor-active-border: #60a5fa;
+  --editor-hover-bg: #1e293b;
+  --editor-btn-bg: #1e293b;
+  --editor-btn-border: #334155;
+  --editor-toolbar-btn-bg: #1e293b;
+  --editor-toolbar-btn-border: #334155;
+  --editor-toolbar-btn-hover-bg: #273449;
+  --editor-toolbar-btn-active-bg: var(--editor-accent);
+  --editor-toolbar-btn-active-fg: var(--editor-accent-fg);
+  --editor-popover-bg: #111827;
+  --editor-menu-bg: #111827;
+  --editor-dialog-bg: #111827;
+}
+
+.editor[data-theme='escuro'][data-appearance='light'] {
+  --editor-accent: #4a6a9f;
+  --editor-accent-fg: #ffffff;
+  --editor-surface: #f8fafc;
+  --editor-bg: var(--editor-surface);
+  --editor-fg: #1a1a2e;
+  --editor-border: #b8b8c8;
+  --editor-shell-border: #c8d4e8;
+  --editor-chrome-bg: #e8edf5;
+  --editor-chrome-border: #c8c8d4;
+  --editor-chrome-fg: #3a3a52;
+  --editor-chrome-fg-muted: #64748b;
+  --editor-input-bg: #fafafc;
+  --editor-focus: var(--editor-accent);
+  --editor-active-bg: #d0d8e8;
+  --editor-active-border: #8aa0c0;
+  --editor-hover-bg: #dcdce8;
+  --editor-btn-bg: #f5f5fa;
+  --editor-btn-border: #b0b0c0;
+  --editor-toolbar-btn-bg: #f5f5fa;
+  --editor-toolbar-btn-border: #b0b0c0;
+  --editor-toolbar-btn-hover-bg: #e8e8f0;
+  --editor-toolbar-btn-active-bg: var(--editor-active-bg);
+  --editor-toolbar-btn-active-border: var(--editor-accent);
+  --editor-toolbar-btn-active-fg: #1e3a5f;
+  --editor-popover-bg: #e8e8f0;
+  --editor-menu-bg: #e8e8f0;
+  --editor-dialog-bg: #e8e8f0;
+}

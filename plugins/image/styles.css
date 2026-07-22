@@ -1,0 +1,285 @@
+/* Rendered image block — alignment via the plain `align` HTML attribute.
+   Scoped to `> img` (direct child of the surface/preview) so these rules
+   only style a caption-less image; a captioned image is wrapped in
+   <figure>, which carries its own alignment further down — applying both
+   would float/margin the <img> a second time relative to its <figcaption>
+   sibling and throw off their left-edge alignment. */
+.editor__surface > img[align='left'],
+.editor__preview > img[align='left'] {
+  float: left;
+  margin: 0 var(--editor-spacing-md) var(--editor-spacing-sm) 0;
+}
+
+.editor__surface > img[align='right'],
+.editor__preview > img[align='right'] {
+  float: right;
+  margin: 0 0 var(--editor-spacing-sm) var(--editor-spacing-md);
+}
+
+.editor__surface > img[align='center'],
+.editor__preview > img[align='center'] {
+  display: block;
+  margin: var(--editor-spacing-sm) auto;
+}
+
+.editor__surface figure:has(> img[align='left']),
+.editor__preview figure:has(> img[align='left']) {
+  float: left;
+  margin: 0 var(--editor-spacing-md) var(--editor-spacing-sm) 0;
+}
+
+.editor__surface figure:has(> img[align='right']),
+.editor__preview figure:has(> img[align='right']) {
+  float: right;
+  margin: 0 0 var(--editor-spacing-sm) var(--editor-spacing-md);
+}
+
+.editor__surface figure:has(> img[align='center']),
+.editor__preview figure:has(> img[align='center']) {
+  margin: var(--editor-spacing-sm) auto;
+  width: fit-content;
+  text-align: center;
+}
+
+.editor__surface figure,
+.editor__preview figure {
+  margin: var(--editor-spacing-sm) 0;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.editor__surface img,
+.editor__preview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--editor-radius-sm);
+}
+
+.editor__surface figcaption,
+.editor__preview figcaption {
+  font-size: 0.85em;
+  color: var(--editor-chrome-fg);
+  margin-top: 2px;
+}
+
+/* Insert dialog — compact, ~460-500px, tight vertical rhythm */
+.editor__dialog.editor__image-dialog-shell {
+  width: min(460px, calc(100vw - 2rem));
+  min-width: min(300px, calc(100vw - 2rem));
+}
+
+.editor__dialog.editor__image-dialog-shell .editor__dialog-header {
+  padding: var(--editor-spacing-sm) var(--editor-spacing-md);
+}
+
+.editor__dialog.editor__image-dialog-shell .editor__dialog-body {
+  padding: var(--editor-spacing-md);
+}
+
+.editor__image-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-spacing-sm);
+  width: 100%;
+  max-width: 100%;
+}
+
+.editor__image-tabs {
+  display: flex;
+  gap: var(--editor-spacing-xs);
+}
+
+.editor__image-tab {
+  flex: 1;
+  height: 32px;
+  border: 1px solid var(--editor-btn-border);
+  border-radius: var(--editor-radius-control);
+  background: transparent;
+  color: var(--editor-chrome-fg);
+  font-family: var(--editor-font-family);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.editor__image-tab.is-active {
+  background: var(--editor-accent);
+  border-color: var(--editor-accent);
+  color: #fff;
+}
+
+.editor__image-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--editor-spacing-xs);
+  border: 1px dashed var(--editor-btn-border);
+  border-radius: var(--editor-radius-md);
+  padding: var(--editor-spacing-md);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.1s ease, background 0.1s ease;
+}
+
+.editor__image-dropzone:hover,
+.editor__image-dropzone.is-dragover {
+  border-color: var(--editor-accent);
+  background: color-mix(in srgb, var(--editor-accent) 6%, transparent);
+}
+
+.editor__image-file-input {
+  display: none;
+}
+
+.editor__image-dropzone-text {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.editor__image-dropzone-hint {
+  font-size: 11px;
+  color: var(--editor-chrome-fg);
+  opacity: 0.75;
+}
+
+.editor__image-preview {
+  max-width: 100%;
+  max-height: 120px;
+  border-radius: var(--editor-radius-sm);
+}
+
+.editor__image-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-spacing-xs);
+}
+
+.editor__image-field--inline {
+  flex: 1;
+}
+
+.editor__image-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--editor-chrome-fg);
+}
+
+.editor__image-input,
+.editor__image-select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.editor__image-input--number {
+  width: 100%;
+}
+
+.editor__image-row {
+  display: flex;
+  gap: var(--editor-spacing-sm);
+}
+
+.editor__image-error {
+  color: var(--editor-danger, #dc2626);
+  font-size: 12px;
+  margin: 0;
+}
+
+.editor__image-submit {
+  width: 100%;
+  padding: var(--editor-spacing-sm) var(--editor-spacing-md);
+  border: none;
+  border-radius: var(--editor-radius-control);
+  background: var(--editor-accent);
+  color: #fff;
+  font-family: var(--editor-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.editor__image-submit:hover {
+  opacity: 0.9;
+}
+
+.editor__image-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Edit popover — small, no title/footer/tabs (never the insert dialog) */
+.editor__popover:has(> .editor__image-panel-content) {
+  width: 320px;
+  min-width: 300px;
+  max-width: 340px;
+}
+
+.editor__image-panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-spacing-sm);
+  width: 100%;
+}
+
+.editor__image-panel-row {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-spacing-xs);
+}
+
+.editor__image-panel-header {
+  display: flex;
+  justify-content: flex-end;
+  margin: calc(var(--editor-spacing-xs) * -1) calc(var(--editor-spacing-xs) * -1) 0 0;
+}
+
+.editor__image-panel-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: var(--editor-radius-control);
+  background: transparent;
+  color: var(--editor-chrome-fg);
+  cursor: pointer;
+}
+
+.editor__image-panel-close:hover {
+  background: var(--editor-hover-bg);
+}
+
+.editor__image-align-btn,
+.editor__image-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--editor-btn-border);
+  border-radius: var(--editor-radius-control);
+  background: transparent;
+  color: var(--editor-chrome-fg);
+  cursor: pointer;
+}
+
+.editor__image-align-btn.is-active {
+  background: var(--editor-accent);
+  border-color: var(--editor-accent);
+  color: #fff;
+}
+
+.editor__image-remove-btn {
+  margin-left: auto;
+  color: var(--editor-danger, #dc2626);
+}
+
+.editor__image-remove-btn:hover {
+  background: var(--editor-hover-bg);
+}
+
+.editor__image-range {
+  width: 100%;
+}

@@ -1,0 +1,23 @@
+{
+  "image.button": "Imagem",
+  "image.tabUrl": "URL",
+  "image.tabUpload": "Upload",
+  "image.url": "URL",
+  "image.width": "Largura",
+  "image.height": "Altura",
+  "image.keepAspect": "Manter proporção",
+  "image.title": "Título",
+  "image.caption": "Legenda",
+  "image.choose": "Escolher imagem",
+  "image.fileTypes": "PNG, JPG, GIF ou WEBP",
+  "image.insert": "Inserir imagem",
+  "image.remove": "Excluir imagem",
+  "image.close": "Fechar",
+  "image.errorUrl": "Informe a URL da imagem",
+  "image.errorChoose": "Escolha um arquivo de imagem",
+  "image.errorInvalidType": "Arquivo ou URL inválido",
+  "image.errorTooLarge": "Arquivo muito grande",
+  "image.align.left": "Alinhar à esquerda",
+  "image.align.center": "Centralizar",
+  "image.align.right": "Alinhar à direita"
+}

@@ -1,0 +1,8 @@
+.editor__font-size-select {
+  min-width: clamp(72px, 12vw, 96px);
+  max-width: clamp(88px, 14vw, 112px);
+}
+
+.editor__font-size-select .bl-select__trigger {
+  width: 100%;
+}

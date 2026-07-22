@@ -1,0 +1,23 @@
+{
+  "image.button": "Image",
+  "image.tabUrl": "URL",
+  "image.tabUpload": "Upload",
+  "image.url": "URL",
+  "image.width": "Width",
+  "image.height": "Height",
+  "image.keepAspect": "Keep aspect ratio",
+  "image.title": "Title",
+  "image.caption": "Caption",
+  "image.choose": "Choose image",
+  "image.fileTypes": "PNG, JPG, GIF or WEBP",
+  "image.insert": "Insert image",
+  "image.remove": "Remove image",
+  "image.close": "Close",
+  "image.errorUrl": "Enter the image URL",
+  "image.errorChoose": "Choose an image file",
+  "image.errorInvalidType": "Invalid file or URL",
+  "image.errorTooLarge": "File is too large",
+  "image.align.left": "Align left",
+  "image.align.center": "Center",
+  "image.align.right": "Align right"
+}

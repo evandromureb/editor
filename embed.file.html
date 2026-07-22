@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor — file:// (after npm run build)</title>
+    <link rel="stylesheet" href="./dist/editor.css" />
+  </head>
+  <body>
+    <form>
+      <textarea id="conteudo" name="conteudo" class="editor-source">Texto inicial</textarea>
+      <div id="editor"></div>
+    </form>
+    <script src="./dist/editor.standalone.js"></script>
+    <script>
+      EditorBundle.createEditor({
+        textarea: '#conteudo',
+        root: '#editor',
+        theme: 'padrao',
+        locale: 'pt',
+
+        width: 800,
+        height: 500,
+
+        plugins: [
+          'undo',
+          'redo',
+          'bold',
+          'italic',
+          'underline',
+          'subscript',
+          'superscript',
+          'text-color',
+          'highlight',
+          'font-family',
+          'font-size',
+          'paragraph',
+          'hr',
+          'clear-formatting',
+          'code-block',
+        ],
+
+        toolbar: [
+          'undo redo | bold italic underline subscript superscript',
+          'text-color highlight | font-family font-size paragraph | hr | clear-formatting',
+        ],
+      })
+    </script>
+  </body>
+</html>

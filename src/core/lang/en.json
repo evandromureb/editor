@@ -1,0 +1,20 @@
+{
+  "ui.mode.editor": "Editor",
+  "ui.mode.html": "HTML",
+  "ui.mode.view": "Preview",
+  "ui.stats.paragraph": "P",
+  "ui.stats.words": "words",
+  "ui.stats.chars": "characters",
+  "ui.stats.separator": "|",
+  "ui.theme.label": "Theme",
+  "ui.html.invalid": "Invalid HTML",
+  "ui.html.disallowed": "HTML contains disallowed content",
+  "ui.zoom.decrease": "Decrease zoom",
+  "ui.zoom.increase": "Increase zoom",
+  "ui.appearance.toggle": "Toggle light/dark theme",
+  "ui.select.search": "Search",
+  "ui.spinner.loading": "Loading",
+  "theme.padrao": "Default",
+  "theme.escuro": "Dark",
+  "theme.corporate": "Corporate"
+}

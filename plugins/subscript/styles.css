@@ -1,0 +1,5 @@
+.editor__surface sub,
+.editor__preview sub {
+  vertical-align: sub;
+  font-size: smaller;
+}

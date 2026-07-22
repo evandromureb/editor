@@ -1,0 +1,6 @@
+.editor__surface hr,
+.editor__preview hr {
+  border: 0;
+  border-top: 1px solid var(--editor-border);
+  margin: 0.75em 0;
+}

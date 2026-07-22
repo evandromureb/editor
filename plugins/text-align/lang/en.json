@@ -1,0 +1,14 @@
+{
+  "text-left.title": "Align left",
+  "text-left.button": "Align left",
+  "text-center.title": "Center",
+  "text-center.button": "Center",
+  "text-right.title": "Align right",
+  "text-right.button": "Align right",
+  "justify.title": "Justify",
+  "justify.button": "Justify",
+  "indent.title": "Increase indent",
+  "indent.button": "Increase indent",
+  "outdent.title": "Decrease indent",
+  "outdent.button": "Decrease indent"
+}

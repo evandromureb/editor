@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BaseLab Editor — Demo</title>
+    <link rel="stylesheet" href="../styles/editor.css" />
+    <link rel="stylesheet" href="../styles/appearance.css" />
+    <link rel="stylesheet" href="../styles/responsive.css" />
+    <link rel="stylesheet" href="../src/generated/plugins.css" />
+    <link rel="stylesheet" href="../src/generated/themes.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@baselab/plugin-sdk": "/src/sdk/index.js"
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        max-width: 960px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        background: #e2e8f0;
+      }
+      h1 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: #0f172a;
+      }
+      p.hint {
+        color: #64748b;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>BaseLab Editor</h1>
+    <p class="hint">
+      Demo de desenvolvimento — plugins e temas descobertos automaticamente pelo build.
+      Use <code>make dev</code> para subir este servidor.
+    </p>
+
+    <textarea id="content" name="content" class="editor-source" hidden>
+      <p>Texto <strong>inicial</strong> do editor.</p>
+      <p>Selecione texto e use os botões da toolbar.</p>
+    </textarea>
+
+    <div id="app"></div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

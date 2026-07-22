@@ -1,0 +1,11 @@
+{
+  "link.button": "Link",
+  "link.url": "URL",
+  "link.title": "Link title",
+  "link.target": "Open link in",
+  "link.current": "Current window",
+  "link.blank": "New tab",
+  "link.insert": "Insert Link",
+  "link.save": "Save",
+  "link.remove": "Remove"
+}

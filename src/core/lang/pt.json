@@ -1,0 +1,20 @@
+{
+  "ui.mode.editor": "Editor",
+  "ui.mode.html": "HTML",
+  "ui.mode.view": "Visualização",
+  "ui.stats.paragraph": "P",
+  "ui.stats.words": "palavras",
+  "ui.stats.chars": "caracteres",
+  "ui.stats.separator": "|",
+  "ui.theme.label": "Tema",
+  "ui.html.invalid": "HTML inválido",
+  "ui.html.disallowed": "HTML contém conteúdo não permitido",
+  "ui.zoom.decrease": "Diminuir zoom",
+  "ui.zoom.increase": "Aumentar zoom",
+  "ui.appearance.toggle": "Alternar tema claro/escuro",
+  "ui.select.search": "Buscar",
+  "ui.spinner.loading": "Carregando",
+  "theme.padrao": "Padrão",
+  "theme.escuro": "Escuro",
+  "theme.corporate": "Corporativo"
+}

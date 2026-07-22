@@ -1,0 +1,158 @@
+/*
+ * Responsive layout — breakpoints and viewport-specific overrides.
+ * Core scroll tracks live in editor.css (required for dev demo + bundle).
+ */
+
+.editor--responsive {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Sidebar backdrop (mobile drawer) */
+.editor__sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--editor-overlay-backdrop);
+  z-index: calc(var(--editor-z-overlay) - 2);
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+}
+
+.editor__sidebar-backdrop[hidden] {
+  display: none !important;
+}
+
+/* Responsive content inside editor surface / preview */
+.editor__surface img,
+.editor__preview img {
+  max-width: 100%;
+  height: auto;
+}
+
+.editor__surface table,
+.editor__preview table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.editor__surface pre,
+.editor__preview pre,
+.editor__surface code,
+.editor__preview code {
+  max-width: 100%;
+}
+
+.editor__surface pre,
+.editor__preview pre {
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.editor__surface blockquote,
+.editor__preview blockquote {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Notebook: tighter chrome spacing */
+@media (max-width: 1199px) {
+  .editor__toolbar-track,
+  .editor__toolbar-row,
+  .editor__statusbar-track {
+    gap: 6px;
+    padding: 6px 10px;
+  }
+}
+
+/* Tablet: narrow sidebar, compact toolbar widgets */
+@media (max-width: 991px) {
+  .editor {
+    --editor-sidebar-width: clamp(160px, 22vw, 220px);
+  }
+
+  .editor__sidebar:not([hidden]) {
+    flex: 0 0 var(--editor-sidebar-width);
+  }
+
+  .editor__toolbar-widget .bl-select__value {
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+  }
+
+  .editor__toolbar-widget .bl-select__trigger {
+    justify-content: center;
+    min-width: var(--editor-toolbar-btn-size);
+    width: var(--editor-toolbar-btn-size);
+    padding: 0;
+  }
+
+  .editor__toolbar-widget .bl-select__arrow {
+    display: none;
+  }
+}
+
+/* Mobile: drawer sidebar, larger touch targets */
+@media (max-width: 767px) {
+  .editor {
+    --editor-toolbar-btn-size: 44px;
+    --editor-sidebar-width: min(85vw, 280px);
+  }
+
+  .editor__sidebar:not([hidden]) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: calc(var(--editor-z-overlay) - 1);
+    flex: none;
+    width: var(--editor-sidebar-width);
+    max-width: var(--editor-sidebar-width);
+    box-shadow: var(--editor-shadow-lg);
+    transform: translateX(0);
+    transition: transform 0.2s ease;
+  }
+
+  .editor--sidebar-drawer-closed .editor__sidebar:not([hidden]) {
+    transform: translateX(-100%);
+    pointer-events: none;
+  }
+
+  .editor__layout {
+    position: relative;
+  }
+
+  .editor__body {
+    width: 100%;
+  }
+
+  .editor__mode-btn {
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .editor__theme-select,
+  .editor__font-family-select,
+  .editor__font-size-select,
+  .editor__paragraph-select {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .editor__popover:has(> .editor__text-color-popover),
+  .editor__popover:has(> .editor__highlight-popover) {
+    max-width: calc(100vw - 1rem);
+  }
+
+  .editor__text-color-popover,
+  .editor__highlight-popover {
+    flex-wrap: wrap;
+    max-width: calc(100vw - 1.5rem);
+    overflow-x: auto;
+  }
+}
