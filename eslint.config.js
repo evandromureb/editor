@@ -28,4 +28,12 @@ export default [
       'jsdoc/no-undefined-types': 'off',
     },
   },
+  {
+    files: ['page/**/*.js'],
+    languageOptions: {
+      globals: {
+        EditorBundle: 'readonly',
+      },
+    },
+  },
 ]

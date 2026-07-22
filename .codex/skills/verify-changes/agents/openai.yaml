@@ -1,0 +1,5 @@
+interface:
+  display_name: "Verify Changes"
+  short_description: "Run tests and checks"
+  default_prompt: "Use $verify-changes to choose the right checks for this repo and validate the impact of a code change."
+

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Plugin Development"
+  short_description: "Create and update editor plugins"
+  default_prompt: "Use $plugin-development to implement or fix an editor plugin, update its translations and tests, and keep it aligned with the current SDK patterns."
+
