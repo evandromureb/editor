@@ -1,0 +1,8 @@
+{
+  "quote.label": "Quote",
+  "quote.title": "Insert quote block",
+  "quote.default": "Default",
+  "quote.info": "Information",
+  "quote.warning": "Warning",
+  "quote.danger": "Danger"
+}

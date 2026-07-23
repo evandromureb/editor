@@ -1,0 +1,123 @@
+.editor__popover:has(> .editor__numbered-list-popover) {
+  padding: 0;
+  min-width: 0;
+}
+
+.editor__numbered-list-popover {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  padding: 6px;
+}
+
+.editor__numbered-list-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 72px;
+  box-sizing: border-box;
+  border: 1px solid var(--editor-border);
+  border-radius: var(--editor-radius-sm);
+  padding: 8px 6px;
+  background: var(--editor-surface);
+  color: var(--editor-chrome-fg);
+  cursor: pointer;
+  font-family: var(--editor-font-family);
+}
+
+.editor__numbered-list-option:hover:not(:disabled):not(.is-active) {
+  background: var(--editor-hover-bg);
+}
+
+.editor__numbered-list-option.is-active {
+  border-color: var(--editor-accent);
+  box-shadow: 0 0 0 1px var(--editor-accent);
+}
+
+.editor__numbered-list-option:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.editor__numbered-list-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.editor__numbered-list-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.editor__numbered-list-preview-marker {
+  flex: 0 0 auto;
+  min-width: 14px;
+  text-align: right;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--editor-chrome-fg);
+}
+
+.editor__numbered-list-preview-bar {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 5px;
+  border-radius: 2px;
+  background: var(--editor-border);
+}
+
+/*
+ * Content rendering for indented items.
+ *
+ * The browser's native <ol> counter ("list-item") is shared by every <li>
+ * in the same tag regardless of visual indent level (there is no real
+ * nested <ol> — see indentNumberedItem/buildLevelStyle in index.js, which
+ * only sets margin-left + list-style-type per item). Left alone, that
+ * means a level-1/2 item consumes a number from the level-0 sequence, and
+ * any level-0 item that follows one shows the wrong number.
+ *
+ * Level-1/2 items (identified by their own inline list-style-type —
+ * lower-alpha / lower-roman, set by buildLevelStyle) opt out of the native
+ * counter (`counter-increment: list-item 0`) so level-0 keeps counting
+ * correctly across interruptions, and render their own number through a
+ * private counter that resets to 1 whenever a new consecutive run of that
+ * level starts — i.e. the item is not immediately preceded by a sibling at
+ * the same level — mirroring how a real nested <ol> restarts per level.
+ */
+.editor ol > li[style*='list-style-type: lower-alpha'] {
+  list-style: none;
+  counter-increment: list-item 0 editor-nl-1 1;
+}
+
+.editor ol > li[style*='list-style-type: lower-alpha']:first-child,
+.editor
+  ol
+  > li:not([style*='list-style-type: lower-alpha'])
+  + li[style*='list-style-type: lower-alpha'] {
+  counter-reset: editor-nl-1 0;
+}
+
+.editor ol > li[style*='list-style-type: lower-alpha']::before {
+  content: counter(editor-nl-1, lower-alpha) '. ';
+}
+
+.editor ol > li[style*='list-style-type: lower-roman'] {
+  list-style: none;
+  counter-increment: list-item 0 editor-nl-2 1;
+}
+
+.editor ol > li[style*='list-style-type: lower-roman']:first-child,
+.editor
+  ol
+  > li:not([style*='list-style-type: lower-roman'])
+  + li[style*='list-style-type: lower-roman'] {
+  counter-reset: editor-nl-2 0;
+}
+
+.editor ol > li[style*='list-style-type: lower-roman']::before {
+  content: counter(editor-nl-2, lower-roman) '. ';
+}

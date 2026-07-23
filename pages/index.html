@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor Configuration Builder</title>
+    <link rel="stylesheet" href="../dist/editor.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="app-header-top">
+        <div>
+          <h1>Editor Configuration Builder</h1>
+          <p>
+            Arraste os ícones dos plugins para montar a toolbar. A configuração de
+            <code>plugins</code> e <code>toolbar</code> usada pelo <code>createEditor</code> é
+            gerada automaticamente, com preview ao vivo.
+          </p>
+        </div>
+        <div class="header-controls">
+          <div class="locale-switch" id="locale-switch" role="group" aria-label="Idioma do editor">
+            <button type="button" class="locale-btn is-active" data-locale="en">EN</button>
+            <button type="button" class="locale-btn" data-locale="pt">PT-BR</button>
+          </div>
+          <button
+            type="button"
+            class="theme-toggle-btn"
+            id="theme-toggle-btn"
+            aria-label="Alternar tema claro/escuro"
+            title="Alternar tema claro/escuro"
+          >
+            <svg
+              class="theme-icon theme-icon-sun"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+            >
+              <circle cx="8" cy="8" r="3.5" />
+              <path
+                d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06"
+                stroke="currentColor"
+                stroke-width="1.2"
+                fill="none"
+                stroke-linecap="round"
+              />
+            </svg>
+            <svg
+              class="theme-icon theme-icon-moon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+            >
+              <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 1.5a5 5 0 0 1 0 10V3z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel plugins-panel" id="plugins-panel">
+        <h2>Plugins</h2>
+        <p class="hint">
+          Todos os plugins ficam sempre ativos. Arraste uma linha inteira ➜ para dentro de uma linha
+          da toolbar para adicioná-la — ela some daqui e volta quando for removida da toolbar. O
+          separador pode ser usado quantas vezes quiser.
+        </p>
+        <ul id="plugins-list" class="plugins-list"></ul>
+      </section>
+
+      <div class="right-column">
+        <section class="panel presets-panel" id="presets-panel">
+          <h2>Presets</h2>
+          <p class="hint">
+            Escolha um cenário de uso pronto — ele monta os plugins e a toolbar automaticamente,
+            substituindo a configuração atual.
+          </p>
+          <div id="presets-list" class="presets-list"></div>
+        </section>
+
+        <section class="panel toolbar-panel" id="toolbar-panel">
+          <h2>Toolbar</h2>
+          <p class="hint">
+            Solte em qualquer ponto da linha para montá-la. Arraste um botão de volta para o painel
+            de plugins para removê-lo.
+          </p>
+          <div id="toolbar-rows" class="toolbar-rows"></div>
+          <button type="button" id="add-row-btn" class="btn">+ Nova linha</button>
+        </section>
+
+        <section class="panel output-panel">
+          <div class="output-tabs">
+            <button type="button" class="tab-btn is-active" data-tab="preview">
+              Preview ao vivo
+            </button>
+            <button type="button" class="tab-btn" data-tab="code">Código</button>
+          </div>
+
+          <div class="tab-content" data-tab-content="preview">
+            <p class="hint">Editor real, montado com a configuração atual.</p>
+            <div class="preview-shell">
+              <textarea id="preview-content" hidden>
+Este é o conteúdo de exemplo do editor.</textarea>
+              <div id="preview-root"></div>
+            </div>
+          </div>
+
+          <div class="tab-content" data-tab-content="code" hidden>
+            <div class="output-actions">
+              <button type="button" id="copy-btn" class="btn btn-primary">Copiar</button>
+              <button type="button" id="download-zip-btn" class="btn btn-primary">
+                Baixar ZIP
+              </button>
+            </div>
+            <p id="download-error" class="download-error hint" hidden></p>
+            <pre id="output-code" class="output-code"><code></code></pre>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Instância oculta usada apenas para extrair os ícones reais renderizados por cada plugin -->
+    <div id="icon-extractor" class="icon-extractor" aria-hidden="true">
+      <textarea id="icon-extractor-content"></textarea>
+      <div id="icon-extractor-root"></div>
+    </div>
+
+    <script src="../dist/editor.standalone.js"></script>
+    <script src="./zip.js"></script>
+    <script src="./dist-assets.generated.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

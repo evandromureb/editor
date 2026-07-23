@@ -1,0 +1,14 @@
+{
+  "text-left.title": "Alinhar à esquerda",
+  "text-left.button": "Alinhar à esquerda",
+  "text-center.title": "Centralizar",
+  "text-center.button": "Centralizar",
+  "text-right.title": "Alinhar à direita",
+  "text-right.button": "Alinhar à direita",
+  "justify.title": "Justificar",
+  "justify.button": "Justificar",
+  "indent.title": "Aumentar indentação",
+  "indent.button": "Aumentar indentação",
+  "outdent.title": "Diminuir indentação",
+  "outdent.button": "Diminuir indentação"
+}

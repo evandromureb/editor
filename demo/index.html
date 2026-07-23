@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BaseLab Editor — Demo</title>
+    <link rel="stylesheet" href="../styles/editor.css" />
+    <link rel="stylesheet" href="../styles/appearance.css" />
+    <link rel="stylesheet" href="../styles/responsive.css" />
+    <link rel="stylesheet" href="../src/generated/plugins.css" />
+    <link rel="stylesheet" href="../src/generated/themes.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@baselab/plugin-sdk": "/src/sdk/index.js"
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        max-width: 960px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        background: #e2e8f0;
+      }
+      h1 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: #0f172a;
+      }
+      p.hint {
+        color: #64748b;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>BaseLab Editor</h1>
+    <p class="hint">
+      Demo de desenvolvimento — plugins e temas descobertos automaticamente pelo build. Use
+      <code>make dev</code> para subir este servidor.
+    </p>
+
+    <textarea id="content" name="content" class="editor-source" hidden>
+      <p>Texto <strong>inicial</strong> do editor.</p>
+      <p>Selecione texto e use os botões da toolbar.</p>
+    </textarea>
+
+    <div id="app"></div>
+
+    <script type="module">
+      import { createEditor } from '../src/index.js'
+
+      const app = document.querySelector('#app')
+
+      const plugins = [
+        'undo',
+        'redo',
+        'bold',
+        'italic',
+        'underline',
+        'subscript',
+        'superscript',
+        'text-color',
+        'highlight',
+        'font-family',
+        'font-size',
+        'paragraph',
+        'quote',
+        'hr',
+        'bullet-list',
+        'numbered-list',
+        'task-list',
+        'clear-formatting',
+        'code-block',
+        'link',
+        'image',
+        'text-align',
+      ]
+
+      const toolbar = [
+        'undo redo | font-family font-size paragraph | bold italic underline subscript superscript text-center text-right justify',
+        'text-color highlight | bullet-list numbered-list | quote hr task-list clear-formatting code-block link image | text-left text-center text-right justify | outdent indent',
+      ]
+
+      try {
+        const editor = createEditor({
+          textarea: '#content',
+          root: '#app',
+          plugins,
+          toolbar,
+          theme: 'padrao',
+          persistTheme: true,
+          appearance: 'light',
+          persistAppearance: true,
+          locale: 'pt',
+          width: undefined, // valor padrão (100% do container)
+          height: undefined, // valor padrão (altura automática)
+          responsive: true,
+          footer: true,
+          fontFamily: {
+            default: undefined, // valor padrão
+            items: undefined, // valor padrão (lista embutida)
+          },
+          image: {
+            upload: undefined, // valor padrão (sem upload customizado)
+            maxSize: 5 * 1024 * 1024, // valor padrão (5 MB)
+            minWidth: 100, // valor padrão
+            maxWidth: 1200, // valor padrão
+            minHeight: 100, // valor padrão
+            maxHeight: 1200, // valor padrão
+          },
+        })
+        window.__editor = editor
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error)
+        app.innerHTML =
+          '<div class="editor-fallback">' +
+          '<p><strong>Erro ao iniciar o editor.</strong></p>' +
+          `<p>${message}</p>` +
+          '</div>'
+      }
+    </script>
+  </body>
+</html>

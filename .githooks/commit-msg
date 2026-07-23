@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+COMMIT_MSG_FILE=$1
+[ -f "$COMMIT_MSG_FILE" ] || exit 0
+
+sed -i '/^Co-authored-by: Cursor <cursoragent@cursor.com>$/d' "$COMMIT_MSG_FILE"
+sed -i '/^Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>$/d' "$COMMIT_MSG_FILE"
+sed -i '/^Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>$/d' "$COMMIT_MSG_FILE"

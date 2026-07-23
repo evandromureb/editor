@@ -1,0 +1,6 @@
+.editor__surface em,
+.editor__surface i,
+.editor__preview em,
+.editor__preview i {
+  font-style: italic;
+}

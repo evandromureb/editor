@@ -1,0 +1,48 @@
+.editor__paragraph-select {
+  min-width: clamp(96px, 14vw, 120px);
+  max-width: clamp(112px, 18vw, 150px);
+}
+
+.editor__paragraph-select .bl-select__trigger {
+  width: 100%;
+}
+
+.editor__surface h1,
+.editor__preview h1 {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.editor__surface h2,
+.editor__preview h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.editor__surface h3,
+.editor__preview h3 {
+  font-size: 1.25em;
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.editor__surface h4,
+.editor__preview h4 {
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.editor__surface h5,
+.editor__preview h5 {
+  font-size: 0.95em;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 0;
+}

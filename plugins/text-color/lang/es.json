@@ -1,0 +1,14 @@
+{
+  "textColor.label": "Color de texto",
+  "textColor.title": "Color de texto",
+  "textColor.custom": "Color personalizado...",
+  "textColor.clear": "Sin color",
+  "textColor.mixed": "—",
+  "textColor.color.black": "Negro",
+  "textColor.color.gray": "Gris",
+  "textColor.color.blue": "Azul",
+  "textColor.color.green": "Verde",
+  "textColor.color.red": "Rojo",
+  "textColor.color.purple": "Morado",
+  "textColor.color.orange": "Naranja"
+}

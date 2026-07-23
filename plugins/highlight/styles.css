@@ -1,0 +1,92 @@
+/* Toolbar button — needs relative positioning for the color bar */
+.editor__toolbar-btn--highlight {
+  position: relative;
+}
+
+/* Color bar displayed below the highlighter icon */
+.editor__highlight-bar {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--editor-chrome-border);
+  pointer-events: none;
+  transition: background-color 0.1s ease;
+}
+
+/* Override the popover when it contains the highlight panel */
+.editor__popover:has(> .editor__highlight-popover) {
+  padding: 0;
+  border-radius: 999px;
+  min-width: 0;
+  max-width: calc(100vw - 1rem);
+}
+
+/* Horizontal pill layout for the highlight popover content */
+.editor__highlight-popover {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-spacing-xs);
+  padding: var(--editor-spacing-xs) var(--editor-spacing-sm);
+  max-width: calc(100vw - 1.5rem);
+  flex-wrap: wrap;
+}
+
+/* Circular color swatches */
+.editor__highlight-swatch {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--editor-btn-border);
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  transition: opacity 0.1s ease;
+}
+
+.editor__highlight-swatch:hover:not(.is-active) {
+  opacity: 0.75;
+}
+
+/* "No highlight" swatch — light gray circle with a visible border */
+.editor__highlight-swatch--clear {
+  background: #f1f5f9;
+}
+
+/* Active swatch — accent ring */
+.editor__highlight-swatch.is-active {
+  box-shadow:
+    0 0 0 2px var(--editor-popover-bg, #fff),
+    0 0 0 4px var(--editor-accent);
+}
+
+/* Divider between swatches and custom button */
+.editor__highlight-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--editor-chrome-border);
+  flex-shrink: 0;
+}
+
+/* "Custom color..." pill button with dashed accent border */
+.editor__highlight-custom {
+  flex-shrink: 0;
+  border: 1px dashed var(--editor-accent);
+  border-radius: 999px;
+  padding: 2px 10px;
+  background: transparent;
+  color: var(--editor-accent);
+  font-size: 13px;
+  font-family: var(--editor-font-family);
+  white-space: nowrap;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.editor__highlight-custom:hover {
+  background: color-mix(in srgb, var(--editor-accent) 8%, transparent);
+}

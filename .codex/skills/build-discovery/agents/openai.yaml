@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Build And Discovery'
+  short_description: 'Work on discovery and builds'
+  default_prompt: 'Use $build-discovery to update discovery, build, or dist-related code, then regenerate and validate the affected outputs.'

@@ -1,0 +1,9 @@
+/* Clear Formatting Plugin Styles */
+
+.editor__surface [data-toolbar-id='clear-formatting'] {
+  /* Inherit default toolbar item styles */
+}
+
+.editor__preview [data-toolbar-id='clear-formatting'] {
+  /* Inherit default toolbar item styles */
+}

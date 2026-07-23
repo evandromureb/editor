@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "checkJs": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": ".build/types",
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmitOnError": true
+  },
+  "include": ["src/embed/entry.js"],
+  "exclude": ["node_modules", "dist", ".build", "tests"]
+}

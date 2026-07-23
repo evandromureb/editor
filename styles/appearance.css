@@ -1,0 +1,94 @@
+/*
+ * Appearance — tokens base para light e dark, independentes do tema.
+ * Temas podem sobrescrever via seletores compostos [data-theme][data-appearance].
+ */
+
+.editor[data-appearance='light'] {
+  --editor-accent: #3b82f6;
+  --editor-accent-fg: #ffffff;
+  --editor-surface: #ffffff;
+  --editor-bg: var(--editor-surface);
+  --editor-fg: #0f172a;
+  --editor-border: #cbd5e1;
+  --editor-shell-border: #bfdbfe;
+  --editor-chrome-bg: #f1f5f9;
+  --editor-chrome-border: #e2e8f0;
+  --editor-chrome-fg: #334155;
+  --editor-chrome-fg-muted: #64748b;
+  --editor-input-bg: #ffffff;
+  --editor-focus: var(--editor-accent);
+  --editor-active-bg: #dbeafe;
+  --editor-active-border: #93c5fd;
+  --editor-hover-bg: #e2e8f0;
+  --editor-btn-bg: #ffffff;
+  --editor-btn-border: #cbd5e1;
+  --editor-toolbar-btn-bg: #ffffff;
+  --editor-toolbar-btn-border: #cbd5e1;
+  --editor-toolbar-btn-hover-bg: #e2e8f0;
+  --editor-toolbar-btn-active-bg: var(--editor-active-bg);
+  --editor-toolbar-btn-active-border: var(--editor-accent);
+  --editor-toolbar-btn-active-fg: #1d4ed8;
+  --editor-popover-bg: #ffffff;
+  --editor-menu-bg: #ffffff;
+  --editor-dialog-bg: #ffffff;
+  --editor-overlay-backdrop: rgba(15, 23, 42, 0.4);
+  --editor-fallback-bg: #fff8e6;
+  --editor-fallback-border: #e0a800;
+  --editor-fallback-code-bg: #1e1e1e;
+  --editor-fallback-code-fg: #f5f5f5;
+  --editor-fallback-link: #2563eb;
+  --editor-danger: #ef4444;
+}
+
+.editor[data-appearance='dark'] {
+  --editor-accent: #3b82f6;
+  --editor-accent-fg: #ffffff;
+  --editor-surface: #0d1526;
+  --editor-bg: var(--editor-surface);
+  --editor-fg: #e2e8f0;
+  --editor-border: #2d3f5c;
+  --editor-shell-border: #2d3f5c;
+  --editor-chrome-bg: #1a2744;
+  --editor-chrome-border: #2d3f5c;
+  --editor-chrome-fg: #e2e8f0;
+  --editor-chrome-fg-muted: #94a3b8;
+  --editor-input-bg: #0d1526;
+  --editor-focus: var(--editor-accent);
+  --editor-active-bg: #1e3a5f;
+  --editor-active-border: #3b82f6;
+  --editor-hover-bg: #243352;
+  --editor-btn-bg: #243352;
+  --editor-btn-border: #3d4f6f;
+  --editor-toolbar-btn-bg: #243352;
+  --editor-toolbar-btn-border: #3d4f6f;
+  --editor-toolbar-btn-hover-bg: #2d3f5c;
+  --editor-toolbar-btn-active-bg: var(--editor-accent);
+  --editor-toolbar-btn-active-fg: var(--editor-accent-fg);
+  --editor-popover-bg: #1a2744;
+  --editor-menu-bg: #1a2744;
+  --editor-dialog-bg: #1a2744;
+  --editor-overlay-backdrop: rgba(0, 0, 0, 0.6);
+  --editor-fallback-bg: #2a2418;
+  --editor-fallback-border: #8a7020;
+  --editor-fallback-code-bg: #111;
+  --editor-fallback-code-fg: #e8e8e8;
+  --editor-fallback-link: #6eb3ff;
+  --editor-danger: #ef4444;
+}
+
+/* Appearance toggle in statusbar — reutiliza .editor__toolbar-btn (mesma base dos demais controles) */
+.editor__toolbar-btn--appearance-toggle .editor__icon--sun {
+  display: inline-flex;
+}
+
+.editor__toolbar-btn--appearance-toggle .editor__icon--moon {
+  display: none;
+}
+
+.editor__toolbar-btn--appearance-toggle.is-active .editor__icon--sun {
+  display: none;
+}
+
+.editor__toolbar-btn--appearance-toggle.is-active .editor__icon--moon {
+  display: inline-flex;
+}
