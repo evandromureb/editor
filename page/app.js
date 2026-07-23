@@ -89,7 +89,59 @@ const SEPARATOR = '|'
 
 // The editor's real default locale is 'pt' (see src/core/i18n/constants.js),
 // but this page defaults to English as requested; 'pt' is offered as PT-BR.
-let currentLocale = 'en'
+// The choice is persisted across reloads (see LOCALE_STORAGE_KEY below).
+const LOCALE_STORAGE_KEY = 'editor-config-builder:locale'
+
+function loadSavedLocale() {
+  try {
+    const raw = localStorage.getItem(LOCALE_STORAGE_KEY)
+    return raw === 'en' || raw === 'pt' ? raw : null
+  } catch (err) {
+    console.error('Falha ao carregar idioma salvo:', err)
+    return null
+  }
+}
+
+let currentLocale = loadSavedLocale() ?? 'en'
+
+// ---------------------------------------------------------------------------
+// Page theme (light/dark) — independent from the editor's own appearance
+// option, this only affects this playground page's own chrome. Persisted
+// across reloads; defaults to the system preference on first visit.
+// ---------------------------------------------------------------------------
+const THEME_STORAGE_KEY = 'editor-config-builder:page-theme'
+
+function loadSavedTheme() {
+  try {
+    const raw = localStorage.getItem(THEME_STORAGE_KEY)
+    return raw === 'light' || raw === 'dark' ? raw : null
+  } catch (err) {
+    console.error('Falha ao carregar tema salvo:', err)
+    return null
+  }
+}
+
+function systemPrefersDarkTheme() {
+  return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme)
+  document.getElementById('theme-toggle-btn')?.setAttribute('aria-pressed', String(theme === 'dark'))
+}
+
+let currentTheme = loadSavedTheme() ?? (systemPrefersDarkTheme() ? 'dark' : 'light')
+applyTheme(currentTheme)
+
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark'
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, currentTheme)
+  } catch (err) {
+    console.error('Falha ao salvar tema:', err)
+  }
+  applyTheme(currentTheme)
+}
 
 function labelForEntry(entry) {
   if (entry.groupLabel) return entry.groupLabel[currentLocale] || entry.groupLabel.en
@@ -755,15 +807,15 @@ function currentConfig() {
 // with a trailing comment flagging it as such, so the snippet stays
 // copy-pasteable while still documenting the full option surface.
 const OTHER_OPTIONS_CODE = `
-    theme: 'padrao', // valor padrão
-    persistTheme: true, // valor padrão
-    appearance: 'light', // valor padrão (segue a preferência do sistema)
-    persistAppearance: false, // valor padrão
-    width: 500, // valor padrão (sem largura fixa)
-    height: 500, // valor padrão (sem altura fixa)
-    responsive: true, // valor padrão
+    theme: 'padrao', // default value
+    persistTheme: true, // default value
+    appearance: 'light', // default value (follows system preference)
+    persistAppearance: false, // default value
+    width: 500, // default value (no fixed width)
+    height: 500, // default value (no fixed height)
+    responsive: true, // default value
     fontFamily: {
-      // valores padrão do plugin font-family
+      // default values from the font-family plugin
       default: 'Arial',
       items: [
         { label: 'Arial', value: 'Arial, sans-serif' },
@@ -775,9 +827,9 @@ const OTHER_OPTIONS_CODE = `
       ],
     },
     image: {
-      maxSize: 1 * 1024 * 1024, // valor padrão (5 MB)
+      maxSize: 1 * 1024 * 1024, // default value (5 MB)
     },
-    footer: false, // valor padrão`
+    footer: true, // default value`
 
 function renderCode({ plugins, toolbar, locale }) {
   const code = `<link rel="stylesheet" href="./dist/editor.min.css" />
@@ -901,6 +953,11 @@ document.querySelectorAll('.tab-btn').forEach((btn) => {
 function setLocale(locale) {
   if (locale === currentLocale) return
   currentLocale = locale
+  try {
+    localStorage.setItem(LOCALE_STORAGE_KEY, locale)
+  } catch (err) {
+    console.error('Falha ao salvar idioma:', err)
+  }
   document.querySelectorAll('.locale-btn').forEach((btn) => {
     btn.classList.toggle('is-active', btn.dataset.locale === locale)
   })
@@ -914,6 +971,8 @@ document.querySelectorAll('.locale-btn').forEach((btn) => {
   btn.addEventListener('click', () => setLocale(btn.dataset.locale))
 })
 
+document.getElementById('theme-toggle-btn').addEventListener('click', toggleTheme)
+
 // Safety net: if a drag ends without a drop landing on a row (e.g. released
 // over the browser chrome or outside any drop target), make sure the caret
 // doesn't linger.
@@ -923,6 +982,9 @@ window.addEventListener('dragend', hideDropCaret)
 // Boot
 // ---------------------------------------------------------------------------
 
+document.querySelectorAll('.locale-btn').forEach((btn) => {
+  btn.classList.toggle('is-active', btn.dataset.locale === currentLocale)
+})
 extractIcons(currentLocale)
 setupTrashZone()
 renderPresets()
