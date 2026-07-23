@@ -141,6 +141,10 @@ function toggleTheme() {
     console.error('Falha ao salvar tema:', err)
   }
   applyTheme(currentTheme)
+  // Keeps the live preview editor's own appearance in sync with the page's
+  // theme — declared with `let` further below, but safe to reference here
+  // since this function only runs later, in response to the button click.
+  previewEditor?.setAppearance?.(currentTheme)
 }
 
 function labelForEntry(entry) {
@@ -872,6 +876,8 @@ function renderPreview({ plugins, toolbar, locale }) {
       locale,
       plugins,
       toolbar,
+      appearance: currentTheme,
+      persistAppearance: false,
     })
   } catch (err) {
     previewEditor = null
