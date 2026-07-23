@@ -29,10 +29,12 @@ export default [
     },
   },
   {
-    files: ['page/**/*.js'],
+    files: ['pages/**/*.js'],
     languageOptions: {
       globals: {
         EditorBundle: 'readonly',
+        createZip: 'readonly',
+        DIST_ASSETS: 'readonly',
       },
     },
   },

@@ -1,8 +1,8 @@
 ---
 name: page-playground
-description: Use when changing the configuration playground and demo pages under page/ or demo/ that assemble plugins, themes, toolbars, or presets.
+description: Use when changing the configuration playground and demo pages under pages/ or demo/ that assemble plugins, themes, toolbars, or presets.
 paths:
-  - "page/**"
+  - "pages/**"
   - "demo/**"
 ---
 
@@ -10,7 +10,7 @@ paths:
 
 ## When to Use
 
-Use this skill for changes in `page/`, `demo/`, or playground-style UI that assembles editor configuration.
+Use this skill for changes in `pages/`, `demo/`, or playground-style UI that assembles editor configuration.
 
 ## Core Flow
 
@@ -22,9 +22,9 @@ Use this skill for changes in `page/`, `demo/`, or playground-style UI that asse
 
 ## What To Check
 
-- `page/app.js` for config builder logic and preview wiring.
-- `page/index.html` for static structure and copy.
-- `page/style.css` for the playground presentation.
+- `pages/app.js` for config builder logic and preview wiring.
+- `pages/index.html` for static structure and copy.
+- `pages/style.css` for the playground presentation.
 - `demo/` when the example app needs to reflect the same behavior.
 - `tests/embed-integration.test.js` and related UI tests for integration coverage.
 
@@ -33,4 +33,4 @@ Use this skill for changes in `page/`, `demo/`, or playground-style UI that asse
 - Do not let the playground diverge from the editor's actual plugin names or locale behavior.
 - Keep the page build-friendly and avoid introducing separate configuration rules unless necessary.
 - If the page mirrors core editor data, update the source of truth first.
-- `page/**/*.js` runs against the `EditorBundle` global injected via `<script>`; it's declared in `eslint.config.js` under `files: ['page/**/*.js']` — don't reintroduce a `no-undef` error by using a new global without adding it there.
+- `pages/**/*.js` runs against the `EditorBundle` global injected via `<script>`; it's declared in `eslint.config.js` under `files: ['pages/**/*.js']` — don't reintroduce a `no-undef` error by using a new global without adding it there.

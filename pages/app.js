@@ -945,6 +945,55 @@ document.getElementById('copy-btn').addEventListener('click', async () => {
   }
 })
 
+document.getElementById('download-zip-btn').addEventListener('click', async () => {
+  const btn = document.getElementById('download-zip-btn')
+  const errorEl = document.getElementById('download-error')
+  const originalLabel = btn.textContent
+
+  errorEl.hidden = true
+  btn.disabled = true
+  btn.classList.add('is-loading')
+  btn.textContent = 'Gerando...'
+
+  // Yields a frame so the loading state above actually paints before the
+  // zip assembly below (synchronous, CPU-bound CRC32 + byte copying) runs.
+  await new Promise((resolve) => requestAnimationFrame(resolve))
+
+  try {
+    // DIST_ASSETS comes from pages/dist-assets.generated.js (written by
+    // `npm run build`, see scripts/build/steps/pages-assets.js). It's
+    // inlined at build time — not fetched at runtime — so this works both
+    // over HTTP and when this page is opened directly via file://.
+    if (typeof DIST_ASSETS === 'undefined') {
+      throw new Error('Pacote não encontrado. Rode "npm run build" para gerar os arquivos de dist/.')
+    }
+
+    const html = document.querySelector('#output-code code').textContent
+    const encoder = new TextEncoder()
+
+    const zipBlob = createZip([
+      { path: 'index.html', data: encoder.encode(html) },
+      { path: 'dist/editor.min.css', data: encoder.encode(DIST_ASSETS['editor.min.css']) },
+      { path: 'dist/editor.standalone.min.js', data: encoder.encode(DIST_ASSETS['editor.standalone.min.js']) },
+    ])
+
+    const url = URL.createObjectURL(zipBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'editor-embed.zip'
+    link.click()
+    URL.revokeObjectURL(url)
+  } catch (err) {
+    console.error('Falha ao gerar o pacote ZIP', err)
+    errorEl.textContent = err instanceof Error ? err.message : String(err)
+    errorEl.hidden = false
+  } finally {
+    btn.disabled = false
+    btn.classList.remove('is-loading')
+    btn.textContent = originalLabel
+  }
+})
+
 document.querySelectorAll('.tab-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('is-active'))
