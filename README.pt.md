@@ -2,7 +2,7 @@
 
 **Idiomas:** [English](README.md) · [Português](README.pt.md)
 
-Editor WYSIWYG modular (`@baselab/editor`) com arquitetura baseada em plugins. Use-o como widget embutível no seu app, ou desenvolva plugins e temas neste repositório.
+Editor WYSIWYG modular (`baselabeditor`) com arquitetura baseada em plugins. Use-o como widget embutível no seu app, ou desenvolva plugins e temas neste repositório.
 
 ## Sumário
 
@@ -53,16 +53,16 @@ npm run dev          # servidor HTTP na porta 3000 (sobrescreva com PORT=…)
 ## Instalar como pacote
 
 ```bash
-npm install @baselab/editor
+npm install baselabeditor
 ```
 
 Exports do pacote ([`package.json`](package.json)):
 
-| Export                      | Resolve para                                                                                             |
-| --------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `@baselab/editor`           | ESM: `dist/editor.min.js`; default/IIFE: `dist/editor.standalone.min.js`; types: `dist/types/index.d.ts` |
-| `@baselab/editor/style.css` | `dist/editor.min.css`                                                                                    |
-| `@baselab/editor/sdk`       | Plugin SDK (`src/sdk/index.js`, alias `@baselab/plugin-sdk`)                                             |
+| Export                    | Resolve para                                                                                             |
+| ------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `baselabeditor`           | ESM: `dist/editor.min.js`; default/IIFE: `dist/editor.standalone.min.js`; types: `dist/types/index.d.ts` |
+| `baselabeditor/style.css` | `dist/editor.min.css`                                                                                    |
+| `baselabeditor/sdk`       | Plugin SDK (`src/sdk/index.js`, alias `@baselab/plugin-sdk`)                                             |
 
 ## Embed / uso
 
@@ -71,12 +71,12 @@ Há três padrões suportados. Escolha conforme a forma de carregar os scripts.
 ### 1. ESM + `createEditor`
 
 ```html
-<link rel="stylesheet" href="node_modules/@baselab/editor/style.css" />
+<link rel="stylesheet" href="node_modules/baselabeditor/style.css" />
 <textarea id="content">Olá, <strong>mundo</strong>!</textarea>
 <div id="editor"></div>
 
 <script type="module">
-  import { createEditor } from '@baselab/editor'
+  import { createEditor } from 'baselabeditor'
 
   createEditor({
     textarea: '#content',
