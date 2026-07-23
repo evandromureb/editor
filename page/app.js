@@ -748,6 +748,38 @@ function currentConfig() {
   return { plugins: ALL_PLUGINS, toolbar, locale: currentLocale }
 }
 
+// Every createEditor() option this builder's UI doesn't expose (preset,
+// theme, appearance, size, upload handler, etc.) rendered as real, valid
+// fields — each set to the editor's actual default (see `@typedef
+// EditorOptions` in src/editor/index.js and the theme/appearance managers)
+// with a trailing comment flagging it as such, so the snippet stays
+// copy-pasteable while still documenting the full option surface.
+const OTHER_OPTIONS_CODE = `    preset: undefined, // valor padrão — nenhum preset (usa os plugins/toolbar acima)
+    theme: 'padrao', // valor padrão
+    persistTheme: false, // valor padrão
+    appearance: 'light', // valor padrão (segue a preferência do sistema)
+    persistAppearance: false, // valor padrão
+    assetBaseUrl: undefined, // valor padrão (detectado a partir do <script src="...">)
+    width: undefined, // valor padrão (sem largura fixa)
+    height: undefined, // valor padrão (sem altura fixa)
+    responsive: false, // valor padrão
+    fontFamily: {
+      // valores padrão do plugin font-family
+      default: 'Arial',
+      items: [
+        { label: 'Arial', value: 'Arial, sans-serif' },
+        { label: 'Helvetica', value: 'Helvetica, Arial, sans-serif' },
+        { label: 'Times New Roman', value: "'Times New Roman', serif" },
+        { label: 'Georgia', value: 'Georgia, serif' },
+        { label: 'Verdana', value: 'Verdana, sans-serif' },
+        { label: 'Courier New', value: "'Courier New', monospace" },
+      ],
+    },
+    image: {
+      upload: undefined, // valor padrão (sem upload customizado)
+      maxSize: 5 * 1024 * 1024, // valor padrão (5 MB)
+    },`
+
 function renderCode({ plugins, toolbar, locale }) {
   const code = `<link rel="stylesheet" href="./dist/editor.min.css" />
 <textarea id="content"></textarea>
@@ -765,6 +797,7 @@ function renderCode({ plugins, toolbar, locale }) {
     locale: ${JSON.stringify(locale)},
     plugins,
     toolbar,
+${OTHER_OPTIONS_CODE}
   })
 </script>`
   document.querySelector('#output-code code').textContent = code
