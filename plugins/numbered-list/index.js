@@ -161,13 +161,7 @@ function buildOptionButton(ctx, style, disabled, active) {
   button.title = label
   button.setAttribute('aria-label', label)
 
-  const preview = buildPreviewSample(style)
-  const caption = document.createElement('span')
-  caption.className = 'editor__numbered-list-option-label'
-  caption.textContent = label
-
-  button.appendChild(preview)
-  button.appendChild(caption)
+  button.appendChild(buildPreviewSample(style))
 
   button.addEventListener('click', () => {
     if (button.disabled) return
@@ -237,6 +231,10 @@ function togglePopover(ctx) {
     id: 'numbered-list-popover',
     anchor: buttonEl,
     content: popoverEl,
+    // Always render below the button — never flip above it, even when the
+    // editor is short on vertical space (it shrinks with internal scroll
+    // instead).
+    lockPlacement: true,
     onClose: () => {
       popoverApi = null
       popoverEl = null

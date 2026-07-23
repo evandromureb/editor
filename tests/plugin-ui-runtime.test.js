@@ -67,6 +67,40 @@ describe('PluginUiRuntime', () => {
     assert.equal(runtime.overlayStack.size, 0)
     assert.equal(runtime.slots.getContainer('sidebar')?.childElementCount, 0)
   })
+
+  function createRuntimeWithBoundary(boundary) {
+    return new PluginUiRuntime({
+      overlayRoot,
+      boundary,
+      slotContainers: {
+        'statusbar-left': document.createElement('div'),
+        'statusbar-center': document.createElement('div'),
+        'statusbar-right': document.createElement('div'),
+        sidebar: document.createElement('aside'),
+        toolbar: document.createElement('header'),
+      },
+    })
+  }
+
+  it('openPopover clamps to the runtime default boundary', () => {
+    const boundary = document.createElement('div')
+    root.appendChild(boundary)
+    boundary.getBoundingClientRect = () => ({ left: 0, right: 200, top: 0, bottom: 400, width: 200, height: 400, x: 0, y: 0 })
+
+    const runtime = createRuntimeWithBoundary(boundary)
+
+    const anchor = document.createElement('button')
+    root.appendChild(anchor)
+    // Anchored far past the boundary's right edge (e.g. a toolbar button
+    // near the editor's own right edge, outside a narrower content pane).
+    anchor.getBoundingClientRect = () => ({ left: 300, right: 330, top: 10, bottom: 30, width: 30, height: 20, x: 300, y: 10 })
+
+    runtime.openPopover('my-plugin', { id: 'pop-2', anchor, content: 'popover' })
+    const popover = overlayRoot.querySelector('[role="dialog"]')
+
+    const left = Number.parseFloat(popover.style.left)
+    assert.ok(left <= 200, `left (${left}) should be clamped inside the boundary (right edge 200)`)
+  })
 })
 
 describe('OverlayStack', () => {

@@ -6,8 +6,8 @@
 .editor__numbered-list-popover {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--editor-spacing-sm, 8px);
-  padding: var(--editor-spacing-sm, 8px);
+  gap: 6px;
+  padding: 6px;
 }
 
 .editor__numbered-list-option {
@@ -15,11 +15,11 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  width: 96px;
+  width: 72px;
   box-sizing: border-box;
   border: 1px solid var(--editor-border);
   border-radius: var(--editor-radius-sm);
-  padding: 10px 8px;
+  padding: 8px 6px;
   background: var(--editor-surface);
   color: var(--editor-chrome-fg);
   cursor: pointer;
@@ -59,7 +59,7 @@
   text-align: right;
   font-size: 10px;
   line-height: 1;
-  color: var(--editor-chrome-fg-muted);
+  color: var(--editor-chrome-fg);
 }
 
 .editor__numbered-list-preview-bar {
@@ -67,14 +67,7 @@
   min-width: 0;
   height: 5px;
   border-radius: 2px;
-  background: var(--editor-chrome-border);
-}
-
-.editor__numbered-list-option-label {
-  font-size: 12px;
-  line-height: 1.2;
-  color: var(--editor-chrome-fg-muted);
-  text-align: center;
+  background: var(--editor-border);
 }
 
 /*
