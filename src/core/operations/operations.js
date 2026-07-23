@@ -107,7 +107,7 @@ export function insertText(state, registries, text) {
       '\n',
       registries,
       marks,
-      markAttrs,
+      markAttrs
     )
     nextDoc = updateBlockContent(nextDoc, cursor.block, content, registries, cursor.childIndex)
     return {
@@ -128,7 +128,7 @@ export function insertText(state, registries, text) {
         line,
         registries,
         marks,
-        markAttrs,
+        markAttrs
       )
       nextDoc = updateBlockContent(nextDoc, cursor.block, content, registries, cursor.childIndex)
       cursor = { ...cursor, offset: cursor.offset + line.length }
@@ -140,14 +140,17 @@ export function insertText(state, registries, text) {
         break
       }
       const currentDef = registries.blocks.getBlockByType(currentBlock.type)
-      if (cursor.childIndex == null && (currentDef?.softBreakOnEnter || currentDef?.neverSplitOnEnter)) {
+      if (
+        cursor.childIndex == null &&
+        (currentDef?.softBreakOnEnter || currentDef?.neverSplitOnEnter)
+      ) {
         const content = insertTextInParagraph(
           getBlockContent(currentBlock),
           cursor.offset,
           '\n',
           registries,
           marks,
-          markAttrs,
+          markAttrs
         )
         nextDoc = updateBlockContent(nextDoc, cursor.block, content, registries)
         cursor = { block: cursor.block, offset: cursor.offset + 1 }
@@ -186,7 +189,9 @@ export function outdentText(state, registries) {
   const block = getTargetBlock(doc, pos)
   if (!block || !isTextBlock(block)) return state
 
-  const text = getBlockContent(block).map((node) => node.text).join('')
+  const text = getBlockContent(block)
+    .map((node) => node.text)
+    .join('')
   const before = text.slice(0, pos.offset)
 
   let removeCount = 0
@@ -203,7 +208,7 @@ export function outdentText(state, registries) {
     getBlockContent(block),
     pos.offset - removeCount,
     pos.offset,
-    registries,
+    registries
   )
   const newPos = { ...pos, offset: pos.offset - removeCount }
   return {
@@ -263,7 +268,7 @@ export function deleteBackward(state, registries) {
       getBlockContent(block),
       pos.offset - 1,
       pos.offset,
-      registries,
+      registries
     )
     const newPos = { block: pos.block, offset: pos.offset - 1 }
     return {
@@ -315,12 +320,13 @@ function mergeIntoContainerChild(state, pos, registries) {
   }
 
   const lastChildLength = getBlockLength(lastChild)
-  const merged = mergeParagraphContent(getBlockContent(lastChild), getBlockContent(curr), registries)
+  const merged = mergeParagraphContent(
+    getBlockContent(lastChild),
+    getBlockContent(curr),
+    registries
+  )
 
-  const nextChildren = [
-    ...children.slice(0, lastChildIndex),
-    { ...lastChild, content: merged },
-  ]
+  const nextChildren = [...children.slice(0, lastChildIndex), { ...lastChild, content: merged }]
 
   const content = [
     ...doc.content.slice(0, pos.block - 1),
@@ -370,7 +376,7 @@ export function deleteForward(state, registries) {
       getBlockContent(block),
       pos.offset,
       pos.offset + 1,
-      registries,
+      registries
     )
     return {
       ...state,
@@ -442,7 +448,7 @@ function splitParagraphAt(doc, pos, state, registries) {
       '\n',
       registries,
       marks,
-      markAttrs,
+      markAttrs
     )
     return {
       ...state,
@@ -459,8 +465,7 @@ function splitParagraphAt(doc, pos, state, registries) {
     const afterText = afterNodes.map((node) => node.text).join('')
 
     const currentParagraphEmpty =
-      beforeText.endsWith(separator) &&
-      (afterText === '' || afterText.startsWith(separator))
+      beforeText.endsWith(separator) && (afterText === '' || afterText.startsWith(separator))
 
     if (currentParagraphEmpty) {
       const [quoteNodes] = splitContentAt(content, pos.offset - 1, registries)
@@ -490,7 +495,7 @@ function splitParagraphAt(doc, pos, state, registries) {
       separator,
       registries,
       marks,
-      markAttrs,
+      markAttrs
     )
     return {
       ...state,
@@ -553,11 +558,7 @@ function mergeWithPrevious(state, pos, registries) {
     return state
   }
 
-  const merged = mergeParagraphContent(
-    getBlockContent(prev),
-    getBlockContent(curr),
-    registries,
-  )
+  const merged = mergeParagraphContent(getBlockContent(prev), getBlockContent(curr), registries)
   const prevLength = getBlockLength(prev)
 
   const content = [
@@ -585,11 +586,7 @@ function mergeWithNext(state, pos, registries) {
     return state
   }
 
-  const merged = mergeParagraphContent(
-    getBlockContent(curr),
-    getBlockContent(next),
-    registries,
-  )
+  const merged = mergeParagraphContent(getBlockContent(curr), getBlockContent(next), registries)
 
   const content = [
     ...doc.content.slice(0, pos.block),
@@ -651,7 +648,7 @@ function splitContainerChildAt(doc, pos, state, registries) {
   ]
 
   const content = doc.content.map((b, i) =>
-    i === pos.block ? { ...container, children: nextChildren } : b,
+    i === pos.block ? { ...container, children: nextChildren } : b
   )
   const newPos = { block: pos.block, childIndex: pos.childIndex + 1, offset: 0 }
   return { ...state, doc: { type: 'doc', content }, selection: collapseTo(newPos) }
@@ -716,7 +713,7 @@ function deleteBackwardInChild(state, pos, registries) {
       getBlockContent(child),
       pos.offset - 1,
       pos.offset,
-      registries,
+      registries
     )
     return {
       ...state,
@@ -753,7 +750,7 @@ function deleteForwardInChild(state, pos, registries) {
       getBlockContent(child),
       pos.offset,
       pos.offset + 1,
-      registries,
+      registries
     )
     return {
       ...state,
@@ -783,9 +780,7 @@ function removeContainerChild(state, pos, registries) {
   const nextChildren = children.filter((_, i) => i !== pos.childIndex)
 
   if (!nextChildren.length) {
-    const content = doc.content.map((b, i) =>
-      i === pos.block ? paragraphNode([textNode('')]) : b,
-    )
+    const content = doc.content.map((b, i) => (i === pos.block ? paragraphNode([textNode('')]) : b))
     return {
       ...state,
       doc: { type: 'doc', content },
@@ -794,7 +789,7 @@ function removeContainerChild(state, pos, registries) {
   }
 
   const content = doc.content.map((b, i) =>
-    i === pos.block ? { ...container, children: nextChildren } : b,
+    i === pos.block ? { ...container, children: nextChildren } : b
   )
 
   const newChildIndex = pos.childIndex > 0 ? pos.childIndex - 1 : 0
@@ -834,7 +829,7 @@ function mergeContainerChildWithPrevious(state, pos, registries) {
   ]
 
   const content = doc.content.map((b, i) =>
-    i === pos.block ? { ...container, children: nextChildren } : b,
+    i === pos.block ? { ...container, children: nextChildren } : b
   )
   const newPos = { block: pos.block, childIndex: pos.childIndex - 1, offset: prevLength }
   return { ...state, doc: { type: 'doc', content }, selection: collapseTo(newPos) }
@@ -866,7 +861,7 @@ function mergeContainerChildWithNext(state, pos, registries) {
   ]
 
   const content = doc.content.map((b, i) =>
-    i === pos.block ? { ...container, children: nextChildren } : b,
+    i === pos.block ? { ...container, children: nextChildren } : b
   )
   return { ...state, doc: { type: 'doc', content }, selection: collapseTo(pos) }
 }

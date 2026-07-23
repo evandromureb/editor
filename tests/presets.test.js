@@ -30,7 +30,7 @@ describe('presets', () => {
   it('respects priority Defaults → Preset → User Config', () => {
     const resolved = resolveEditorConfig(
       { preset: 'corporate', height: 800 },
-      { discoveredPlugins: stubDiscoveredPlugins },
+      { discoveredPlugins: stubDiscoveredPlugins }
     )
 
     assert.equal(resolved.locale, 'es')
@@ -39,13 +39,16 @@ describe('presets', () => {
     assert.equal(resolved.height, 800)
     assert.equal(resolved.responsive, true)
     assert.deepEqual(resolved.toolbar, [['bold', 'italic', '|', 'underline']])
-    assert.deepEqual(resolved.plugins.map((p) => p.id), ['bold', 'italic', 'underline'])
+    assert.deepEqual(
+      resolved.plugins.map((p) => p.id),
+      ['bold', 'italic', 'underline']
+    )
   })
 
   it('allows overriding individual properties', () => {
     const resolved = resolveEditorConfig(
       { preset: 'corporate', theme: 'padrao', locale: 'pt' },
-      { discoveredPlugins: stubDiscoveredPlugins },
+      { discoveredPlugins: stubDiscoveredPlugins }
     )
 
     assert.equal(resolved.theme, 'padrao')

@@ -1,6 +1,7 @@
 import js from '@eslint/js'
 import globals from 'globals'
 import jsdoc from 'eslint-plugin-jsdoc'
+import prettier from 'eslint-config-prettier'
 
 export default [
   {
@@ -38,4 +39,5 @@ export default [
       },
     },
   },
+  prettier,
 ]

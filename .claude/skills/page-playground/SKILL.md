@@ -2,8 +2,8 @@
 name: page-playground
 description: Use when changing the configuration playground and demo pages under pages/ or demo/ that assemble plugins, themes, toolbars, or presets.
 paths:
-  - "pages/**"
-  - "demo/**"
+  - 'pages/**'
+  - 'demo/**'
 ---
 
 # Page Playground

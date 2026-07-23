@@ -86,7 +86,7 @@ describe('PluginServices', () => {
     assert.ok(services.selection.isCollapsed())
     assert.equal(
       services.assets.resolve('bold', 'bold'),
-      'https://cdn.example.com/plugins/bold/icons/bold.svg',
+      'https://cdn.example.com/plugins/bold/icons/bold.svg'
     )
   })
 })

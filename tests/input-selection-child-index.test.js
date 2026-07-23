@@ -101,7 +101,11 @@ describe('InputController selection sync — container childIndex', () => {
     const synced = getState().selection
     assert.equal(synced.anchor.block, 0)
     assert.equal(synced.anchor.offset, 0)
-    assert.equal(synced.anchor.childIndex, 0, 'childIndex must follow the real DOM cursor, not stay stuck on the last clicked item')
+    assert.equal(
+      synced.anchor.childIndex,
+      0,
+      'childIndex must follow the real DOM cursor, not stay stuck on the last clicked item'
+    )
 
     controller.detach()
     surface.remove()

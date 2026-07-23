@@ -1,5 +1,5 @@
-export const TASK_LIST_TYPE: "task-list";
-export const TASK_ITEM_TYPE: "task-item";
+export const TASK_LIST_TYPE: 'task-list'
+export const TASK_ITEM_TYPE: 'task-item'
 /**
  * Converts the current selection into a task-list:
  * - selection spans multiple paragraphs: one task-item per paragraph.
@@ -9,14 +9,14 @@ export const TASK_ITEM_TYPE: "task-item";
  *
  * @type {import('@baselab/plugin-sdk').CommandHandler}
  */
-export const insertTaskList: any;
+export const insertTaskList: any
 /**
  * Flips the checked state of the task-item at `{ block, childIndex }`.
  *
  * @type {import('@baselab/plugin-sdk').CommandHandler}
  */
-export const toggleTaskItem: any;
+export const toggleTaskItem: any
 /** @type {import('@baselab/plugin-sdk').CommandHandler} */
-export const indentTaskItem: any;
+export const indentTaskItem: any
 /** @type {import('@baselab/plugin-sdk').CommandHandler} */
-export const outdentTaskItem: any;
+export const outdentTaskItem: any

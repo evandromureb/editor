@@ -245,7 +245,9 @@ export class PluginRuntime {
       if (handler) {
         handler(value, ctx, id)
       } else {
-        console.warn(`[PluginRuntime] Capability desconhecida ignorada: "${capName}" (plugin: ${id})`)
+        console.warn(
+          `[PluginRuntime] Capability desconhecida ignorada: "${capName}" (plugin: ${id})`
+        )
       }
     }
 

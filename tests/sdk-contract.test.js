@@ -18,9 +18,20 @@ describe('sdk/index.js — public contract (@baselab/plugin-sdk)', () => {
 
   it('exports capability helpers used by plugins', () => {
     for (const name of [
-      'mark', 'block', 'command', 'toolbarItem', 'shortcut', 'theme',
-      'toolbarSeparator', 'statusbarItem', 'sidebarPanel', 'contextMenuItem',
-      'contextMenu', 'selectionMenu', 'inspectorPanel', 'overlay',
+      'mark',
+      'block',
+      'command',
+      'toolbarItem',
+      'shortcut',
+      'theme',
+      'toolbarSeparator',
+      'statusbarItem',
+      'sidebarPanel',
+      'contextMenuItem',
+      'contextMenu',
+      'selectionMenu',
+      'inspectorPanel',
+      'overlay',
     ]) {
       assert.equal(typeof sdk[name], 'function', `sdk.${name} should be a function`)
     }
@@ -28,8 +39,14 @@ describe('sdk/index.js — public contract (@baselab/plugin-sdk)', () => {
 
   it('exports pure operations used in custom command handlers', () => {
     for (const name of [
-      'toggleMark', 'setMarkAttr', 'clearMarkAttr', 'insertText',
-      'insertBlock', 'insertBlocks', 'setBlockType', 'deleteBlockAt',
+      'toggleMark',
+      'setMarkAttr',
+      'clearMarkAttr',
+      'insertText',
+      'insertBlock',
+      'insertBlocks',
+      'setBlockType',
+      'deleteBlockAt',
     ]) {
       assert.equal(typeof sdk[name], 'function', `sdk.${name} should be a function`)
     }
@@ -43,12 +60,33 @@ describe('sdk/index.js — public contract (@baselab/plugin-sdk)', () => {
 
   it('does not leak private symbols from core/ui (only documented surface)', () => {
     const allowed = new Set([
-      'definePlugin', 'defineTheme', 'mark', 'block', 'command', 'toolbarItem',
-      'shortcut', 'theme', 'toolbarSeparator', 'statusbarItem', 'sidebarPanel',
-      'contextMenuItem', 'contextMenu', 'selectionMenu', 'inspectorPanel', 'overlay',
-      'toggleMark', 'setMarkAttr', 'clearMarkAttr', 'insertText', 'insertBlock',
-      'insertBlocks', 'setBlockType', 'deleteBlockAt', 'parseShortcut',
-      'matchesShortcut', 'formatShortcut',
+      'definePlugin',
+      'defineTheme',
+      'mark',
+      'block',
+      'command',
+      'toolbarItem',
+      'shortcut',
+      'theme',
+      'toolbarSeparator',
+      'statusbarItem',
+      'sidebarPanel',
+      'contextMenuItem',
+      'contextMenu',
+      'selectionMenu',
+      'inspectorPanel',
+      'overlay',
+      'toggleMark',
+      'setMarkAttr',
+      'clearMarkAttr',
+      'insertText',
+      'insertBlock',
+      'insertBlocks',
+      'setBlockType',
+      'deleteBlockAt',
+      'parseShortcut',
+      'matchesShortcut',
+      'formatShortcut',
     ])
     const actual = Object.keys(sdk)
     for (const key of actual) {
@@ -80,7 +118,10 @@ describe('sdk/services — less exercised namespaces', () => {
   function createServices(overrides = {}) {
     return createPluginServices({
       pluginId: 'bold',
-      getState: () => ({ doc: { type: 'doc', content: [] }, selection: { anchor: { block: 0, offset: 2 }, focus: { block: 0, offset: 2 } } }),
+      getState: () => ({
+        doc: { type: 'doc', content: [] },
+        selection: { anchor: { block: 0, offset: 2 }, focus: { block: 0, offset: 2 } },
+      }),
       getActiveMarks: () => [],
       getCursor: () => ({}),
       setSelection: () => {},
@@ -93,7 +134,13 @@ describe('sdk/services — less exercised namespaces', () => {
       getZoom: () => 100,
       getPane: () => document.createElement('div'),
       getOverlayRoot: () => document.createElement('div'),
-      uiRuntime: { registerOverlay: mock.fn(), openDialog: mock.fn(), closeDialog: mock.fn(), openPopover: mock.fn(), closePopover: mock.fn() },
+      uiRuntime: {
+        registerOverlay: mock.fn(),
+        openDialog: mock.fn(),
+        closeDialog: mock.fn(),
+        openPopover: mock.fn(),
+        closePopover: mock.fn(),
+      },
       getAppearance: () => 'light',
       setAppearance: () => {},
       toggleAppearance: () => 'dark',
@@ -114,7 +161,10 @@ describe('sdk/services — less exercised namespaces', () => {
 
   it('selection.isCollapsed reflects non-collapsed selection', () => {
     const services = createServices({
-      getState: () => ({ doc: { type: 'doc', content: [] }, selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 3 } } }),
+      getState: () => ({
+        doc: { type: 'doc', content: [] },
+        selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 3 } },
+      }),
     })
     assert.equal(services.selection.isCollapsed(), false)
   })
@@ -185,7 +235,15 @@ describe('sdk/ui — createPluginUi', () => {
       resolveAsset: () => null,
     })
 
-    for (const name of ['createButton', 'createToggleButton', 'createIcon', 'Button', 'IconButton', 'Toggle', 'RichSelect']) {
+    for (const name of [
+      'createButton',
+      'createToggleButton',
+      'createIcon',
+      'Button',
+      'IconButton',
+      'Toggle',
+      'RichSelect',
+    ]) {
       assert.equal(typeof ui[name], 'function', `ui.${name} should be a function`)
     }
   })

@@ -29,13 +29,9 @@ function clearFormattingHandler(state, registries) {
 
   // Range selection: remove all marks from selected range
   const from =
-    a.block < b.block || (a.block === b.block && a.offset <= b.offset)
-      ? { ...a }
-      : { ...b }
+    a.block < b.block || (a.block === b.block && a.offset <= b.offset) ? { ...a } : { ...b }
   const to =
-    a.block < b.block || (a.block === b.block && a.offset <= b.offset)
-      ? { ...b }
-      : { ...a }
+    a.block < b.block || (a.block === b.block && a.offset <= b.offset) ? { ...b } : { ...a }
 
   // Create new document with marks removed from selection
   const newDoc = {

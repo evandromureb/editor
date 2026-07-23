@@ -30,7 +30,9 @@ export class Document {
     return this.#state.content
       .map((block) => {
         if (block.type === 'hr') return '---'
-        return getBlockContent(block).map((node) => node.text).join('')
+        return getBlockContent(block)
+          .map((node) => node.text)
+          .join('')
       })
       .join('\n')
   }

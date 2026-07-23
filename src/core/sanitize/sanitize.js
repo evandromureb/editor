@@ -56,7 +56,10 @@ function copyAllowedStyles(source, target, registries) {
     } else if (def.attrs?.length) {
       for (const attrName of def.attrs) {
         const value = source.getAttribute(attrName)
-        if (value && isSafeAttrValue(attrName, value, { allowBlob: allowsBlobUrl(def, attrName) })) {
+        if (
+          value &&
+          isSafeAttrValue(attrName, value, { allowBlob: allowsBlobUrl(def, attrName) })
+        ) {
           target.setAttribute(attrName, value)
         }
       }
@@ -88,7 +91,10 @@ function sanitizeVoidBlockElement(element, tag, blockType, registries) {
     if (source && def.attrs?.length) {
       for (const attrName of def.attrs) {
         const value = source.getAttribute(attrName)
-        if (value && isSafeAttrValue(attrName, value, { allowBlob: allowsBlobUrl(def, attrName) })) {
+        if (
+          value &&
+          isSafeAttrValue(attrName, value, { allowBlob: allowsBlobUrl(def, attrName) })
+        ) {
           inner.setAttribute(attrName, value)
         }
       }
@@ -162,8 +168,8 @@ function sanitizeContainerBlockElement(element, blockType, registries) {
         childDef,
         allowedTags,
         containerTags,
-        registries,
-      ),
+        registries
+      )
     )
   }
 

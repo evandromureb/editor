@@ -2,10 +2,10 @@
 name: build-discovery
 description: Use when changing discovery, build, generated output, asset copying, or distribution validation in scripts/ and dist-related flows.
 paths:
-  - "scripts/discover.js"
-  - "scripts/build/**"
-  - "scripts/validate-dist.js"
-  - "src/generated/**"
+  - 'scripts/discover.js'
+  - 'scripts/build/**'
+  - 'scripts/validate-dist.js'
+  - 'src/generated/**'
 ---
 
 # Build And Discovery

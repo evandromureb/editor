@@ -340,9 +340,10 @@ export class Select {
       this.#menu.appendChild(this.#searchInput)
     }
 
-    const visible = this.#searchable && this.#searchQuery
-      ? options.filter((option) => option.label.toLowerCase().includes(this.#searchQuery))
-      : options
+    const visible =
+      this.#searchable && this.#searchQuery
+        ? options.filter((option) => option.label.toLowerCase().includes(this.#searchQuery))
+        : options
 
     for (const option of visible) {
       const item = createSelectItem(option)
@@ -388,7 +389,7 @@ export class Select {
 
     this.#trigger.setAttribute(
       'aria-activedescendant',
-      selectedIndex >= 0 ? this.#itemId(selectedIndex) : '',
+      selectedIndex >= 0 ? this.#itemId(selectedIndex) : ''
     )
   }
 
@@ -407,7 +408,7 @@ export class Select {
     if (this.#highlightIndex < 0) {
       this.#highlightIndex = Math.max(
         0,
-        this.#options.findIndex((option) => option.value === this.#value),
+        this.#options.findIndex((option) => option.value === this.#value)
       )
     }
 
@@ -478,7 +479,7 @@ export class Select {
         ? document.elementsFromPoint(clientX, clientY)
         : typeof document.elementFromPoint === 'function'
           ? [document.elementFromPoint(clientX, clientY)].filter(
-              (element) => element instanceof Element,
+              (element) => element instanceof Element
             )
           : []
 

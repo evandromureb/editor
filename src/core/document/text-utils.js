@@ -38,18 +38,13 @@ export function normalizeContent(content, registries) {
     const markAttrs = node.markAttrs ? { ...node.markAttrs } : undefined
     const last = result[result.length - 1]
 
-    if (
-      last &&
-      marksEqual(last.marks, marks, registries, last.markAttrs, markAttrs)
-    ) {
+    if (last && marksEqual(last.marks, marks, registries, last.markAttrs, markAttrs)) {
       last.text += node.text
       continue
     }
 
     result.push(
-      marks?.length
-        ? textNode(node.text, marks, registries, markAttrs ?? {})
-        : textNode(node.text),
+      marks?.length ? textNode(node.text, marks, registries, markAttrs ?? {}) : textNode(node.text)
     )
   }
 
@@ -85,7 +80,7 @@ export function splitContentAt(content, offset, registries) {
       before.push(
         node.marks?.length
           ? textNode(node.text, node.marks, registries, node.markAttrs ?? {})
-          : textNode(node.text),
+          : textNode(node.text)
       )
       pos = nodeEnd
       continue
@@ -95,7 +90,7 @@ export function splitContentAt(content, offset, registries) {
       after.push(
         node.marks?.length
           ? textNode(node.text, node.marks, registries, node.markAttrs ?? {})
-          : textNode(node.text),
+          : textNode(node.text)
       )
       pos = nodeEnd
       continue
@@ -152,14 +147,21 @@ export function deleteRangeInParagraph(content, start, end, registries) {
  * @param {Record<string, string>} [markAttrs]
  * @returns {TextNode[]}
  */
-export function insertTextInParagraph(content, offset, text, registries, marks = [], markAttrs = {}) {
+export function insertTextInParagraph(
+  content,
+  offset,
+  text,
+  registries,
+  marks = [],
+  markAttrs = {}
+) {
   if (!text) return normalizeContent([...content], registries)
   return spliceContent(
     content,
     offset,
     offset,
     [textNode(text, marks, registries, markAttrs)],
-    registries,
+    registries
   )
 }
 
@@ -197,7 +199,12 @@ export function sliceContentRange(content, start, end, registries) {
     const sliceStart = Math.max(0, start - nodeStart)
     const sliceEnd = Math.min(node.text.length, end - nodeStart)
     result.push(
-      textNode(node.text.slice(sliceStart, sliceEnd), node.marks ?? [], registries, node.markAttrs ?? {}),
+      textNode(
+        node.text.slice(sliceStart, sliceEnd),
+        node.marks ?? [],
+        registries,
+        node.markAttrs ?? {}
+      )
     )
     pos = nodeEnd
   }
@@ -294,7 +301,7 @@ export function updateBlockContent(doc, blockIndex, content, registries, childIn
       content: doc.content.map((block, index) =>
         index === blockIndex && isTextBlock(block)
           ? { ...block, content: normalizeContent(content, registries) }
-          : block,
+          : block
       ),
     }
   }
@@ -308,7 +315,7 @@ export function updateBlockContent(doc, blockIndex, content, registries, childIn
       const nextChildren = children.map((child, i) =>
         i === childIndex && isTextBlock(child)
           ? { ...child, content: normalizeContent(content, registries) }
-          : child,
+          : child
       )
       return { ...block, children: nextChildren }
     }),
@@ -348,7 +355,15 @@ export function getTargetBlock(doc, pos) {
  * @param {(content: TextNode[], start: number, end: number) => TextNode[]} transform
  * @returns {DocNode}
  */
-export function mapContainerChildrenRange(doc, blockIndex, fromChildIndex, toChildIndex, fromOffset, toOffset, transform) {
+export function mapContainerChildrenRange(
+  doc,
+  blockIndex,
+  fromChildIndex,
+  toChildIndex,
+  fromOffset,
+  toOffset,
+  transform
+) {
   return {
     type: 'doc',
     content: doc.content.map((block, index) => {
@@ -407,7 +422,9 @@ export function deleteRangeInDoc(doc, from, to, registries) {
 
     return {
       type: 'doc',
-      content: doc.content.map((block, index) => (index === from.block ? { ...container, children: nextChildren } : block)),
+      content: doc.content.map((block, index) =>
+        index === from.block ? { ...container, children: nextChildren } : block
+      ),
     }
   }
 
@@ -454,8 +471,14 @@ export function deleteRangeInDoc(doc, from, to, registries) {
 export function toggleMarkInDoc(doc, from, to, mark, registries) {
   if (from.block === to.block && from.childIndex != null) {
     const toChildIndex = to.childIndex ?? from.childIndex
-    return mapContainerChildrenRange(doc, from.block, from.childIndex, toChildIndex, from.offset, to.offset, (content, start, end) =>
-      toggleMarkInRange(content, start, end, mark, registries),
+    return mapContainerChildrenRange(
+      doc,
+      from.block,
+      from.childIndex,
+      toChildIndex,
+      from.offset,
+      to.offset,
+      (content, start, end) => toggleMarkInRange(content, start, end, mark, registries)
     )
   }
 

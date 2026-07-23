@@ -103,7 +103,9 @@ function getActiveListState(ctx) {
     return { inList: false, canApply, style: 'default' }
   }
 
-  const styles = blocks.map((b) => normalizeStyle(/** @type {any} */ (b).style?.['list-style-type']))
+  const styles = blocks.map((b) =>
+    normalizeStyle(/** @type {any} */ (b).style?.['list-style-type'])
+  )
   const uniform = styles.every((s) => s === styles[0])
   if (!uniform) {
     return { inList: false, canApply, style: 'default' }
@@ -315,7 +317,7 @@ function restyleListBlock(block, style) {
 
   return /** @type {any} */ ({
     ...block,
-    style: { ...(/** @type {any} */ (block).style ?? {}), 'list-style-type': cssValue },
+    style: { .../** @type {any} */ (block.style ?? {}), 'list-style-type': cssValue },
   })
 }
 
@@ -356,11 +358,13 @@ function setListStyle(state, style) {
       i += 1
     }
     const cssValue = styleToCssValue(style)
-    result.push(/** @type {any} */ ({
-      type: BULLET_LIST_TYPE,
-      ...(cssValue !== undefined ? { style: { 'list-style-type': cssValue } } : {}),
-      children: items,
-    }))
+    result.push(
+      /** @type {any} */ ({
+        type: BULLET_LIST_TYPE,
+        ...(cssValue !== undefined ? { style: { 'list-style-type': cssValue } } : {}),
+        children: items,
+      })
+    )
   }
 
   return {
@@ -411,7 +415,10 @@ function withIndentLevel(state, transformLevel) {
   const child = children[pos.childIndex]
   if (!child) return state
 
-  const nextLevel = Math.max(0, Math.min(transformLevel(getIndentLevel(child.style)), MAX_INDENT_LEVEL))
+  const nextLevel = Math.max(
+    0,
+    Math.min(transformLevel(getIndentLevel(child.style)), MAX_INDENT_LEVEL)
+  )
   const nextStyle = buildLevelStyle(nextLevel)
 
   const nextChild = Object.keys(nextStyle).length
@@ -428,7 +435,7 @@ function withIndentLevel(state, transformLevel) {
     doc: {
       ...doc,
       content: doc.content.map((item, index) =>
-        index === pos.block ? { ...container, children: nextChildren } : item,
+        index === pos.block ? { ...container, children: nextChildren } : item
       ),
     },
   }

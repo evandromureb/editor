@@ -89,7 +89,7 @@ export function enhanceCodeBlockPreElements(root) {
     gutter.className = CODE_BLOCK_GUTTER_CLASS
     gutter.setAttribute('aria-hidden', 'true')
     gutter.textContent = formatCodeBlockLineNumbers(
-      countCodeBlockLines([{ text: getCodeBlockTextFromBody(body) }]),
+      countCodeBlockLines([{ text: getCodeBlockTextFromBody(body) }])
     )
 
     pre.append(gutter, body)

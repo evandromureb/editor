@@ -4,7 +4,11 @@
 
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { createMarkRegistry, createBlockRegistry, createCommandRegistry } from '../src/core/schema/index.js'
+import {
+  createMarkRegistry,
+  createBlockRegistry,
+  createCommandRegistry,
+} from '../src/core/schema/index.js'
 import { createEditorRegistries } from '../src/core/schema/editor-registries.js'
 import { mark, block } from '../src/sdk/helpers.js'
 import { PARAGRAPH_BLOCK_TYPE } from '../src/core/schema/builtins.js'
@@ -16,7 +20,7 @@ describe('registries', () => {
 
     assert.throws(
       () => marks.registerMark(mark('bold', { tag: 'b', parseTags: ['b'] })),
-      /Mark already registered/,
+      /Mark already registered/
     )
   })
 

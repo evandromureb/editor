@@ -110,7 +110,9 @@
   padding: var(--editor-spacing-md);
   cursor: pointer;
   text-align: center;
-  transition: border-color 0.1s ease, background 0.1s ease;
+  transition:
+    border-color 0.1s ease,
+    background 0.1s ease;
 }
 
 .editor__image-dropzone:hover,

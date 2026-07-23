@@ -312,8 +312,7 @@ export function shortcut(key, commandName) {
  * @returns {ThemeDefinition}
  */
 export function theme(idOrDef, label) {
-  const definition =
-    typeof idOrDef === 'object' ? idOrDef : { id: idOrDef, label: label ?? '' }
+  const definition = typeof idOrDef === 'object' ? idOrDef : { id: idOrDef, label: label ?? '' }
 
   if (!definition.id) {
     throw new Error('theme: "id" is required')

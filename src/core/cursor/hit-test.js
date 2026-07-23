@@ -18,9 +18,10 @@ function caretRangeFromPoint(clientX, clientY) {
     return document.caretRangeFromPoint(clientX, clientY)
   }
 
-  const caretPositionFromPoint = /** @type {Document & {
-   *   caretPositionFromPoint?: (x: number, y: number) => { offsetNode: Node, offset: number } | null
-   * }} */ (document).caretPositionFromPoint
+  const caretPositionFromPoint =
+    /** @type {Document & {
+     *   caretPositionFromPoint?: (x: number, y: number) => { offsetNode: Node, offset: number } | null
+     * }} */ (document).caretPositionFromPoint
 
   if (typeof caretPositionFromPoint === 'function') {
     const position = caretPositionFromPoint.call(document, clientX, clientY)
@@ -83,7 +84,7 @@ export function nearestPosFromPoint(surface, clientX, clientY) {
         ? Math.min(Math.abs(clientX - rect.left), Math.abs(clientX - rect.right))
         : Math.hypot(
             clientX - Math.max(rect.left, Math.min(clientX, rect.right)),
-            clientY - Math.max(rect.top, Math.min(clientY, rect.bottom)),
+            clientY - Math.max(rect.top, Math.min(clientY, rect.bottom))
           )
 
       let offset = 0

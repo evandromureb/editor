@@ -5,7 +5,14 @@ import { definePlugin, block, toolbarItem, command } from '@baselab/plugin-sdk'
 const NUMBERED_LIST_TYPE = 'numbered-list'
 const NUMBERED_LIST_ITEM_TYPE = 'numbered-list-item'
 
-const LIST_STYLES = ['default', 'lower-alpha', 'lower-greek', 'lower-roman', 'upper-alpha', 'upper-roman']
+const LIST_STYLES = [
+  'default',
+  'lower-alpha',
+  'lower-greek',
+  'lower-roman',
+  'upper-alpha',
+  'upper-roman',
+]
 
 /** @type {Record<string, string[]>} */
 const PREVIEW_MARKERS = {
@@ -105,7 +112,9 @@ function getActiveListState(ctx) {
     return { inList: false, canApply, style: 'default' }
   }
 
-  const styles = blocks.map((b) => normalizeStyle(/** @type {any} */ (b).style?.['list-style-type']))
+  const styles = blocks.map((b) =>
+    normalizeStyle(/** @type {any} */ (b).style?.['list-style-type'])
+  )
   const uniform = styles.every((s) => s === styles[0])
   if (!uniform) {
     return { inList: false, canApply, style: 'default' }
@@ -311,7 +320,7 @@ function restyleListBlock(block, style) {
 
   return /** @type {any} */ ({
     ...block,
-    style: { ...(/** @type {any} */ (block).style ?? {}), 'list-style-type': cssValue },
+    style: { .../** @type {any} */ (block.style ?? {}), 'list-style-type': cssValue },
   })
 }
 
@@ -349,15 +358,20 @@ function setListStyle(state, style) {
     /** @type {any[]} */
     const items = []
     while (i < selected.length && selected[i].type !== NUMBERED_LIST_TYPE) {
-      items.push({ type: NUMBERED_LIST_ITEM_TYPE, content: /** @type {any} */ (selected[i]).content })
+      items.push({
+        type: NUMBERED_LIST_ITEM_TYPE,
+        content: /** @type {any} */ (selected[i]).content,
+      })
       i += 1
     }
     const cssValue = styleToCssValue(style)
-    result.push(/** @type {any} */ ({
-      type: NUMBERED_LIST_TYPE,
-      ...(cssValue !== undefined ? { style: { 'list-style-type': cssValue } } : {}),
-      children: items,
-    }))
+    result.push(
+      /** @type {any} */ ({
+        type: NUMBERED_LIST_TYPE,
+        ...(cssValue !== undefined ? { style: { 'list-style-type': cssValue } } : {}),
+        children: items,
+      })
+    )
   }
 
   return {
@@ -408,7 +422,10 @@ function withIndentLevel(state, transformLevel) {
   const child = children[pos.childIndex]
   if (!child) return state
 
-  const nextLevel = Math.max(0, Math.min(transformLevel(getIndentLevel(child.style)), MAX_INDENT_LEVEL))
+  const nextLevel = Math.max(
+    0,
+    Math.min(transformLevel(getIndentLevel(child.style)), MAX_INDENT_LEVEL)
+  )
   const nextStyle = buildLevelStyle(nextLevel)
 
   const nextChild = Object.keys(nextStyle).length
@@ -425,7 +442,7 @@ function withIndentLevel(state, transformLevel) {
     doc: {
       ...doc,
       content: doc.content.map((item, index) =>
-        index === pos.block ? { ...container, children: nextChildren } : item,
+        index === pos.block ? { ...container, children: nextChildren } : item
       ),
     },
   }

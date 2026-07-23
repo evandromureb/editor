@@ -2,9 +2,9 @@
 name: theme-development
 description: Use when creating, updating, or debugging themes in themes/, src/ui/themes/, or appearance-related styles and theme loading code.
 paths:
-  - "themes/**"
-  - "src/ui/themes/**"
-  - "styles/appearance.css"
+  - 'themes/**'
+  - 'src/ui/themes/**'
+  - 'styles/appearance.css'
 ---
 
 # Theme Development

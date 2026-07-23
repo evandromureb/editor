@@ -19,9 +19,7 @@ import { paragraphNode, textNode, docNode } from '../document/nodes.js'
  * @returns {Pos}
  */
 export function resolvePos(doc, pos, registries) {
-  const content = doc.content.length
-    ? doc.content
-    : [paragraphNode([textNode('')])]
+  const content = doc.content.length ? doc.content : [paragraphNode([textNode('')])]
 
   let block = Math.max(0, Math.min(pos.block, content.length - 1))
   const node = content[block]

@@ -99,7 +99,7 @@ export function createEditorPluginContext(deps) {
       deps.assetsRegistry,
       deps.pluginId,
       deps.assetBaseUrl,
-      deps.resolveAssetUrl,
+      deps.resolveAssetUrl
     ),
   })
 

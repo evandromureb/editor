@@ -1,5 +1,4 @@
 interface:
-  display_name: "Repo Workflow"
-  short_description: "General workflow for this repo"
-  default_prompt: "Use $repo-workflow to inspect the repository, keep edits narrow, and follow the project conventions."
-
+  display_name: 'Repo Workflow'
+  short_description: 'General workflow for this repo'
+  default_prompt: 'Use $repo-workflow to inspect the repository, keep edits narrow, and follow the project conventions.'

@@ -17,7 +17,10 @@ describe('ui/modes/Modes', () => {
 
     const buttons = root.querySelectorAll('.editor__mode-btn')
     assert.equal(buttons.length, 3)
-    assert.deepEqual([...buttons].map((b) => b.dataset.mode), ['editor', 'html', 'view'])
+    assert.deepEqual(
+      [...buttons].map((b) => b.dataset.mode),
+      ['editor', 'html', 'view']
+    )
   })
 
   it('marks current mode button as is-active after refresh()', () => {

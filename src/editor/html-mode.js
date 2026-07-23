@@ -1,5 +1,9 @@
 import { createTransaction, statesEqual } from '../core/transactions/index.js'
-import { htmlOffsetsToSelection, selectionToHtmlOffsets, validateHtml } from '../core/serializer/index.js'
+import {
+  htmlOffsetsToSelection,
+  selectionToHtmlOffsets,
+  validateHtml,
+} from '../core/serializer/index.js'
 import { sanitizeHtml } from '../core/sanitize/index.js'
 import { enhanceCodeBlockPreElements } from '../core/pipeline/code-block-render.js'
 
@@ -91,11 +95,7 @@ export function applyEditorMode(deps) {
     deps.textarea.value = html
     deps.setHtmlError(null)
     deps.htmlSource.classList.remove('is-invalid')
-    const offsets = selectionToHtmlOffsets(
-      deps.document.toJSON(),
-      deps.selection,
-      deps.registries,
-    )
+    const offsets = selectionToHtmlOffsets(deps.document.toJSON(), deps.selection, deps.registries)
     deps.htmlSource.focus()
     deps.htmlSource.setSelectionRange(offsets.anchor, offsets.focus)
   }

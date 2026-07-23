@@ -2,12 +2,12 @@
 name: core-editor-development
 description: Use when changing the editor core, SDK, embed layer, cursor, document model, schema, sanitizer, serializer, or shared UI primitives under src/.
 paths:
-  - "src/core/**"
-  - "src/embed/**"
-  - "src/sdk/**"
-  - "src/ui/**"
-  - "src/editor.js"
-  - "src/index.js"
+  - 'src/core/**'
+  - 'src/embed/**'
+  - 'src/sdk/**'
+  - 'src/ui/**'
+  - 'src/editor.js'
+  - 'src/index.js'
 ---
 
 # Core Editor Development

@@ -25,14 +25,11 @@ describe('parseToolbar', () => {
 
   it('parses multi-line array of strings', () => {
     assert.deepEqual(
-      parseToolbar([
-        'undo redo | bold italic underline',
-        'text-color highlight | hr',
-      ]),
+      parseToolbar(['undo redo | bold italic underline', 'text-color highlight | hr']),
       [
         ['undo', 'redo', '|', 'bold', 'italic', 'underline'],
         ['text-color', 'highlight', '|', 'hr'],
-      ],
+      ]
     )
   })
 
@@ -49,10 +46,10 @@ describe('parseToolbar', () => {
     ]
 
     assert.deepEqual(parseToolbar(normalized), normalized)
-    assert.deepEqual(parseToolbar(parseToolbar([
-      'undo redo | bold',
-      'italic | underline',
-    ])), normalized)
+    assert.deepEqual(
+      parseToolbar(parseToolbar(['undo redo | bold', 'italic | underline'])),
+      normalized
+    )
   })
 })
 
@@ -99,10 +96,7 @@ describe('Toolbar multi-line rendering', () => {
 
     new Toolbar({
       root,
-      lines: [
-        [makeEntry('bold'), makeEntry('italic')],
-        [makeEntry('underline')],
-      ],
+      lines: [[makeEntry('bold'), makeEntry('italic')], [makeEntry('underline')]],
       t: (key) => key,
     })
 

@@ -153,9 +153,16 @@ const BLOCK_STYLE_VALIDATORS = {
   // and free of CSS-breakout characters since it's parsed back out of
   // arbitrary pasted HTML.
   'list-style-type': (value) =>
-    ['disc', 'circle', 'square', 'lower-alpha', 'lower-greek', 'lower-roman', 'upper-alpha', 'upper-roman'].includes(
-      value,
-    ) || /^"[^"\\;{}<>]{1,4}"$/.test(value),
+    [
+      'disc',
+      'circle',
+      'square',
+      'lower-alpha',
+      'lower-greek',
+      'lower-roman',
+      'upper-alpha',
+      'upper-roman',
+    ].includes(value) || /^"[^"\\;{}<>]{1,4}"$/.test(value),
 }
 
 /**
@@ -298,7 +305,9 @@ export function resolveBlockTypeForElement(element, registries) {
     .getAllBlocks()
     .filter((def) => !def.childOnly && def.parseTags.includes(tag))
 
-  const matching = candidates.filter((def) => elementMatchesBlockType(element, def.type, registries))
+  const matching = candidates.filter((def) =>
+    elementMatchesBlockType(element, def.type, registries)
+  )
   if (!matching.length) return null
 
   matching.sort((a, b) => {
@@ -348,7 +357,7 @@ function parseInline(node, registries, inheritedMarks = [], inheritedAttrs = {})
       element,
       registries,
       inheritedMarks,
-      inheritedAttrs,
+      inheritedAttrs
     )
     result.push(...parseInline(element, registries, marks, markAttrs))
   }
@@ -363,9 +372,7 @@ function parseInline(node, registries, inheritedMarks = [], inheritedAttrs = {})
  */
 function parseParagraphElement(element, registries) {
   const content = parseInline(element, registries)
-  return paragraphNode(
-    content.length ? content : [textNode('', [], registries)],
-  )
+  return paragraphNode(content.length ? content : [textNode('', [], registries)])
 }
 
 /**
@@ -445,7 +452,7 @@ export function elementMatchesBlockType(element, blockType, registries) {
   const def = registries.blocks.getBlockByType(blockType)
   if (!def?.fixedAttrs) return true
   return Object.entries(def.fixedAttrs).every(
-    ([name, value]) => element.getAttribute(name) === value,
+    ([name, value]) => element.getAttribute(name) === value
   )
 }
 
@@ -483,7 +490,9 @@ function parseBlockElement(element, registries) {
  */
 function parseNonVoidBlockElement(element, blockType, registries) {
   const def = registries.blocks.getBlockByType(blockType)
-  const contentSource = def?.contentTag ? (element.querySelector(def.contentTag) ?? element) : element
+  const contentSource = def?.contentTag
+    ? (element.querySelector(def.contentTag) ?? element)
+    : element
   const content = parseInline(contentSource, registries)
   const style = resolveBlockStyle(element)
   const attrs = readNonVoidAttrs(element, def)
@@ -532,7 +541,9 @@ function parseContainerBlockElement(element, blockType, registries) {
   const children = []
   for (const child of element.children) {
     if (child.tagName.toLowerCase() !== childDef.tag) continue
-    children.push(parseNonVoidBlockElement(/** @type {HTMLElement} */ (child), def.childType, registries))
+    children.push(
+      parseNonVoidBlockElement(/** @type {HTMLElement} */ (child), def.childType, registries)
+    )
   }
 
   const style = resolveBlockStyle(element)
@@ -612,7 +623,7 @@ export function serializeTextNode(node, registries) {
         escapeHtml(part),
         node.marks ?? [],
         registries,
-        node.markAttrs ?? {},
+        node.markAttrs ?? {}
       )
       return index > 0 ? `<br>${html}` : html
     })
@@ -652,7 +663,7 @@ export function serializeBlock(block, registries) {
   if (registries.blocks.isContainerBlock(block.type)) {
     return serializeContainerBlock(
       /** @type {import('../document/types.js').ContainerBlockNode} */ (block),
-      registries,
+      registries
     )
   }
 
@@ -662,7 +673,7 @@ export function serializeBlock(block, registries) {
     return serializeNonVoidBlock(
       /** @type {import('../document/types.js').TextBlockNode} */ (block),
       def,
-      registries,
+      registries
     )
   }
 
@@ -804,7 +815,7 @@ export function createBlockElement(block, index, registries) {
     return createContainerBlockElement(
       /** @type {import('../document/types.js').ContainerBlockNode} */ (block),
       index,
-      registries,
+      registries
     )
   }
 

@@ -24,7 +24,10 @@ const PALETTE = [
     pluginId: null,
     tokens: ['|'],
     groupLabel: { en: 'Separator', pt: 'Separador' },
-    desc: { en: 'Visual divider between button groups', pt: 'Divisor visual entre grupos de botões' },
+    desc: {
+      en: 'Visual divider between button groups',
+      pt: 'Divisor visual entre grupos de botões',
+    },
   },
   {
     pluginId: ['undo', 'redo'],
@@ -34,11 +37,27 @@ const PALETTE = [
   },
   { pluginId: 'bold', tokens: ['bold'], desc: { en: 'Bold (mod+b)', pt: 'Negrito (mod+b)' } },
   { pluginId: 'italic', tokens: ['italic'], desc: { en: 'Italic (mod+i)', pt: 'Itálico (mod+i)' } },
-  { pluginId: 'underline', tokens: ['underline'], desc: { en: 'Underline (mod+u)', pt: 'Sublinhado (mod+u)' } },
+  {
+    pluginId: 'underline',
+    tokens: ['underline'],
+    desc: { en: 'Underline (mod+u)', pt: 'Sublinhado (mod+u)' },
+  },
   { pluginId: 'subscript', tokens: ['subscript'], desc: { en: 'Subscript', pt: 'Subscrito' } },
-  { pluginId: 'superscript', tokens: ['superscript'], desc: { en: 'Superscript', pt: 'Sobrescrito' } },
-  { pluginId: 'text-color', tokens: ['text-color'], desc: { en: 'Text color', pt: 'Cor do texto' } },
-  { pluginId: 'highlight', tokens: ['highlight'], desc: { en: 'Highlight color', pt: 'Cor de destaque (highlight)' } },
+  {
+    pluginId: 'superscript',
+    tokens: ['superscript'],
+    desc: { en: 'Superscript', pt: 'Sobrescrito' },
+  },
+  {
+    pluginId: 'text-color',
+    tokens: ['text-color'],
+    desc: { en: 'Text color', pt: 'Cor do texto' },
+  },
+  {
+    pluginId: 'highlight',
+    tokens: ['highlight'],
+    desc: { en: 'Highlight color', pt: 'Cor de destaque (highlight)' },
+  },
   {
     pluginId: 'font-family',
     tokens: ['font-family'],
@@ -64,13 +83,41 @@ const PALETTE = [
     desc: { en: 'Quote / callout', pt: 'Citação / callout' },
   },
   { pluginId: 'hr', tokens: ['hr'], desc: { en: 'Horizontal rule', pt: 'Linha horizontal' } },
-  { pluginId: 'clear-formatting', tokens: ['clear-formatting'], desc: { en: 'Clear formatting', pt: 'Limpar formatação' } },
-  { pluginId: 'code-block', tokens: ['code-block'], desc: { en: 'Code block', pt: 'Bloco de código' } },
-  { pluginId: 'link', tokens: ['link'], desc: { en: 'Insert/edit link', pt: 'Inserir/editar link' } },
-  { pluginId: 'image', tokens: ['image'], desc: { en: 'Insert image (URL or upload)', pt: 'Inserir imagem (URL ou upload)' } },
-  { pluginId: 'bullet-list', tokens: ['bullet-list'], desc: { en: 'Bulleted list', pt: 'Lista com marcadores' } },
-  { pluginId: 'numbered-list', tokens: ['numbered-list'], desc: { en: 'Numbered list', pt: 'Lista numerada' } },
-  { pluginId: 'task-list', tokens: ['task-list'], desc: { en: 'Task list (checkbox)', pt: 'Lista de tarefas (checkbox)' } },
+  {
+    pluginId: 'clear-formatting',
+    tokens: ['clear-formatting'],
+    desc: { en: 'Clear formatting', pt: 'Limpar formatação' },
+  },
+  {
+    pluginId: 'code-block',
+    tokens: ['code-block'],
+    desc: { en: 'Code block', pt: 'Bloco de código' },
+  },
+  {
+    pluginId: 'link',
+    tokens: ['link'],
+    desc: { en: 'Insert/edit link', pt: 'Inserir/editar link' },
+  },
+  {
+    pluginId: 'image',
+    tokens: ['image'],
+    desc: { en: 'Insert image (URL or upload)', pt: 'Inserir imagem (URL ou upload)' },
+  },
+  {
+    pluginId: 'bullet-list',
+    tokens: ['bullet-list'],
+    desc: { en: 'Bulleted list', pt: 'Lista com marcadores' },
+  },
+  {
+    pluginId: 'numbered-list',
+    tokens: ['numbered-list'],
+    desc: { en: 'Numbered list', pt: 'Lista numerada' },
+  },
+  {
+    pluginId: 'task-list',
+    tokens: ['task-list'],
+    desc: { en: 'Task list (checkbox)', pt: 'Lista de tarefas (checkbox)' },
+  },
   {
     pluginId: 'text-align',
     tokens: ['text-left', 'text-center', 'text-right', 'justify'],
@@ -122,12 +169,17 @@ function loadSavedTheme() {
 }
 
 function systemPrefersDarkTheme() {
-  return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches
+  return (
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  )
 }
 
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme)
-  document.getElementById('theme-toggle-btn')?.setAttribute('aria-pressed', String(theme === 'dark'))
+  document
+    .getElementById('theme-toggle-btn')
+    ?.setAttribute('aria-pressed', String(theme === 'dark'))
 }
 
 let currentTheme = loadSavedTheme() ?? (systemPrefersDarkTheme() ? 'dark' : 'light')
@@ -226,7 +278,9 @@ function buildRowFromTokens(tokens) {
 // editor pixel-for-pixel instead of hand-copied SVGs.
 // ---------------------------------------------------------------------------
 const ICONS = new Map() // toolbarId -> { icon: string, label: string }
-const ALL_TOOLBAR_TOKENS = [...new Set(PALETTE.flatMap((entry) => entry.tokens).filter((t) => t !== SEPARATOR))]
+const ALL_TOOLBAR_TOKENS = [
+  ...new Set(PALETTE.flatMap((entry) => entry.tokens).filter((t) => t !== SEPARATOR)),
+]
 
 let iconExtractorEditor = null
 
@@ -264,7 +318,20 @@ function cssEscape(value) {
 // Default toolbar mirrors demo/index.html, which already covers every plugin —
 // a fitting starting point now that all plugins are always active.
 const DEFAULT_TOOLBAR = [
-  ['undo', 'redo', SEPARATOR, 'font-family', 'font-size', 'paragraph', SEPARATOR, 'bold', 'italic', 'underline', 'subscript', 'superscript'],
+  [
+    'undo',
+    'redo',
+    SEPARATOR,
+    'font-family',
+    'font-size',
+    'paragraph',
+    SEPARATOR,
+    'bold',
+    'italic',
+    'underline',
+    'subscript',
+    'superscript',
+  ],
   [
     'text-color',
     'highlight',
@@ -329,9 +396,25 @@ const PRESETS = [
   {
     id: 'document',
     label: { en: 'Document', pt: 'Documento' },
-    desc: { en: 'Corporate documents, manuals and long-form text', pt: 'Documentos corporativos, manuais e textos longos' },
+    desc: {
+      en: 'Corporate documents, manuals and long-form text',
+      pt: 'Documentos corporativos, manuais e textos longos',
+    },
     toolbar: [
-      ['undo', 'redo', SEPARATOR, 'font-family', 'font-size', 'paragraph', SEPARATOR, 'bold', 'italic', 'underline', 'subscript', 'superscript'],
+      [
+        'undo',
+        'redo',
+        SEPARATOR,
+        'font-family',
+        'font-size',
+        'paragraph',
+        SEPARATOR,
+        'bold',
+        'italic',
+        'underline',
+        'subscript',
+        'superscript',
+      ],
       [
         'text-left',
         'text-center',
@@ -352,7 +435,10 @@ const PRESETS = [
   {
     id: 'developer',
     label: { en: 'Developer', pt: 'Desenvolvedor' },
-    desc: { en: 'Technical docs, specs and changelogs', pt: 'Documentação técnica, especificações e changelogs' },
+    desc: {
+      en: 'Technical docs, specs and changelogs',
+      pt: 'Documentação técnica, especificações e changelogs',
+    },
     toolbar: [
       [
         'undo',
@@ -387,7 +473,12 @@ const PRESETS = [
 const STORAGE_KEY = 'editor-config-builder:toolbar-rows'
 
 function isPlacedItem(value) {
-  return value && typeof value === 'object' && typeof value.type === 'string' && Array.isArray(value.tokens)
+  return (
+    value &&
+    typeof value === 'object' &&
+    typeof value.type === 'string' &&
+    Array.isArray(value.tokens)
+  )
 }
 
 function loadSavedToolbar() {
@@ -602,7 +693,9 @@ function renderToolbar() {
       // The caret already sits at the exact spot chosen during dragover —
       // reuse its position instead of recomputing, so what the user saw is
       // exactly where the item lands.
-      const insertIndex = dropCaretEl ? [...tokensEl.children].indexOf(dropCaretEl) : getDropIndex(tokensEl, e.clientX, e.clientY)
+      const insertIndex = dropCaretEl
+        ? [...tokensEl.children].indexOf(dropCaretEl)
+        : getDropIndex(tokensEl, e.clientX, e.clientY)
       hideDropCaret()
       if (!payload) return
       handleItemDrop(payload, rowIndex, insertIndex)
@@ -799,7 +892,12 @@ function jsStringArray(items, baseIndent = '  ') {
 
 function currentConfig() {
   const toolbar = state.toolbarRows
-    .map((row) => row.flatMap((item) => item.tokens).join(' ').trim())
+    .map((row) =>
+      row
+        .flatMap((item) => item.tokens)
+        .join(' ')
+        .trim()
+    )
     .filter((line) => line.length > 0)
   return { plugins: ALL_PLUGINS, toolbar, locale: currentLocale }
 }
@@ -988,7 +1086,9 @@ document.getElementById('download-zip-btn').addEventListener('click', async () =
     // inlined at build time — not fetched at runtime — so this works both
     // over HTTP and when this page is opened directly via file://.
     if (typeof DIST_ASSETS === 'undefined') {
-      throw new Error('Pacote não encontrado. Rode "npm run build" para gerar os arquivos de dist/.')
+      throw new Error(
+        'Pacote não encontrado. Rode "npm run build" para gerar os arquivos de dist/.'
+      )
     }
 
     const snippet = document.querySelector('#output-code code').textContent
@@ -998,7 +1098,10 @@ document.getElementById('download-zip-btn').addEventListener('click', async () =
     const zipBlob = createZip([
       { path: 'index.html', data: encoder.encode(html) },
       { path: 'dist/editor.min.css', data: encoder.encode(DIST_ASSETS['editor.min.css']) },
-      { path: 'dist/editor.standalone.min.js', data: encoder.encode(DIST_ASSETS['editor.standalone.min.js']) },
+      {
+        path: 'dist/editor.standalone.min.js',
+        data: encoder.encode(DIST_ASSETS['editor.standalone.min.js']),
+      },
     ])
 
     const url = URL.createObjectURL(zipBlob)

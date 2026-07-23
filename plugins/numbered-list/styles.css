@@ -94,7 +94,10 @@
 }
 
 .editor ol > li[style*='list-style-type: lower-alpha']:first-child,
-.editor ol > li:not([style*='list-style-type: lower-alpha']) + li[style*='list-style-type: lower-alpha'] {
+.editor
+  ol
+  > li:not([style*='list-style-type: lower-alpha'])
+  + li[style*='list-style-type: lower-alpha'] {
   counter-reset: editor-nl-1 0;
 }
 
@@ -108,7 +111,10 @@
 }
 
 .editor ol > li[style*='list-style-type: lower-roman']:first-child,
-.editor ol > li:not([style*='list-style-type: lower-roman']) + li[style*='list-style-type: lower-roman'] {
+.editor
+  ol
+  > li:not([style*='list-style-type: lower-roman'])
+  + li[style*='list-style-type: lower-roman'] {
   counter-reset: editor-nl-2 0;
 }
 

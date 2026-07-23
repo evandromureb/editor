@@ -12,7 +12,12 @@ import {
   isVoidBlockNode,
 } from '../document/block-utils.js'
 import { createBlockNode, docNode, paragraphNode, textNode } from '../document/nodes.js'
-import { deleteRangeInDoc, getParagraphLength, sliceContentRange, splitContentAt } from '../document/text-utils.js'
+import {
+  deleteRangeInDoc,
+  getParagraphLength,
+  sliceContentRange,
+  splitContentAt,
+} from '../document/text-utils.js'
 import { parse } from '../serializer/parser.js'
 import { collapseTo, isCollapsed, normalize } from '../cursor/index.js'
 

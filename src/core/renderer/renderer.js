@@ -36,7 +36,11 @@ import {
  *   getSignature: (block: import('../document/types.js').BlockNode) => string,
  * }} options
  */
-function diffBlockList(blocks, parentElement, { getSiblings, createElement, indexAttr, getSignature }) {
+function diffBlockList(
+  blocks,
+  parentElement,
+  { getSiblings, createElement, indexAttr, getSignature }
+) {
   blocks.forEach((block, index) => {
     const signature = getSignature(block)
     const siblings = getSiblings(parentElement)
@@ -90,9 +94,7 @@ function syncContainerElement(element, block) {
  */
 export function render(docNode, rootElement, options) {
   const { editable = true, selection, registries } = options
-  const blocks = docNode.content.length
-    ? docNode.content
-    : [paragraphNode([textNode('')])]
+  const blocks = docNode.content.length ? docNode.content : [paragraphNode([textNode('')])]
 
   rootElement.contentEditable = String(editable)
 

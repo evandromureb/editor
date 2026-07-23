@@ -28,7 +28,10 @@ describe('embed/createEditor — real Editor integration', () => {
     const editor = embed.createEditor({ textarea: '#t-create' })
 
     assert.equal(typeof editor.getHTML, 'function')
-    const pluginIds = editor.getPlugins().map((p) => p.id).sort()
+    const pluginIds = editor
+      .getPlugins()
+      .map((p) => p.id)
+      .sort()
     assert.equal(pluginIds.length, 22)
     assert.ok(pluginIds.includes('bold'))
     assert.ok(pluginIds.includes('hr'))
@@ -98,7 +101,13 @@ describe('embed/createEditor — real Editor integration', () => {
 
     assert.equal(editor.getPlugins().length, 0)
 
-    const boldPlugin = { id: 'bold-dyn', name: 'Bold Dyn', capabilities: { commands: { 'bold-dyn': () => ({ doc: { type: 'doc', content: [] }, selection: {} }) } } }
+    const boldPlugin = {
+      id: 'bold-dyn',
+      name: 'Bold Dyn',
+      capabilities: {
+        commands: { 'bold-dyn': () => ({ doc: { type: 'doc', content: [] }, selection: {} }) },
+      },
+    }
     editor.registerPlugin(boldPlugin)
     assert.equal(editor.getPlugins().length, 1)
 

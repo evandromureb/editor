@@ -1,0 +1,6 @@
+dist/
+src/generated/
+.build/
+node_modules/
+coverage/
+embed.file.html

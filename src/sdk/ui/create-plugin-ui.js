@@ -123,11 +123,7 @@ export function createPluginUi({ t, pluginId, uiRuntime, resolveAsset }) {
 
     createToolbarItem(opts) {
       const label = opts.labelKey ? t(opts.labelKey) : t(opts.label ?? '')
-      const titleBase = opts.title
-        ? t(opts.title)
-        : opts.titleKey
-          ? t(opts.titleKey)
-          : label
+      const titleBase = opts.title ? t(opts.title) : opts.titleKey ? t(opts.titleKey) : label
 
       const button = createToggleButton({
         label: opts.icon ? '' : label,
@@ -318,8 +314,16 @@ export function createPluginUi({ t, pluginId, uiRuntime, resolveAsset }) {
       content.className = 'editor__color-picker'
 
       const colors = opts.colors ?? [
-        '#000000', '#ffffff', '#ff0000', '#00ff00', '#0000ff',
-        '#ffff00', '#ff00ff', '#00ffff', '#888888', '#444444',
+        '#000000',
+        '#ffffff',
+        '#ff0000',
+        '#00ff00',
+        '#0000ff',
+        '#ffff00',
+        '#ff00ff',
+        '#00ffff',
+        '#888888',
+        '#444444',
       ]
 
       for (const color of colors) {

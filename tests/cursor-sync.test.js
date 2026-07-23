@@ -142,7 +142,7 @@ describe('cursor sync', () => {
   it('double Enter in quote exits to paragraph with cursor positioned correctly', () => {
     const quoteRegistries = createTestRegistries()
     quoteRegistries.blocks.registerBlock(
-      block('quote', { tag: 'blockquote', softBreakOnEnter: true }),
+      block('quote', { tag: 'blockquote', softBreakOnEnter: true })
     )
 
     const before = stateWithText('Hello', quoteRegistries)
@@ -179,7 +179,7 @@ describe('cursor sync', () => {
   it('Shift+Enter places the cursor on the new line immediately after render', () => {
     const quoteRegistries = createTestRegistries()
     quoteRegistries.blocks.registerBlock(
-      block('quote', { tag: 'blockquote', softBreakOnEnter: true }),
+      block('quote', { tag: 'blockquote', softBreakOnEnter: true })
     )
 
     const before = stateWithText('Hello', quoteRegistries)
@@ -217,7 +217,7 @@ describe('cursor sync', () => {
   it('single Enter in a non-empty quote paragraph creates a new internal <p>, keeping the quote block', () => {
     const quoteRegistries = createTestRegistries()
     quoteRegistries.blocks.registerBlock(
-      block('quote', { tag: 'blockquote', softBreakOnEnter: true }),
+      block('quote', { tag: 'blockquote', softBreakOnEnter: true })
     )
 
     const before = stateWithText('Hello', quoteRegistries)
@@ -261,7 +261,7 @@ describe('cursor sync', () => {
   it('clicking inside a rendered multi-line quote keeps the cursor on the clicked line', () => {
     const quoteRegistries = createTestRegistries()
     quoteRegistries.blocks.registerBlock(
-      block('quote', { tag: 'blockquote', softBreakOnEnter: true }),
+      block('quote', { tag: 'blockquote', softBreakOnEnter: true })
     )
 
     const doc = docNode([{ type: 'quote', content: [textNode('Line 1\nLine 2\nLine 3')] }])
@@ -270,7 +270,7 @@ describe('cursor sync', () => {
     document.body.appendChild(surface)
 
     const line3 = [...surface.querySelectorAll('blockquote')[0].childNodes].find(
-      (node) => node.nodeType === Node.TEXT_NODE && node.textContent === 'Line 3',
+      (node) => node.nodeType === Node.TEXT_NODE && node.textContent === 'Line 3'
     )
     assert.ok(line3)
 

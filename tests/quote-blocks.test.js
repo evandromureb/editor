@@ -20,7 +20,7 @@ function createRegistries() {
       block(type, {
         tag: 'blockquote',
         softBreakOnEnter: true,
-      }),
+      })
     )
   }
   return registries
@@ -200,10 +200,7 @@ describe('quote blocks — HTML serialization', () => {
 
   it('parse restores line breaks from br inside blockquote', async () => {
     const { parse } = await import('../src/core/serializer/parser.js')
-    const doc = parse(
-      '<blockquote data-block="quote">Line 1<br>Line 2</blockquote>',
-      registries,
-    )
+    const doc = parse('<blockquote data-block="quote">Line 1<br>Line 2</blockquote>', registries)
 
     assert.equal(doc.content[0].type, 'quote')
     assert.equal(getParagraphText(doc.content[0].content), 'Line 1\nLine 2')
@@ -211,10 +208,7 @@ describe('quote blocks — HTML serialization', () => {
 
   it('parse restores quote variant from data-block attribute', async () => {
     const { parse } = await import('../src/core/serializer/parser.js')
-    const doc = parse(
-      '<blockquote data-block="quote-info">Info text</blockquote>',
-      registries,
-    )
+    const doc = parse('<blockquote data-block="quote-info">Info text</blockquote>', registries)
 
     assert.equal(doc.content[0].type, 'quote-info')
     assert.equal(doc.content[0].content[0].text, 'Info text')
@@ -224,7 +218,7 @@ describe('quote blocks — HTML serialization', () => {
     const { sanitizeHtml } = await import('../src/core/sanitize/sanitize.js')
     const safe = sanitizeHtml(
       '<blockquote data-block="quote-danger">Alert</blockquote>',
-      registries,
+      registries
     )
 
     assert.match(safe, /data-block="quote-danger"/)

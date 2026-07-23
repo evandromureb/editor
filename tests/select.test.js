@@ -106,10 +106,7 @@ describe('Select', () => {
     trigger.click()
 
     assert.equal(select.open, true)
-    assert.equal(
-      select.menuElement.parentElement?.className,
-      'editor__overlay-root',
-    )
+    assert.equal(select.menuElement.parentElement?.className, 'editor__overlay-root')
     assert.equal(select.menuElement.classList.contains('bl-select__menu--portal'), true)
   })
 
@@ -193,10 +190,7 @@ describe('Select', () => {
     trigger.click()
 
     assert.equal(select.menuElement.style.width, 'max-content')
-    assert.equal(
-      select.menuElement.style.minWidth,
-      `${trigger.getBoundingClientRect().width}px`,
-    )
+    assert.equal(select.menuElement.style.minWidth, `${trigger.getBoundingClientRect().width}px`)
   })
 
   it('Home and End move highlight', () => {

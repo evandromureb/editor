@@ -39,7 +39,7 @@ describe('selectionMenu menu builder', () => {
           },
         },
       ],
-      (id) => (id === 'bold' ? boldCtx : italicCtx),
+      (id) => (id === 'bold' ? boldCtx : italicCtx)
     )
 
     assert.equal(items.length, 2)

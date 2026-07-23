@@ -115,7 +115,9 @@ function unwrapTaskItem(state, container, blockIndex, childIndex) {
  * @type {import('@baselab/plugin-sdk').CommandHandler}
  */
 export const toggleTaskItem = command((state, _registries, payload) => {
-  const { block, childIndex } = /** @type {{ block?: number, childIndex?: number }} */ (payload ?? {})
+  const { block, childIndex } = /** @type {{ block?: number, childIndex?: number }} */ (
+    payload ?? {}
+  )
   if (typeof block !== 'number' || typeof childIndex !== 'number') return state
 
   const { doc } = state
@@ -130,7 +132,9 @@ export const toggleTaskItem = command((state, _registries, payload) => {
   const nextItem = { ...item, attrs: { 'data-checked': checked ? 'false' : 'true' } }
 
   const nextChildren = children.map((child, i) => (i === childIndex ? nextItem : child))
-  const content = doc.content.map((b, i) => (i === block ? { ...container, children: nextChildren } : b))
+  const content = doc.content.map((b, i) =>
+    i === block ? { ...container, children: nextChildren } : b
+  )
 
   return { ...state, doc: { ...doc, content } }
 })
@@ -163,7 +167,9 @@ function withChildBlockStyle(state, transform) {
   }
 
   const nextChildren = children.map((c, i) => (i === pos.childIndex ? nextChild : c))
-  const content = doc.content.map((b, i) => (i === pos.block ? { ...container, children: nextChildren } : b))
+  const content = doc.content.map((b, i) =>
+    i === pos.block ? { ...container, children: nextChildren } : b
+  )
   return { ...state, doc: { ...doc, content } }
 }
 
@@ -172,7 +178,7 @@ export const indentTaskItem = command((state) =>
   withChildBlockStyle(state, (style) => {
     const current = Number.parseInt(style['margin-left'] ?? '', 10) || 0
     return { ...style, 'margin-left': `${current + INDENT_STEP}px` }
-  }),
+  })
 )
 
 /** @type {import('@baselab/plugin-sdk').CommandHandler} */
@@ -187,5 +193,5 @@ export const outdentTaskItem = command((state) =>
     }
 
     return { ...style, 'margin-left': `${next}px` }
-  }),
+  })
 )

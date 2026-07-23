@@ -96,7 +96,7 @@ function assertNoForbiddenImports(filePath, pluginId) {
   for (const { pattern, message } of FORBIDDEN_IMPORT_PATTERNS) {
     if (pattern.test(content)) {
       throw new Error(
-        `[discover] Plugin "${pluginId}": forbidden internal import (${message}) in ${basename(filePath)}. Use @baselab/plugin-sdk.`,
+        `[discover] Plugin "${pluginId}": forbidden internal import (${message}) in ${basename(filePath)}. Use @baselab/plugin-sdk.`
       )
     }
   }
@@ -105,7 +105,7 @@ function assertNoForbiddenImports(filePath, pluginId) {
     const specifier = match[1]
     if (!isAllowedImportSpecifier(specifier)) {
       throw new Error(
-        `[discover] Plugin "${pluginId}": forbidden external package import ("${specifier}") in ${basename(filePath)}. Use only @baselab/plugin-sdk and local modules.`,
+        `[discover] Plugin "${pluginId}": forbidden external package import ("${specifier}") in ${basename(filePath)}. Use only @baselab/plugin-sdk and local modules.`
       )
     }
   }
@@ -195,7 +195,7 @@ function validateI18nParity(namespaceLabel, dict) {
     const missing = [...allKeys].filter((key) => !keys.has(key))
     if (missing.length > 0) {
       throw new Error(
-        `[discover] i18n "${namespaceLabel}": locale "${locale}" is missing keys: ${missing.join(', ')}`,
+        `[discover] i18n "${namespaceLabel}": locale "${locale}" is missing keys: ${missing.join(', ')}`
       )
     }
   }
@@ -280,13 +280,13 @@ for (const folder of pluginFolders) {
   const plugin = mod.default
 
   if (!plugin?.id) {
-    throw new Error(`[discover] Plugin at plugins/${folder}/index.js does not export default with "id"`)
+    throw new Error(
+      `[discover] Plugin at plugins/${folder}/index.js does not export default with "id"`
+    )
   }
 
   if (plugin.id !== folder) {
-    throw new Error(
-      `[discover] Plugin "${plugin.id}": id must match folder name ("${folder}")`,
-    )
+    throw new Error(`[discover] Plugin "${plugin.id}": id must match folder name ("${folder}")`)
   }
 
   const caps = plugin.capabilities ?? {}
@@ -294,7 +294,7 @@ for (const folder of pluginFolders) {
   for (const capName of Object.keys(caps)) {
     if (!KNOWN_CAPABILITIES.has(capName)) {
       throw new Error(
-        `[discover] Plugin "${plugin.id}": unknown capability "${capName}". Valid: ${[...KNOWN_CAPABILITIES].join(', ')}`,
+        `[discover] Plugin "${plugin.id}": unknown capability "${capName}". Valid: ${[...KNOWN_CAPABILITIES].join(', ')}`
       )
     }
   }
@@ -330,7 +330,7 @@ for (const folder of pluginFolders) {
   for (const [shortcut, commandName] of Object.entries(caps.shortcuts ?? {})) {
     if (seenShortcuts.has(shortcut)) {
       throw new Error(
-        `[discover] Duplicate shortcut: "${shortcut}" (plugins: ${seenShortcuts.get(shortcut)} and ${plugin.id})`,
+        `[discover] Duplicate shortcut: "${shortcut}" (plugins: ${seenShortcuts.get(shortcut)} and ${plugin.id})`
       )
     }
     seenShortcuts.set(shortcut, plugin.id)
@@ -380,9 +380,7 @@ export const plugin_${identifier} = {
   })
   .join('\n\n')
 
-const pluginArray = discoveredPlugins
-  .map(({ id }) => `  plugin_${toIdentifier(id)}`)
-  .join(',\n')
+const pluginArray = discoveredPlugins.map(({ id }) => `  plugin_${toIdentifier(id)}`).join(',\n')
 
 writeFileSync(
   join(generatedDir, 'plugins.registry.js'),
@@ -396,7 +394,7 @@ ${pluginExports}
 export const discoveredPlugins = [
 ${pluginArray},
 ]
-`,
+`
 )
 
 // ---------------------------------------------------------------------------
@@ -413,7 +411,7 @@ for (const { id } of discoveredPlugins) {
 
 writeFileSync(
   join(generatedDir, 'plugins.css'),
-  `/* ARQUIVO AUTO-GERADO PELO BUILD. NÃO EDITE. */\n\n${pluginCssParts.join('\n')}`,
+  `/* ARQUIVO AUTO-GERADO PELO BUILD. NÃO EDITE. */\n\n${pluginCssParts.join('\n')}`
 )
 
 // ---------------------------------------------------------------------------
@@ -423,9 +421,7 @@ writeFileSync(
 const coreI18n = loadLangJson(join(root, 'src/core'))
 
 if (!coreI18n.pt || !coreI18n.en) {
-  throw new Error(
-    '[discover] i18n "core": locales "pt" and "en" are required in src/core/lang/',
-  )
+  throw new Error('[discover] i18n "core": locales "pt" and "en" are required in src/core/lang/')
 }
 
 validateI18nParity('core', coreI18n)
@@ -440,7 +436,7 @@ writeFileSync(
 
 /** @type {Record<string, Record<string, string>>} */
 export const coreI18n = ${JSON.stringify(coreI18n, null, 2)}
-`,
+`
 )
 
 // ---------------------------------------------------------------------------
@@ -468,13 +464,13 @@ for (const folder of themeFolders) {
   const theme = mod.default
 
   if (!theme?.id) {
-    throw new Error(`[discover] Theme at themes/${folder}/index.js does not export default with "id"`)
+    throw new Error(
+      `[discover] Theme at themes/${folder}/index.js does not export default with "id"`
+    )
   }
 
   if (theme.id !== folder) {
-    throw new Error(
-      `[discover] Theme "${theme.id}": id must match folder name ("${folder}")`,
-    )
+    throw new Error(`[discover] Theme "${theme.id}": id must match folder name ("${folder}")`)
   }
 
   const cssPath = join(themeDir, 'theme.css')
@@ -495,7 +491,7 @@ ${discoveredThemes.map(({ id, relPath }) => `import theme_${toIdentifier(id)} fr
 export const discoveredThemes = [
 ${discoveredThemes.map(({ id }) => `  theme_${toIdentifier(id)}`).join(',\n')},
 ]
-`,
+`
 )
 
 const themeCssParts = []
@@ -507,7 +503,7 @@ for (const { id, cssPath } of discoveredThemes) {
 
 writeFileSync(
   join(generatedDir, 'themes.css'),
-  `/* ARQUIVO AUTO-GERADO PELO BUILD. NÃO EDITE. */\n\n${themeCssParts.join('\n')}`,
+  `/* ARQUIVO AUTO-GERADO PELO BUILD. NÃO EDITE. */\n\n${themeCssParts.join('\n')}`
 )
 
 // ---------------------------------------------------------------------------
@@ -548,7 +544,7 @@ writeFileSync(
 
 /** @type {Record<string, Record<string, Record<string, string>>>} */
 export const assetsRegistry = ${JSON.stringify(assetsMap, null, 2)}
-`,
+`
 )
 
 console.log(`[discover] Plugins: ${discoveredPlugins.map((p) => p.id).join(', ')}`)

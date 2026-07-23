@@ -75,7 +75,7 @@ export function writeEmbedHtml() {
     <script type="module" src="./editor.js"></script>
   </body>
 </html>
-`,
+`
   )
 
   writeFileSync(
@@ -99,7 +99,7 @@ ${renderStandaloneEmbedScript({ width: 800, height: 600 })}
     </script>
   </body>
 </html>
-`,
+`
   )
 
   writeFileSync(
@@ -123,6 +123,6 @@ ${renderStandaloneEmbedScript({ width: 800, height: 500 })}
     </script>
   </body>
 </html>
-`,
+`
   )
 }

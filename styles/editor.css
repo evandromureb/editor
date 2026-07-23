@@ -348,7 +348,9 @@ wysiwyg-editor {
   padding: var(--editor-spacing-xs) var(--editor-spacing-sm);
   background: var(--editor-input-bg);
   color: var(--editor-fg);
-  transition: background 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .editor__select {
@@ -429,7 +431,9 @@ wysiwyg-editor {
 }
 
 @keyframes editor-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .editor__menu,
@@ -695,8 +699,8 @@ wysiwyg-editor {
   margin-top: 0.5em;
 }
 
-.editor__preview p + p[data-implicit="true"],
-.editor__surface p + p[data-implicit="true"] {
+.editor__preview p + p[data-implicit='true'],
+.editor__surface p + p[data-implicit='true'] {
   margin-top: 0;
 }
 
@@ -761,7 +765,10 @@ wysiwyg-editor {
   background: var(--editor-btn-bg);
   color: var(--editor-chrome-fg);
   cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .bl-select__trigger:hover:not(:disabled) {
@@ -818,7 +825,9 @@ wysiwyg-editor {
   opacity: 0;
   transform: translateY(4px);
   pointer-events: none;
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
 }
 
 .bl-select__menu--portal {
@@ -870,7 +879,9 @@ wysiwyg-editor {
   line-height: 1.4;
   text-align: left;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .bl-select__item:hover:not(:disabled),

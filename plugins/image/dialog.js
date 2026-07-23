@@ -59,9 +59,10 @@ function loadNaturalSize(src) {
  * @returns {Promise<{ src: string, width?: number, height?: number }>}
  */
 async function resolveUploadedSrc(ctx, file) {
-  const options = /** @type {{ upload?: (file: File) => Promise<string | { url: string, width?: number, height?: number }> } | undefined} */ (
-    ctx.getOption('image')
-  )
+  const options =
+    /** @type {{ upload?: (file: File) => Promise<string | { url: string, width?: number, height?: number }> } | undefined} */ (
+      ctx.getOption('image')
+    )
 
   if (options?.upload) {
     const result = await options.upload(file)
@@ -153,7 +154,10 @@ export function openInsertDialog(ctx, anchorEl) {
   const widthLabel = document.createElement('span')
   widthLabel.className = 'editor__image-label'
   widthLabel.textContent = ctx.t('image.width')
-  const widthInput = ctx.ui.Input({ type: 'number', className: 'editor__image-input editor__image-input--number' })
+  const widthInput = ctx.ui.Input({
+    type: 'number',
+    className: 'editor__image-input editor__image-input--number',
+  })
   widthInput.min = String(sizeLimits.minWidth)
   widthInput.max = String(sizeLimits.maxWidth)
   widthField.append(widthLabel, widthInput)
@@ -163,7 +167,10 @@ export function openInsertDialog(ctx, anchorEl) {
   const heightLabel = document.createElement('span')
   heightLabel.className = 'editor__image-label'
   heightLabel.textContent = ctx.t('image.height')
-  const heightInput = ctx.ui.Input({ type: 'number', className: 'editor__image-input editor__image-input--number' })
+  const heightInput = ctx.ui.Input({
+    type: 'number',
+    className: 'editor__image-input editor__image-input--number',
+  })
   heightInput.min = String(sizeLimits.minHeight)
   heightInput.max = String(sizeLimits.maxHeight)
   heightField.append(heightLabel, heightInput)
@@ -180,7 +187,11 @@ export function openInsertDialog(ctx, anchorEl) {
   const titleLabel = document.createElement('span')
   titleLabel.className = 'editor__image-label'
   titleLabel.textContent = ctx.t('image.title')
-  const titleInput = ctx.ui.Input({ type: 'text', placeholder: ctx.t('image.title'), className: 'editor__image-input' })
+  const titleInput = ctx.ui.Input({
+    type: 'text',
+    placeholder: ctx.t('image.title'),
+    className: 'editor__image-input',
+  })
   titleField.append(titleLabel, titleInput)
 
   const captionField = document.createElement('label')
@@ -188,7 +199,11 @@ export function openInsertDialog(ctx, anchorEl) {
   const captionLabel = document.createElement('span')
   captionLabel.className = 'editor__image-label'
   captionLabel.textContent = ctx.t('image.caption')
-  const captionInput = ctx.ui.Input({ type: 'text', placeholder: ctx.t('image.caption'), className: 'editor__image-input' })
+  const captionInput = ctx.ui.Input({
+    type: 'text',
+    placeholder: ctx.t('image.caption'),
+    className: 'editor__image-input',
+  })
   captionField.append(captionLabel, captionInput)
 
   const errorEl = document.createElement('p')
@@ -209,7 +224,7 @@ export function openInsertDialog(ctx, anchorEl) {
     titleField,
     captionField,
     errorEl,
-    submitBtn,
+    submitBtn
   )
 
   function showError(message) {
@@ -235,7 +250,11 @@ export function openInsertDialog(ctx, anchorEl) {
     if (!size?.width || !size?.height) return
     if (widthInput.value || heightInput.value) return
     const width = clampSize(DEFAULT_INSERT_WIDTH, sizeLimits.minWidth, sizeLimits.maxWidth)
-    const height = clampSize(Math.round((width * size.height) / size.width), sizeLimits.minHeight, sizeLimits.maxHeight)
+    const height = clampSize(
+      Math.round((width * size.height) / size.width),
+      sizeLimits.minHeight,
+      sizeLimits.maxHeight
+    )
     widthInput.value = String(width)
     heightInput.value = String(height)
   }
@@ -321,8 +340,12 @@ export function openInsertDialog(ctx, anchorEl) {
 
     ctx.execCommand('image.insert', {
       src,
-      width: width ? String(clampSize(Number(width), sizeLimits.minWidth, sizeLimits.maxWidth)) : width,
-      height: height ? String(clampSize(Number(height), sizeLimits.minHeight, sizeLimits.maxHeight)) : height,
+      width: width
+        ? String(clampSize(Number(width), sizeLimits.minWidth, sizeLimits.maxWidth))
+        : width,
+      height: height
+        ? String(clampSize(Number(height), sizeLimits.minHeight, sizeLimits.maxHeight))
+        : height,
       title: titleInput.value.trim(),
       caption: captionInput.value.trim(),
     })

@@ -2,9 +2,9 @@
 name: plugin-development
 description: Use when creating, updating, or debugging editor plugins under plugins/, or when a task touches plugin discovery, commands, toolbar items, translations, or plugin-specific styles and assets.
 paths:
-  - "plugins/**"
-  - "src/generated/plugins*"
-  - "src/core/plugins/**"
+  - 'plugins/**'
+  - 'src/generated/plugins*'
+  - 'src/core/plugins/**'
 ---
 
 # Plugin Development

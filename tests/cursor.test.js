@@ -55,11 +55,11 @@ describe('cursor/selection', () => {
   it('getDirection detects forward and backward', () => {
     assert.equal(
       getDirection({ anchor: { block: 0, offset: 1 }, focus: { block: 0, offset: 4 } }),
-      'forward',
+      'forward'
     )
     assert.equal(
       getDirection({ anchor: { block: 0, offset: 4 }, focus: { block: 0, offset: 1 } }),
-      'backward',
+      'backward'
     )
     assert.equal(getDirection(createSelection(0, 2)), 'none')
   })
@@ -131,7 +131,7 @@ describe('cursor/resolve', () => {
         anchor: { block: 0, offset: 5 },
         focus: { block: 0, offset: 99 },
       },
-      registries,
+      registries
     )
 
     assert.deepEqual(resolved.anchor, { block: 0, offset: 5 })

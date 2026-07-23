@@ -12,7 +12,9 @@ const boldPlugin = definePlugin({
   capabilities: {
     marks: [mark('bold', { tag: 'strong', parseTags: ['strong', 'b'] })],
     commands: { bold: command.toggleMark('bold') },
-    toolbar: [toolbarItem({ id: 'bold', label: 'bold.button', shortcut: 'mod+b', activeMark: 'bold' })],
+    toolbar: [
+      toolbarItem({ id: 'bold', label: 'bold.button', shortcut: 'mod+b', activeMark: 'bold' }),
+    ],
     shortcuts: shortcut('mod+b', 'bold'),
     i18n: { pt: { 'bold.button': 'N' } },
   },
@@ -20,7 +22,10 @@ const boldPlugin = definePlugin({
 
 /** @type {import('../src/sdk/types.js').PluginContext} */
 const mockCtx = {
-  getState: () => ({ doc: { type: 'doc', content: [] }, selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } } }),
+  getState: () => ({
+    doc: { type: 'doc', content: [] },
+    selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } },
+  }),
   selection: () => ({ anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } }),
   getMode: () => 'editor',
   getActiveMarks: () => [],

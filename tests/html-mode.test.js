@@ -5,7 +5,13 @@
 import './helpers/dom.js'
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { parse, serialize, validateHtml, selectionToHtmlOffsets, htmlOffsetsToSelection } from '../src/core/serializer/index.js'
+import {
+  parse,
+  serialize,
+  validateHtml,
+  selectionToHtmlOffsets,
+  htmlOffsetsToSelection,
+} from '../src/core/serializer/index.js'
 import { createSelection } from '../src/core/cursor/index.js'
 import { createTestRegistries } from './helpers/fixtures.js'
 

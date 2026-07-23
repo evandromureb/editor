@@ -7,7 +7,13 @@ import {
 } from '../operations/index.js'
 import { insertHtml } from '../operations/blocks.js'
 import { extractPasteHtml, extractPasteText } from '../pipeline/clipboard.js'
-import { collapseTo, isCollapsed, posFromDomPoint, posFromPoint, readFromDom } from '../cursor/index.js'
+import {
+  collapseTo,
+  isCollapsed,
+  posFromDomPoint,
+  posFromPoint,
+  readFromDom,
+} from '../cursor/index.js'
 import { matchesShortcut } from '../shortcuts/index.js'
 
 /** @typedef {import('../operations/types.js').EditorState} EditorState */
@@ -164,7 +170,7 @@ export class InputController {
 
       const moved = Math.hypot(
         event.clientX - this.#pointerStartX,
-        event.clientY - this.#pointerStartY,
+        event.clientY - this.#pointerStartY
       )
       const isClick =
         (Number.isNaN(moved) || moved < 5) && !event.shiftKey && !this.#pointerDragStarted
@@ -500,9 +506,7 @@ export class InputController {
 
     const isDragEnd =
       this.#pointerDragStarted ||
-      (fromDom !== null &&
-        !isCollapsed(fromDom) &&
-        this.#selectionChangedDuringPointer(fromDom))
+      (fromDom !== null && !isCollapsed(fromDom) && this.#selectionChangedDuringPointer(fromDom))
 
     const shouldCollapseClick = isClick && !isDragEnd
 
@@ -520,11 +524,7 @@ export class InputController {
       const domSelection = window.getSelection()
       const focusPos =
         domSelection &&
-        posFromDomPoint(
-          this.#surface,
-          domSelection.focusNode,
-          domSelection.focusOffset,
-        )
+        posFromDomPoint(this.#surface, domSelection.focusNode, domSelection.focusOffset)
 
       if (focusPos) {
         this.#setSelection(collapseTo(focusPos))

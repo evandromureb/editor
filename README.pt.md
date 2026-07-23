@@ -39,12 +39,12 @@ npm run build        # ou: make build  (discover + bundle)
 npm run dev          # servidor HTTP na porta 3000 (sobrescreva com PORT=…)
 ```
 
-| URL | O quê |
-|-----|------|
-| `http://localhost:3000/` | Redireciona para o demo |
-| `http://localhost:3000/demo/` | Demo de desenvolvimento (ESM a partir de `src/`) |
-| `http://localhost:3000/pages/` | Playground de configuração (precisa de um build prévio) |
-| `http://localhost:3000/dist/embed.html` | Embed empacotado com `<wysiwyg-editor>` |
+| URL                                     | O quê                                                   |
+| --------------------------------------- | ------------------------------------------------------- |
+| `http://localhost:3000/`                | Redireciona para o demo                                 |
+| `http://localhost:3000/demo/`           | Demo de desenvolvimento (ESM a partir de `src/`)        |
+| `http://localhost:3000/pages/`          | Playground de configuração (precisa de um build prévio) |
+| `http://localhost:3000/dist/embed.html` | Embed empacotado com `<wysiwyg-editor>`                 |
 
 `make demo` é alias de `make dev` (roda testes + lint + build e sobe o servidor). `make preview` faz o build e abre a página de embed do dist.
 
@@ -58,11 +58,11 @@ npm install @baselab/editor
 
 Exports do pacote ([`package.json`](package.json)):
 
-| Export | Resolve para |
-|--------|-------------|
-| `@baselab/editor` | ESM: `dist/editor.min.js`; default/IIFE: `dist/editor.standalone.min.js`; types: `dist/types/index.d.ts` |
-| `@baselab/editor/style.css` | `dist/editor.min.css` |
-| `@baselab/editor/sdk` | Plugin SDK (`src/sdk/index.js`, alias `@baselab/plugin-sdk`) |
+| Export                      | Resolve para                                                                                             |
+| --------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `@baselab/editor`           | ESM: `dist/editor.min.js`; default/IIFE: `dist/editor.standalone.min.js`; types: `dist/types/index.d.ts` |
+| `@baselab/editor/style.css` | `dist/editor.min.css`                                                                                    |
+| `@baselab/editor/sdk`       | Plugin SDK (`src/sdk/index.js`, alias `@baselab/plugin-sdk`)                                             |
 
 ## Embed / uso
 
@@ -132,23 +132,23 @@ Exemplo completo: [`embed.file.html`](embed.file.html).
 
 ### Opções principais (`EditorOptions`)
 
-| Opção | Descrição |
-|--------|-------------|
-| `textarea` | Elemento `<textarea>` de origem ou seletor CSS (obrigatório) |
-| `root` | Elemento de montagem ou seletor (opcional; em alguns fluxos é criado automaticamente) |
-| `preset` | Preset nomeado: `default`, `corporate`, `minimalist` |
-| `plugins` | Ids de plugins (`string[]`) ou definições |
-| `toolbar` | Layout da toolbar (string ou array de strings; ver abaixo) |
-| `theme` | Id do tema (`padrao`, `escuro`, `corporate`, …) |
-| `appearance` | `'light'` ou `'dark'` |
-| `locale` | `'pt'`, `'en'` ou `'es'` |
-| `width` / `height` | Dimensões do editor (px) |
-| `footer` | Exibe a barra de status (padrão `true`) |
-| `responsive` | Flag de layout responsivo |
-| `fontFamily` | Fonte padrão e itens do seletor |
-| `image` | `{ upload, maxSize, minWidth, maxWidth, minHeight, maxHeight }` para o plugin de imagem |
-| `assetBaseUrl` | URL base para assets de plugins |
-| `persistTheme` / `persistAppearance` | Persiste escolhas de UI |
+| Opção                                | Descrição                                                                               |
+| ------------------------------------ | --------------------------------------------------------------------------------------- |
+| `textarea`                           | Elemento `<textarea>` de origem ou seletor CSS (obrigatório)                            |
+| `root`                               | Elemento de montagem ou seletor (opcional; em alguns fluxos é criado automaticamente)   |
+| `preset`                             | Preset nomeado: `default`, `corporate`, `minimalist`                                    |
+| `plugins`                            | Ids de plugins (`string[]`) ou definições                                               |
+| `toolbar`                            | Layout da toolbar (string ou array de strings; ver abaixo)                              |
+| `theme`                              | Id do tema (`padrao`, `escuro`, `corporate`, …)                                         |
+| `appearance`                         | `'light'` ou `'dark'`                                                                   |
+| `locale`                             | `'pt'`, `'en'` ou `'es'`                                                                |
+| `width` / `height`                   | Dimensões do editor (px)                                                                |
+| `footer`                             | Exibe a barra de status (padrão `true`)                                                 |
+| `responsive`                         | Flag de layout responsivo                                                               |
+| `fontFamily`                         | Fonte padrão e itens do seletor                                                         |
+| `image`                              | `{ upload, maxSize, minWidth, maxWidth, minHeight, maxHeight }` para o plugin de imagem |
+| `assetBaseUrl`                       | URL base para assets de plugins                                                         |
+| `persistTheme` / `persistAppearance` | Persiste escolhas de UI                                                                 |
 
 Os types ficam em `dist/types/index.d.ts` após o build.
 
@@ -158,11 +158,11 @@ Os types ficam em `dist/types/index.d.ts` após o build.
 
 Presets preenchem defaults; opções explícitas têm prioridade.
 
-| Preset | Destaques |
-|--------|------------|
-| `default` | Locale `pt`, tema `padrao` |
-| `corporate` | Tema `corporate`, locale `es`, tamanho fixo, conjunto pequeno de plugins |
-| `minimalist` | Apenas `bold` / `italic` |
+| Preset       | Destaques                                                                |
+| ------------ | ------------------------------------------------------------------------ |
+| `default`    | Locale `pt`, tema `padrao`                                               |
+| `corporate`  | Tema `corporate`, locale `es`, tamanho fixo, conjunto pequeno de plugins |
+| `minimalist` | Apenas `bold` / `italic`                                                 |
 
 ```js
 createEditor({
@@ -195,27 +195,27 @@ toolbar: [
 
 ### Plugins embutidos
 
-| Id | Função |
-|----|------|
-| `bold`, `italic`, `underline` | Marks inline |
-| `subscript`, `superscript` | Super/subscrito |
-| `highlight`, `text-color`, `text-align` | Cor / alinhamento |
-| `font-family`, `font-size`, `paragraph` | Tipografia |
-| `bullet-list`, `numbered-list`, `task-list` | Listas |
-| `quote`, `hr`, `code-block`, `link`, `image` | Blocos / mídia |
-| `undo`, `redo`, `clear-formatting` | Histórico / limpeza |
+| Id                                           | Função              |
+| -------------------------------------------- | ------------------- |
+| `bold`, `italic`, `underline`                | Marks inline        |
+| `subscript`, `superscript`                   | Super/subscrito     |
+| `highlight`, `text-color`, `text-align`      | Cor / alinhamento   |
+| `font-family`, `font-size`, `paragraph`      | Tipografia          |
+| `bullet-list`, `numbered-list`, `task-list`  | Listas              |
+| `quote`, `hr`, `code-block`, `link`, `image` | Blocos / mídia      |
+| `undo`, `redo`, `clear-formatting`           | Histórico / limpeza |
 
 ## Mapa do repositório
 
-| Caminho | Papel |
-|------|------|
-| `src/` | Core do editor, embed, SDK, UI compartilhada |
-| `plugins/` | Plugins de funcionalidade |
-| `themes/` | Pacotes de tema |
-| `pages/`, `demo/` | Playground de config e demo |
-| `scripts/` | Discovery, build, validação do dist |
-| `tests/` | Suite de testes |
-| `dist/`, `.build/`, `src/generated/` | Saídas geradas — não edite à mão |
+| Caminho                              | Papel                                        |
+| ------------------------------------ | -------------------------------------------- |
+| `src/`                               | Core do editor, embed, SDK, UI compartilhada |
+| `plugins/`                           | Plugins de funcionalidade                    |
+| `themes/`                            | Pacotes de tema                              |
+| `pages/`, `demo/`                    | Playground de config e demo                  |
+| `scripts/`                           | Discovery, build, validação do dist          |
+| `tests/`                             | Suite de testes                              |
+| `dist/`, `.build/`, `src/generated/` | Saídas geradas — não edite à mão             |
 
 Orientação para agentes: [`AGENTS.md`](AGENTS.md). Skills de domínio em [`.cursor/skills/`](.cursor/skills/).
 
@@ -287,21 +287,21 @@ Exemplos: [`themes/padrao/`](themes/padrao/), [`themes/escuro/`](themes/escuro/)
 
 ## Scripts e Make
 
-| npm | Make | Descrição |
-|-----|------|-------------|
-| `npm install` | `make install` | Instala dependências |
-| `npm run discover` | `make discover` | Gera `src/generated/` |
-| `npm run build` | `make build` | Discover + bundle em `dist/` |
-| `npm run dev` | — | Servidor HTTP de desenvolvimento (porta `3000` / `PORT`) |
-| — | `make dev` / `make demo` | test → lint → build → servidor |
-| — | `make preview` | build + serve o embed do dist |
-| `npm run lint` | `make lint` | ESLint |
-| `npm run typecheck` | — | TypeScript `--noEmit` |
-| `npm test` | `make test` | Node test runner (`tests/**/*.test.js`) |
-| `npm run validate:dist` | — | Valida artefatos obrigatórios do dist |
-| `npm run prepush` / `npm run fix` | `make fix` | lint + typecheck + test + build + validate |
-| — | `make clean` | Remove `dist/` e `src/generated/` |
-| — | `make distclean` | clean + remove `node_modules/` |
+| npm                               | Make                     | Descrição                                                |
+| --------------------------------- | ------------------------ | -------------------------------------------------------- |
+| `npm install`                     | `make install`           | Instala dependências                                     |
+| `npm run discover`                | `make discover`          | Gera `src/generated/`                                    |
+| `npm run build`                   | `make build`             | Discover + bundle em `dist/`                             |
+| `npm run dev`                     | —                        | Servidor HTTP de desenvolvimento (porta `3000` / `PORT`) |
+| —                                 | `make dev` / `make demo` | test → lint → build → servidor                           |
+| —                                 | `make preview`           | build + serve o embed do dist                            |
+| `npm run lint`                    | `make lint`              | ESLint                                                   |
+| `npm run typecheck`               | —                        | TypeScript `--noEmit`                                    |
+| `npm test`                        | `make test`              | Node test runner (`tests/**/*.test.js`)                  |
+| `npm run validate:dist`           | —                        | Valida artefatos obrigatórios do dist                    |
+| `npm run prepush` / `npm run fix` | `make fix`               | lint + typecheck + test + build + validate               |
+| —                                 | `make clean`             | Remove `dist/` e `src/generated/`                        |
+| —                                 | `make distclean`         | clean + remove `node_modules/`                           |
 
 `prepare` / `postinstall` apontam os hooks do Git para [`.githooks/`](.githooks/).
 
@@ -309,13 +309,13 @@ Exemplos: [`themes/padrao/`](themes/padrao/), [`themes/escuro/`](themes/escuro/)
 
 Após `npm run build`, espere em `dist/`:
 
-| Artefato | Finalidade |
-|----------|---------|
-| `editor.js` / `editor.min.js` (+ map) | Bundle ESM |
-| `editor.standalone.js` / `editor.standalone.min.js` (+ map) | IIFE (`EditorBundle`) |
-| `editor.css` / `editor.min.css` (+ map) | Estilos |
-| `types/index.d.ts` | Types TypeScript públicos |
-| `embed.html` / `embed.file.html` | Páginas de exemplo de embed |
+| Artefato                                                    | Finalidade                  |
+| ----------------------------------------------------------- | --------------------------- |
+| `editor.js` / `editor.min.js` (+ map)                       | Bundle ESM                  |
+| `editor.standalone.js` / `editor.standalone.min.js` (+ map) | IIFE (`EditorBundle`)       |
+| `editor.css` / `editor.min.css` (+ map)                     | Estilos                     |
+| `types/index.d.ts`                                          | Types TypeScript públicos   |
+| `embed.html` / `embed.file.html`                            | Páginas de exemplo de embed |
 
 Registries e CSS gerados também vão para `src/generated/` — trate-os como produtos do build.
 

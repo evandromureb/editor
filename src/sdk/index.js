@@ -32,7 +32,12 @@ export {} from './types.js'
 export { toggleMark } from '../core/operations/formatting.js'
 export { setMarkAttr, clearMarkAttr } from '../core/operations/mark-attrs.js'
 export { insertText } from '../core/operations/operations.js'
-export { insertBlock, insertBlocks, setBlockType, deleteBlockAt } from '../core/operations/blocks.js'
+export {
+  insertBlock,
+  insertBlocks,
+  setBlockType,
+  deleteBlockAt,
+} from '../core/operations/blocks.js'
 
 // Shortcut utilities
 export { parseShortcut, matchesShortcut, formatShortcut } from '../core/shortcuts/index.js'

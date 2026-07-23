@@ -5,7 +5,10 @@
 import './helpers/dom.js'
 import { describe, it, mock } from 'node:test'
 import assert from 'node:assert/strict'
-import { isEditorChromeTarget, registerChromeSelector } from '../src/ui/runtime/interaction-guard.js'
+import {
+  isEditorChromeTarget,
+  registerChromeSelector,
+} from '../src/ui/runtime/interaction-guard.js'
 import { positionElement, flipPlacement } from '../src/ui/runtime/positioning.js'
 import { SelectionMenuController } from '../src/ui/runtime/selection-menu-controller.js'
 import { createSelectItem } from '../src/ui/select/SelectItem.js'
@@ -13,7 +16,15 @@ import { createSelectTrigger } from '../src/ui/select/SelectTrigger.js'
 
 function stubRect(el, rect) {
   el.getBoundingClientRect = () => ({
-    x: 0, y: 0, top: 0, left: 0, right: 0, bottom: 0, width: 0, height: 0, ...rect,
+    x: 0,
+    y: 0,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: 0,
+    height: 0,
+    ...rect,
   })
 }
 
@@ -111,8 +122,14 @@ describe('ui/runtime/positioning', () => {
     positionElement({ anchor, element, boundary })
 
     const left = Number.parseFloat(element.style.left)
-    assert.ok(left >= 108, `left (${left}) should not be closer than the 8px margin to the boundary's left edge`)
-    assert.ok(left + 200 <= 492, `right edge (${left + 200}) should not be closer than the 8px margin to the boundary's right edge`)
+    assert.ok(
+      left >= 108,
+      `left (${left}) should not be closer than the 8px margin to the boundary's left edge`
+    )
+    assert.ok(
+      left + 200 <= 492,
+      `right edge (${left + 200}) should not be closer than the 8px margin to the boundary's right edge`
+    )
   })
 
   it('positionElement stays within the boundary even when anchor is near its left edge', () => {
@@ -128,7 +145,10 @@ describe('ui/runtime/positioning', () => {
     positionElement({ anchor, element, boundary })
 
     const left = Number.parseFloat(element.style.left)
-    assert.ok(left >= 108, `left (${left}) should not be closer than the 8px margin to the boundary's left edge`)
+    assert.ok(
+      left >= 108,
+      `left (${left}) should not be closer than the 8px margin to the boundary's left edge`
+    )
   })
 
   it('positionElement with lockPlacement never moves the popover above the anchor, shrinking it instead', () => {
@@ -148,7 +168,10 @@ describe('ui/runtime/positioning', () => {
     const top = Number.parseFloat(element.style.top)
     assert.equal(top, 184, 'top should stay pinned right below the anchor (180 + 4px offset)')
     const maxHeight = Number.parseFloat(element.style.maxHeight)
-    assert.ok(maxHeight <= 8, `maxHeight (${maxHeight}) should shrink to the remaining space below the anchor instead of flipping above it`)
+    assert.ok(
+      maxHeight <= 8,
+      `maxHeight (${maxHeight}) should shrink to the remaining space below the anchor instead of flipping above it`
+    )
   })
 
   it('flipPlacement inverts bottom→top when no space below in viewport', () => {

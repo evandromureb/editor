@@ -126,7 +126,11 @@ function createKeydownHandler(ctx) {
   return (event) => {
     if (event.key !== 'Tab') return
     if (event.ctrlKey || event.metaKey || event.altKey) return
-    if (!(document.activeElement instanceof HTMLElement) || !document.activeElement.isContentEditable) return
+    if (
+      !(document.activeElement instanceof HTMLElement) ||
+      !document.activeElement.isContentEditable
+    )
+      return
     if (!isInsideCodeBlock(ctx)) return
 
     event.preventDefault()

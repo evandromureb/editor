@@ -75,9 +75,7 @@ export class AppearanceManager {
     const legacy = resolveLegacyAppearance({ persist: this.#persist })
     const system = getSystemAppearance()
 
-    this.#appearance = normalizeAppearance(
-      options.initial ?? stored ?? legacy ?? system ?? 'light',
-    )
+    this.#appearance = normalizeAppearance(options.initial ?? stored ?? legacy ?? system ?? 'light')
     this.apply()
   }
 

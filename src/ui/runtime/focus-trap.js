@@ -24,7 +24,7 @@ export function createFocusTrap(container) {
 
   function getFocusable() {
     return [...container.querySelectorAll(FOCUSABLE)].filter(
-      (el) => el instanceof HTMLElement && el.offsetParent !== null,
+      (el) => el instanceof HTMLElement && el.offsetParent !== null
     )
   }
 

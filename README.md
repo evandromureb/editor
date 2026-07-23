@@ -39,12 +39,12 @@ npm run build        # or: make build  (discover + bundle)
 npm run dev          # HTTP server on port 3000 (override with PORT=…)
 ```
 
-| URL | What |
-|-----|------|
-| `http://localhost:3000/` | Redirects to the demo |
-| `http://localhost:3000/demo/` | Dev demo (ESM from `src/`) |
-| `http://localhost:3000/pages/` | Configuration playground (needs a prior build) |
-| `http://localhost:3000/dist/embed.html` | Bundled embed with `<wysiwyg-editor>` |
+| URL                                     | What                                           |
+| --------------------------------------- | ---------------------------------------------- |
+| `http://localhost:3000/`                | Redirects to the demo                          |
+| `http://localhost:3000/demo/`           | Dev demo (ESM from `src/`)                     |
+| `http://localhost:3000/pages/`          | Configuration playground (needs a prior build) |
+| `http://localhost:3000/dist/embed.html` | Bundled embed with `<wysiwyg-editor>`          |
 
 `make demo` is an alias for `make dev` (runs tests + lint + build, then serves). `make preview` builds and opens the dist embed page.
 
@@ -58,11 +58,11 @@ npm install @baselab/editor
 
 Package exports ([`package.json`](package.json)):
 
-| Export | Resolves to |
-|--------|-------------|
-| `@baselab/editor` | ESM: `dist/editor.min.js`; default/IIFE: `dist/editor.standalone.min.js`; types: `dist/types/index.d.ts` |
-| `@baselab/editor/style.css` | `dist/editor.min.css` |
-| `@baselab/editor/sdk` | Plugin SDK (`src/sdk/index.js`, alias `@baselab/plugin-sdk`) |
+| Export                      | Resolves to                                                                                              |
+| --------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `@baselab/editor`           | ESM: `dist/editor.min.js`; default/IIFE: `dist/editor.standalone.min.js`; types: `dist/types/index.d.ts` |
+| `@baselab/editor/style.css` | `dist/editor.min.css`                                                                                    |
+| `@baselab/editor/sdk`       | Plugin SDK (`src/sdk/index.js`, alias `@baselab/plugin-sdk`)                                             |
 
 ## Embed / usage
 
@@ -132,23 +132,23 @@ Full example: [`embed.file.html`](embed.file.html).
 
 ### Main options (`EditorOptions`)
 
-| Option | Description |
-|--------|-------------|
-| `textarea` | Source `<textarea>` element or CSS selector (required) |
-| `root` | Mount element or selector (optional; created when omitted in some flows) |
-| `preset` | Named preset: `default`, `corporate`, `minimalist` |
-| `plugins` | Plugin ids (`string[]`) or definitions |
-| `toolbar` | Toolbar layout (string or string array; see below) |
-| `theme` | Theme id (`padrao`, `escuro`, `corporate`, …) |
-| `appearance` | `'light'` or `'dark'` |
-| `locale` | `'pt'`, `'en'`, or `'es'` |
-| `width` / `height` | Editor dimensions (px) |
-| `footer` | Show status bar (default `true`) |
-| `responsive` | Responsive layout flag |
-| `fontFamily` | Default font and picker items |
-| `image` | `{ upload, maxSize, minWidth, maxWidth, minHeight, maxHeight }` for the image plugin |
-| `assetBaseUrl` | Base URL for plugin assets |
-| `persistTheme` / `persistAppearance` | Persist UI choices |
+| Option                               | Description                                                                          |
+| ------------------------------------ | ------------------------------------------------------------------------------------ |
+| `textarea`                           | Source `<textarea>` element or CSS selector (required)                               |
+| `root`                               | Mount element or selector (optional; created when omitted in some flows)             |
+| `preset`                             | Named preset: `default`, `corporate`, `minimalist`                                   |
+| `plugins`                            | Plugin ids (`string[]`) or definitions                                               |
+| `toolbar`                            | Toolbar layout (string or string array; see below)                                   |
+| `theme`                              | Theme id (`padrao`, `escuro`, `corporate`, …)                                        |
+| `appearance`                         | `'light'` or `'dark'`                                                                |
+| `locale`                             | `'pt'`, `'en'`, or `'es'`                                                            |
+| `width` / `height`                   | Editor dimensions (px)                                                               |
+| `footer`                             | Show status bar (default `true`)                                                     |
+| `responsive`                         | Responsive layout flag                                                               |
+| `fontFamily`                         | Default font and picker items                                                        |
+| `image`                              | `{ upload, maxSize, minWidth, maxWidth, minHeight, maxHeight }` for the image plugin |
+| `assetBaseUrl`                       | Base URL for plugin assets                                                           |
+| `persistTheme` / `persistAppearance` | Persist UI choices                                                                   |
 
 Types live in `dist/types/index.d.ts` after a build.
 
@@ -158,11 +158,11 @@ Types live in `dist/types/index.d.ts` after a build.
 
 Presets fill in defaults; explicit options override them.
 
-| Preset | Highlights |
-|--------|------------|
-| `default` | Locale `pt`, theme `padrao` |
-| `corporate` | Theme `corporate`, locale `es`, fixed size, small plugin set |
-| `minimalist` | Only `bold` / `italic` |
+| Preset       | Highlights                                                   |
+| ------------ | ------------------------------------------------------------ |
+| `default`    | Locale `pt`, theme `padrao`                                  |
+| `corporate`  | Theme `corporate`, locale `es`, fixed size, small plugin set |
+| `minimalist` | Only `bold` / `italic`                                       |
 
 ```js
 createEditor({
@@ -195,26 +195,26 @@ toolbar: [
 
 ### Built-in plugins
 
-| Id | Role |
-|----|------|
-| `bold`, `italic`, `underline` | Inline marks |
-| `subscript`, `superscript` | Script marks |
-| `highlight`, `text-color`, `text-align` | Color / alignment |
-| `font-family`, `font-size`, `paragraph` | Typography |
-| `bullet-list`, `numbered-list`, `task-list` | Lists |
-| `quote`, `hr`, `code-block`, `link`, `image` | Blocks / media |
-| `undo`, `redo`, `clear-formatting` | History / cleanup |
+| Id                                           | Role              |
+| -------------------------------------------- | ----------------- |
+| `bold`, `italic`, `underline`                | Inline marks      |
+| `subscript`, `superscript`                   | Script marks      |
+| `highlight`, `text-color`, `text-align`      | Color / alignment |
+| `font-family`, `font-size`, `paragraph`      | Typography        |
+| `bullet-list`, `numbered-list`, `task-list`  | Lists             |
+| `quote`, `hr`, `code-block`, `link`, `image` | Blocks / media    |
+| `undo`, `redo`, `clear-formatting`           | History / cleanup |
 
 ## Repository map
 
-| Path | Role |
-|------|------|
-| `src/` | Editor core, embed, SDK, shared UI |
-| `plugins/` | Feature plugins |
-| `themes/` | Theme packages |
-| `pages/`, `demo/` | Config playground and demo |
-| `scripts/` | Discovery, build, dist validation |
-| `tests/` | Test suite |
+| Path                                 | Role                                    |
+| ------------------------------------ | --------------------------------------- |
+| `src/`                               | Editor core, embed, SDK, shared UI      |
+| `plugins/`                           | Feature plugins                         |
+| `themes/`                            | Theme packages                          |
+| `pages/`, `demo/`                    | Config playground and demo              |
+| `scripts/`                           | Discovery, build, dist validation       |
+| `tests/`                             | Test suite                              |
 | `dist/`, `.build/`, `src/generated/` | Generated outputs — do not edit by hand |
 
 Agent-oriented guidance: [`AGENTS.md`](AGENTS.md). Domain skills live under [`.cursor/skills/`](.cursor/skills/).
@@ -287,21 +287,21 @@ Examples: [`themes/padrao/`](themes/padrao/), [`themes/escuro/`](themes/escuro/)
 
 ## Scripts and Make
 
-| npm | Make | Description |
-|-----|------|-------------|
-| `npm install` | `make install` | Install dependencies |
-| `npm run discover` | `make discover` | Generate `src/generated/` |
-| `npm run build` | `make build` | Discover + bundle `dist/` |
-| `npm run dev` | — | Dev HTTP server (port `3000` / `PORT`) |
-| — | `make dev` / `make demo` | test → lint → build → server |
-| — | `make preview` | build + serve dist embed |
-| `npm run lint` | `make lint` | ESLint |
-| `npm run typecheck` | — | TypeScript `--noEmit` |
-| `npm test` | `make test` | Node test runner (`tests/**/*.test.js`) |
-| `npm run validate:dist` | — | Assert required dist artifacts |
-| `npm run prepush` / `npm run fix` | `make fix` | lint + typecheck + test + build + validate |
-| — | `make clean` | Remove `dist/` and `src/generated/` |
-| — | `make distclean` | clean + remove `node_modules/` |
+| npm                               | Make                     | Description                                |
+| --------------------------------- | ------------------------ | ------------------------------------------ |
+| `npm install`                     | `make install`           | Install dependencies                       |
+| `npm run discover`                | `make discover`          | Generate `src/generated/`                  |
+| `npm run build`                   | `make build`             | Discover + bundle `dist/`                  |
+| `npm run dev`                     | —                        | Dev HTTP server (port `3000` / `PORT`)     |
+| —                                 | `make dev` / `make demo` | test → lint → build → server               |
+| —                                 | `make preview`           | build + serve dist embed                   |
+| `npm run lint`                    | `make lint`              | ESLint                                     |
+| `npm run typecheck`               | —                        | TypeScript `--noEmit`                      |
+| `npm test`                        | `make test`              | Node test runner (`tests/**/*.test.js`)    |
+| `npm run validate:dist`           | —                        | Assert required dist artifacts             |
+| `npm run prepush` / `npm run fix` | `make fix`               | lint + typecheck + test + build + validate |
+| —                                 | `make clean`             | Remove `dist/` and `src/generated/`        |
+| —                                 | `make distclean`         | clean + remove `node_modules/`             |
 
 `prepare` / `postinstall` point Git hooks at [`.githooks/`](.githooks/).
 
@@ -309,13 +309,13 @@ Examples: [`themes/padrao/`](themes/padrao/), [`themes/escuro/`](themes/escuro/)
 
 After `npm run build`, expect under `dist/`:
 
-| Artifact | Purpose |
-|----------|---------|
-| `editor.js` / `editor.min.js` (+ map) | ESM bundle |
-| `editor.standalone.js` / `editor.standalone.min.js` (+ map) | IIFE (`EditorBundle`) |
-| `editor.css` / `editor.min.css` (+ map) | Styles |
-| `types/index.d.ts` | Public TypeScript types |
-| `embed.html` / `embed.file.html` | Sample embed pages |
+| Artifact                                                    | Purpose                 |
+| ----------------------------------------------------------- | ----------------------- |
+| `editor.js` / `editor.min.js` (+ map)                       | ESM bundle              |
+| `editor.standalone.js` / `editor.standalone.min.js` (+ map) | IIFE (`EditorBundle`)   |
+| `editor.css` / `editor.min.css` (+ map)                     | Styles                  |
+| `types/index.d.ts`                                          | Public TypeScript types |
+| `embed.html` / `embed.file.html`                            | Sample embed pages      |
 
 Generated registries and CSS also land in `src/generated/` — treat them as build products.
 
