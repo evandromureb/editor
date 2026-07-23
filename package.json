@@ -1,6 +1,6 @@
 {
   "name": "baselabeditor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Modular WYSIWYG editor with a plugin-based architecture, embeddable via ESM, custom element, or IIFE.",
   "keywords": [
