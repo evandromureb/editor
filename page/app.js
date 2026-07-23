@@ -754,8 +754,9 @@ function currentConfig() {
 // EditorOptions` in src/editor/index.js and the theme/appearance managers)
 // with a trailing comment flagging it as such, so the snippet stays
 // copy-pasteable while still documenting the full option surface.
-const OTHER_OPTIONS_CODE = `    theme: 'padrao', // valor padrão
-    persistTheme: false, // valor padrão
+const OTHER_OPTIONS_CODE = `
+    theme: 'padrao', // valor padrão
+    persistTheme: true, // valor padrão
     appearance: 'light', // valor padrão (segue a preferência do sistema)
     persistAppearance: false, // valor padrão
     width: 500, // valor padrão (sem largura fixa)
