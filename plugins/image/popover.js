@@ -97,7 +97,9 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
     alignBtn.innerHTML = ALIGN_ICONS[value]
     alignBtn.addEventListener('click', () => {
       ctx.execCommand('image.update', { blockIndex, patch: { align: value } })
-      toolsRow.querySelectorAll('.editor__image-align-btn').forEach((btn) => btn.classList.remove('is-active'))
+      toolsRow
+        .querySelectorAll('.editor__image-align-btn')
+        .forEach((btn) => btn.classList.remove('is-active'))
       alignBtn.classList.add('is-active')
     })
     toolsRow.appendChild(alignBtn)
@@ -120,7 +122,9 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
   widthRange.type = 'range'
   widthRange.min = String(sizeLimits.minWidth)
   widthRange.max = String(sizeLimits.maxWidth)
-  widthRange.value = String(clampSize(naturalWidth || 300, sizeLimits.minWidth, sizeLimits.maxWidth))
+  widthRange.value = String(
+    clampSize(naturalWidth || 300, sizeLimits.minWidth, sizeLimits.maxWidth)
+  )
   widthRange.className = 'editor__image-range'
   root.appendChild(widthRange)
 
@@ -136,7 +140,11 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
   const heightNumber = ctx.ui.Input({
     type: 'number',
     value: String(
-      clampSize(naturalHeight || Math.round(Number(widthRange.value) / (aspect || 1)), sizeLimits.minHeight, sizeLimits.maxHeight),
+      clampSize(
+        naturalHeight || Math.round(Number(widthRange.value) / (aspect || 1)),
+        sizeLimits.minHeight,
+        sizeLimits.maxHeight
+      )
     ),
     className: 'editor__image-input editor__image-input--number',
   })
@@ -153,7 +161,11 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
     width = clampSize(width, sizeLimits.minWidth, sizeLimits.maxWidth)
     const patch = { width: String(width) }
     if (keepAspectInput.checked && aspect) {
-      const height = clampSize(Math.round(width / aspect), sizeLimits.minHeight, sizeLimits.maxHeight)
+      const height = clampSize(
+        Math.round(width / aspect),
+        sizeLimits.minHeight,
+        sizeLimits.maxHeight
+      )
       heightNumber.value = String(height)
       patch.height = String(height)
     }
@@ -190,7 +202,11 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
   const titleLabel = document.createElement('span')
   titleLabel.className = 'editor__image-label'
   titleLabel.textContent = ctx.t('image.title')
-  const titleInput = ctx.ui.Input({ type: 'text', value: attrs.title ?? '', className: 'editor__image-input' })
+  const titleInput = ctx.ui.Input({
+    type: 'text',
+    value: attrs.title ?? '',
+    className: 'editor__image-input',
+  })
   titleInput.addEventListener('input', () => {
     ctx.execCommand('image.update', { blockIndex, patch: { title: titleInput.value } })
   })
@@ -202,7 +218,11 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
   const captionLabel = document.createElement('span')
   captionLabel.className = 'editor__image-label'
   captionLabel.textContent = ctx.t('image.caption')
-  const captionInput = ctx.ui.Input({ type: 'text', value: block.caption ?? '', className: 'editor__image-input' })
+  const captionInput = ctx.ui.Input({
+    type: 'text',
+    value: block.caption ?? '',
+    className: 'editor__image-input',
+  })
   captionInput.addEventListener('input', () => {
     ctx.execCommand('image.update', { blockIndex, patch: { caption: captionInput.value } })
   })

@@ -20,7 +20,7 @@ describe('resolvePluginAssetUrl', () => {
   it('respects explicit assetBaseUrl', () => {
     const url = resolvePluginAssetUrl(
       'plugins/bold/icons/bold.svg',
-      'https://cdn.example.com/assets/',
+      'https://cdn.example.com/assets/'
     )
     assert.equal(url, 'https://cdn.example.com/assets/plugins/bold/icons/bold.svg')
   })

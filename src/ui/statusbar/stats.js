@@ -11,7 +11,11 @@ import { getBlockContent } from '../../core/document/block-utils.js'
  */
 export function computeStats(doc, selection, paragraphLabel = 'P') {
   const text = doc.content
-    .map((block) => getBlockContent(block).map((node) => node.text).join(''))
+    .map((block) =>
+      getBlockContent(block)
+        .map((node) => node.text)
+        .join('')
+    )
     .join('\n')
   const trimmed = text.trim()
   const words = trimmed ? trimmed.split(/\s+/).length : 0

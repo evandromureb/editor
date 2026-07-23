@@ -10,7 +10,11 @@ import { dispatchOperation } from '../src/editor/dispatch.js'
 import { handleEditorContextMenu } from '../src/editor/events.js'
 import { refreshEditorUi } from '../src/editor/refresh.js'
 import { createToolbarItemPluginMap, getFilteredToolbarEntries } from '../src/editor/toolbar.js'
-import { importHtmlSource, handleHtmlSourceKeyDown, applyEditorMode } from '../src/editor/html-mode.js'
+import {
+  importHtmlSource,
+  handleHtmlSourceKeyDown,
+  applyEditorMode,
+} from '../src/editor/html-mode.js'
 import { mark } from '../src/sdk/helpers.js'
 import { createEditorPluginContext } from '../src/editor/plugin-context.js'
 import { History } from '../src/core/history/history.js'
@@ -59,15 +63,21 @@ describe('editor/lifecycle', () => {
 
 describe('editor/dispatch', () => {
   it('writes transaction and applies new state when operation changes state', () => {
-    const before = { doc: { type: 'doc', content: [] }, selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } } }
-    const after = { doc: { type: 'doc', content: [{ type: 'paragraph', content: [] }] }, selection: before.selection }
+    const before = {
+      doc: { type: 'doc', content: [] },
+      selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } },
+    }
+    const after = {
+      doc: { type: 'doc', content: [{ type: 'paragraph', content: [] }] },
+      selection: before.selection,
+    }
     const history = new History()
     const applyState = mock.fn()
 
     dispatchOperation(
       { getState: () => before, registries: {}, history, applyState },
       () => after,
-      [],
+      []
     )
 
     assert.equal(applyState.mock.callCount(), 1)
@@ -76,29 +86,34 @@ describe('editor/dispatch', () => {
   })
 
   it('does not write transaction or apply state when before === after (statesEqual)', () => {
-    const state = { doc: { type: 'doc', content: [] }, selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } } }
+    const state = {
+      doc: { type: 'doc', content: [] },
+      selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } },
+    }
     const history = new History()
     const applyState = mock.fn()
 
-    dispatchOperation(
-      { getState: () => state, registries: {}, history, applyState },
-      (s) => s,
-      [],
-    )
+    dispatchOperation({ getState: () => state, registries: {}, history, applyState }, (s) => s, [])
 
     assert.equal(applyState.mock.callCount(), 0)
     assert.equal(history.canUndo(), false)
   })
 
   it('forwards extra arguments to the operation', () => {
-    const state = { doc: { type: 'doc', content: [] }, selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } } }
+    const state = {
+      doc: { type: 'doc', content: [] },
+      selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } },
+    }
     const history = new History()
-    const operation = mock.fn((s, _registries, text) => ({ ...s, doc: { ...s.doc, content: [text] } }))
+    const operation = mock.fn((s, _registries, text) => ({
+      ...s,
+      doc: { ...s.doc, content: [text] },
+    }))
 
     dispatchOperation(
       { getState: () => state, registries: { r: 1 }, history, applyState: () => {} },
       operation,
-      ['hello'],
+      ['hello']
     )
 
     assert.equal(operation.mock.calls[0].arguments[2], 'hello')
@@ -142,17 +157,22 @@ describe('editor/events (context menu)', () => {
 describe('editor/refresh', () => {
   it('refreshEditorUi only refreshes toolbar, modes and statusbar', () => {
     const calls = []
-    const toolbar = { relocalize: () => calls.push('toolbar.relocalize'), refresh: () => calls.push('toolbar.refresh') }
-    const modes = { relocalize: () => calls.push('modes.relocalize'), refresh: () => calls.push('modes.refresh') }
-    const statusbar = { relocalize: () => calls.push('statusbar.relocalize'), refresh: () => calls.push('statusbar.refresh') }
+    const toolbar = {
+      relocalize: () => calls.push('toolbar.relocalize'),
+      refresh: () => calls.push('toolbar.refresh'),
+    }
+    const modes = {
+      relocalize: () => calls.push('modes.relocalize'),
+      refresh: () => calls.push('modes.refresh'),
+    }
+    const statusbar = {
+      relocalize: () => calls.push('statusbar.relocalize'),
+      refresh: () => calls.push('statusbar.refresh'),
+    }
 
     refreshEditorUi({ toolbar, modes, statusbar })
 
-    assert.deepEqual(calls, [
-      'toolbar.refresh',
-      'statusbar.refresh',
-      'modes.refresh',
-    ])
+    assert.deepEqual(calls, ['toolbar.refresh', 'statusbar.refresh', 'modes.refresh'])
   })
 })
 
@@ -171,14 +191,19 @@ describe('editor/toolbar', () => {
   })
 
   it('createToolbarItemPluginMap ignores separators (no id)', () => {
-    const plugins = [{ id: 'hr', capabilities: { toolbar: [{ type: 'separator' }, { id: 'hr', type: 'item' }] } }]
+    const plugins = [
+      { id: 'hr', capabilities: { toolbar: [{ type: 'separator' }, { id: 'hr', type: 'item' }] } },
+    ]
     const map = createToolbarItemPluginMap(plugins)
     assert.equal(map.size, 1)
     assert.equal(map.get('hr'), 'hr')
   })
 
   it('getFilteredToolbarEntries without layout returns all entries in one line', () => {
-    const entries = [{ type: 'item', item: { id: 'bold' } }, { type: 'item', item: { id: 'italic' } }]
+    const entries = [
+      { type: 'item', item: { id: 'bold' } },
+      { type: 'item', item: { id: 'italic' } },
+    ]
     const plugins = { getToolbarEntries: () => entries }
 
     const result = getFilteredToolbarEntries({ plugins, layout: [], itemPluginMap: new Map() })
@@ -192,7 +217,11 @@ describe('editor/toolbar', () => {
     ]
     const plugins = { getToolbarEntries: () => entries }
 
-    const result = getFilteredToolbarEntries({ plugins, layout: [['bold', '|', 'italic']], itemPluginMap: new Map() })
+    const result = getFilteredToolbarEntries({
+      plugins,
+      layout: [['bold', '|', 'italic']],
+      itemPluginMap: new Map(),
+    })
 
     assert.equal(result.length, 1)
     assert.equal(result[0].length, 3)
@@ -258,8 +287,14 @@ describe('editor/html-mode', () => {
     const applyState = mock.fn()
     const history = new History()
 
-    const before = { doc: { type: 'doc', content: [] }, selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } } }
-    const newDoc = { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'ok' }] }] }
+    const before = {
+      doc: { type: 'doc', content: [] },
+      selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } },
+    }
+    const newDoc = {
+      type: 'doc',
+      content: [{ type: 'paragraph', content: [{ type: 'text', text: 'ok' }] }],
+    }
 
     const ok = importHtmlSource({
       htmlSource,
@@ -279,7 +314,11 @@ describe('editor/html-mode', () => {
 
   it('handleHtmlSourceKeyDown ignores when mode is not html', () => {
     const undo = mock.fn()
-    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'z', ctrlKey: true }), { mode: 'editor', undo, redo: () => {} })
+    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'z', ctrlKey: true }), {
+      mode: 'editor',
+      undo,
+      redo: () => {},
+    })
     assert.equal(undo.mock.callCount(), 0)
   })
 
@@ -287,19 +326,34 @@ describe('editor/html-mode', () => {
     const undo = mock.fn()
     const redo = mock.fn()
 
-    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'z', ctrlKey: true }), { mode: 'html', undo, redo })
+    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'z', ctrlKey: true }), {
+      mode: 'html',
+      undo,
+      redo,
+    })
     assert.equal(undo.mock.callCount(), 1)
 
-    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'z', ctrlKey: true, shiftKey: true }), { mode: 'html', undo, redo })
+    handleHtmlSourceKeyDown(
+      new KeyboardEvent('keydown', { key: 'z', ctrlKey: true, shiftKey: true }),
+      { mode: 'html', undo, redo }
+    )
     assert.equal(redo.mock.callCount(), 1)
 
-    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'y', ctrlKey: true }), { mode: 'html', undo, redo })
+    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'y', ctrlKey: true }), {
+      mode: 'html',
+      undo,
+      redo,
+    })
     assert.equal(redo.mock.callCount(), 2)
   })
 
   it('handleHtmlSourceKeyDown ignores when no mod modifier', () => {
     const undo = mock.fn()
-    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'z' }), { mode: 'html', undo, redo: () => {} })
+    handleHtmlSourceKeyDown(new KeyboardEvent('keydown', { key: 'z' }), {
+      mode: 'html',
+      undo,
+      redo: () => {},
+    })
     assert.equal(undo.mock.callCount(), 0)
   })
 
@@ -364,7 +418,9 @@ describe('editor/html-mode', () => {
     const htmlSource = document.createElement('textarea')
     const preview = document.createElement('div')
     const registries = createTestRegistries()
-    registries.marks.registerMark(mark('link', { tag: 'a', parseTags: ['a'], attrs: ['href'], priority: -1 }))
+    registries.marks.registerMark(
+      mark('link', { tag: 'a', parseTags: ['a'], attrs: ['href'], priority: -1 })
+    )
 
     applyEditorMode({
       mode: 'view',

@@ -110,7 +110,8 @@ export class PluginUiRuntime {
     })
 
     if (opts.anchor) {
-      const handler = () => positionElement({ anchor: opts.anchor, element: opts.element, boundary: this.#boundary })
+      const handler = () =>
+        positionElement({ anchor: opts.anchor, element: opts.element, boundary: this.#boundary })
       handler()
       window.addEventListener('scroll', handler, true)
       window.addEventListener('resize', handler)
@@ -244,10 +245,22 @@ export class PluginUiRuntime {
     const placement = opts.lockPlacement
       ? preferredPlacement
       : flipPlacement(opts.anchor, popover, preferredPlacement, boundary)
-    positionElement({ anchor: opts.anchor, element: popover, placement, boundary, lockPlacement: opts.lockPlacement })
+    positionElement({
+      anchor: opts.anchor,
+      element: popover,
+      placement,
+      boundary,
+      lockPlacement: opts.lockPlacement,
+    })
 
     const handler = () =>
-      positionElement({ anchor: opts.anchor, element: popover, placement, boundary, lockPlacement: opts.lockPlacement })
+      positionElement({
+        anchor: opts.anchor,
+        element: popover,
+        placement,
+        boundary,
+        lockPlacement: opts.lockPlacement,
+      })
     window.addEventListener('scroll', handler, true)
     window.addEventListener('resize', handler)
     this.#repositionHandlers.set(opts.id, () => {

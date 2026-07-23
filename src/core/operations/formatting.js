@@ -30,13 +30,9 @@ export function toggleMark(state, registries, mark) {
   }
 
   const from =
-    a.block < b.block || (a.block === b.block && a.offset <= b.offset)
-      ? { ...a }
-      : { ...b }
+    a.block < b.block || (a.block === b.block && a.offset <= b.offset) ? { ...a } : { ...b }
   const to =
-    a.block < b.block || (a.block === b.block && a.offset <= b.offset)
-      ? { ...b }
-      : { ...a }
+    a.block < b.block || (a.block === b.block && a.offset <= b.offset) ? { ...b } : { ...a }
 
   return {
     ...state,

@@ -12,10 +12,7 @@ describe('history', () => {
   const registries = createTestRegistries()
 
   function tx(labelA, labelB) {
-    return createTransaction(
-      stateWithText(labelA, registries),
-      stateWithText(labelB, registries),
-    )
+    return createTransaction(stateWithText(labelA, registries), stateWithText(labelB, registries))
   }
 
   it('record and undo return previous transaction', () => {

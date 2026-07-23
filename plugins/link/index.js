@@ -4,7 +4,14 @@
  * wraps text in a real `<a>` tag carrying href/target/rel/title attributes.
  */
 
-import { definePlugin, mark, command, toolbarItem, setMarkAttr, clearMarkAttr } from '@baselab/plugin-sdk'
+import {
+  definePlugin,
+  mark,
+  command,
+  toolbarItem,
+  setMarkAttr,
+  clearMarkAttr,
+} from '@baselab/plugin-sdk'
 
 /** @typedef {import('@baselab/plugin-sdk').PluginContext} PluginContext */
 
@@ -186,7 +193,9 @@ const applyLink = command((state, registries, payload) => {
       if (i < run.startIndex || i > run.endIndex) return node
       return { ...node, markAttrs: { ...(node.markAttrs ?? {}), [MARK_NAME]: json } }
     })
-    const content = doc.content.map((b, i) => (i === blockIndex ? { ...block, content: newContent } : b))
+    const content = doc.content.map((b, i) =>
+      i === blockIndex ? { ...block, content: newContent } : b
+    )
     return { ...state, doc: { ...doc, content } }
   }
 
@@ -194,7 +203,9 @@ const applyLink = command((state, registries, payload) => {
   const [before, after] = splitContentAt(block.content, selection.anchor.offset)
   const newNode = { type: 'text', text, marks: [MARK_NAME], markAttrs: { [MARK_NAME]: json } }
   const newContent = [...before, newNode, ...after]
-  const content = doc.content.map((b, i) => (i === blockIndex ? { ...block, content: newContent } : b))
+  const content = doc.content.map((b, i) =>
+    i === blockIndex ? { ...block, content: newContent } : b
+  )
   const newOffset = selection.anchor.offset + text.length
 
   return {
@@ -228,7 +239,9 @@ const removeLink = command((state, registries) => {
     delete markAttrs[MARK_NAME]
     return { ...node, marks, markAttrs }
   })
-  const content = doc.content.map((b, i) => (i === blockIndex ? { ...block, content: newContent } : b))
+  const content = doc.content.map((b, i) =>
+    i === blockIndex ? { ...block, content: newContent } : b
+  )
 
   return { ...state, doc: { ...doc, content } }
 })

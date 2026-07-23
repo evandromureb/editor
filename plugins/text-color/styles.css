@@ -59,7 +59,9 @@
 
 /* Active swatch — accent ring */
 .editor__text-color-swatch.is-active {
-  box-shadow: 0 0 0 2px var(--editor-popover-bg, #fff), 0 0 0 4px var(--editor-accent);
+  box-shadow:
+    0 0 0 2px var(--editor-popover-bg, #fff),
+    0 0 0 4px var(--editor-accent);
 }
 
 /* Divider between swatches and custom button */

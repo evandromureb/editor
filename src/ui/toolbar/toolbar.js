@@ -41,13 +41,13 @@ export class Toolbar {
     for (const id of ids) {
       this.#items.delete(id)
     }
-    const sep = [...this.#root.querySelectorAll('[data-separator-id]')].filter(
-      (el) => ids.includes(el.dataset.separatorId ?? ''),
+    const sep = [...this.#root.querySelectorAll('[data-separator-id]')].filter((el) =>
+      ids.includes(el.dataset.separatorId ?? '')
     )
     for (const s of sep) s.remove()
     for (const id of ids) {
       const btn = this.#root.querySelector(
-        `.editor__toolbar-btn--${id}, .editor__toolbar-widget--${id}`,
+        `.editor__toolbar-btn--${id}, .editor__toolbar-widget--${id}`
       )
       btn?.remove()
     }
@@ -209,13 +209,14 @@ export class Toolbar {
     }
 
     return new Map(
-      [...groups.entries()].sort(
-        ([a], [b]) => {
-          const aIndex = groupOrder.indexOf(a)
-          const bIndex = groupOrder.indexOf(b)
-          return (aIndex === -1 ? groupOrder.length : aIndex) - (bIndex === -1 ? groupOrder.length : bIndex)
-        }
-      )
+      [...groups.entries()].sort(([a], [b]) => {
+        const aIndex = groupOrder.indexOf(a)
+        const bIndex = groupOrder.indexOf(b)
+        return (
+          (aIndex === -1 ? groupOrder.length : aIndex) -
+          (bIndex === -1 ? groupOrder.length : bIndex)
+        )
+      })
     )
   }
 }

@@ -207,7 +207,7 @@ export class Statusbar {
 
     if (this.#getMode() === 'html') {
       this.#statsEl.textContent = this.#formatStats(
-        computeHtmlStats(this.#getHtmlSource(), paragraphLabel),
+        computeHtmlStats(this.#getHtmlSource(), paragraphLabel)
       )
       return
     }

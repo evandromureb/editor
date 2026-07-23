@@ -18,7 +18,12 @@ describe('shortcuts', () => {
     })
 
     it('recognizes shift', () => {
-      assert.deepEqual(parseShortcut('mod+shift+z'), { mod: true, shift: true, alt: false, key: 'z' })
+      assert.deepEqual(parseShortcut('mod+shift+z'), {
+        mod: true,
+        shift: true,
+        alt: false,
+        key: 'z',
+      })
     })
 
     it('recognizes alt and option as aliases', () => {
@@ -39,7 +44,12 @@ describe('shortcuts', () => {
     // leaving the final key empty instead of '+'. parseShortcut now recognizes
     // the '++' suffix as the literal '+' key (used by plugins/superscript).
     it('recognizes literal "+" key when shortcut ends with "++"', () => {
-      assert.deepEqual(parseShortcut('mod+shift++'), { mod: true, shift: true, alt: false, key: '+' })
+      assert.deepEqual(parseShortcut('mod+shift++'), {
+        mod: true,
+        shift: true,
+        alt: false,
+        key: '+',
+      })
     })
 
     it('recognizes "+" shortcut alone without modifiers', () => {
@@ -51,7 +61,12 @@ describe('shortcuts', () => {
     })
 
     it('without modifiers returns all false', () => {
-      assert.deepEqual(parseShortcut('escape'), { mod: false, shift: false, alt: false, key: 'escape' })
+      assert.deepEqual(parseShortcut('escape'), {
+        mod: false,
+        shift: false,
+        alt: false,
+        key: 'escape',
+      })
     })
   })
 
@@ -73,7 +88,10 @@ describe('shortcuts', () => {
     })
 
     it('does not match if unexpected shift modifier is present', () => {
-      assert.equal(matchesShortcut(keyEvent({ key: 'b', ctrlKey: true, shiftKey: true }), 'mod+b'), false)
+      assert.equal(
+        matchesShortcut(keyEvent({ key: 'b', ctrlKey: true, shiftKey: true }), 'mod+b'),
+        false
+      )
     })
 
     it('does not match if key is different', () => {
@@ -95,7 +113,7 @@ describe('shortcuts', () => {
     it('matches superscript alternate shortcut (mod+shift++) with real "+" key', () => {
       assert.equal(
         matchesShortcut(keyEvent({ key: '+', ctrlKey: true, shiftKey: true }), 'mod+shift++'),
-        true,
+        true
       )
     })
   })

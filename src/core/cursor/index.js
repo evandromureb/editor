@@ -2,15 +2,17 @@
  * @file Cursor module public API — selection, position, DOM mapping, and hit-testing.
  */
 
-export {
-  createSelection,
-  isCollapsed,
-  normalize,
-  collapseTo,
-  getDirection,
-} from './selection.js'
+export { createSelection, isCollapsed, normalize, collapseTo, getDirection } from './selection.js'
 
-export { comparePos, isSamePos, minPos, maxPos, posAtBlockStart, posAtBlockEnd, clampPos } from './pos.js'
+export {
+  comparePos,
+  isSamePos,
+  minPos,
+  maxPos,
+  posAtBlockStart,
+  posAtBlockEnd,
+  clampPos,
+} from './pos.js'
 
 export { createRange, isEmptyRange } from './range.js'
 

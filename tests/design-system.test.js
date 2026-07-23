@@ -215,7 +215,10 @@ describe('design-system/textarea', () => {
 describe('design-system/select (native)', () => {
   it('populates options and applies initial value', () => {
     const select = createSelect({
-      options: [{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }],
+      options: [
+        { value: 'a', label: 'A' },
+        { value: 'b', label: 'B' },
+      ],
       value: 'b',
     })
     assert.equal(select.options.length, 2)

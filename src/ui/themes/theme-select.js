@@ -74,7 +74,7 @@ export class ThemeSelect {
           value: theme.id,
           label: translated !== key ? translated : theme.label,
         }
-      }),
+      })
     )
     this.sync()
   }

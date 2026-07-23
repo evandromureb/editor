@@ -57,7 +57,11 @@ export default definePlugin({
         leading: [
           {
             tag: 'input',
-            fixedAttrs: { type: 'checkbox', 'data-task-checkbox': 'true', contenteditable: 'false' },
+            fixedAttrs: {
+              type: 'checkbox',
+              'data-task-checkbox': 'true',
+              contenteditable: 'false',
+            },
           },
         ],
         tabCommand: 'task-list.indent',

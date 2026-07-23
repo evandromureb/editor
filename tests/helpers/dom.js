@@ -23,7 +23,10 @@ globalThis.NodeFilter = window.NodeFilter ?? {
 // no upstream fix available. Patch a setter so select.value = x works like
 // in a real browser, matching the behavior production code relies on.
 if (typeof window.HTMLSelectElement === 'function') {
-  const valueDescriptor = Object.getOwnPropertyDescriptor(window.HTMLSelectElement.prototype, 'value')
+  const valueDescriptor = Object.getOwnPropertyDescriptor(
+    window.HTMLSelectElement.prototype,
+    'value'
+  )
   if (valueDescriptor && !valueDescriptor.set) {
     Object.defineProperty(window.HTMLSelectElement.prototype, 'value', {
       configurable: true,
@@ -111,7 +114,7 @@ globalThis.DOMParser = class DOMParser {
   parseFromString(html, type) {
     if (type === 'text/html') {
       const { document } = parseHTML(
-        `<!DOCTYPE html><html><head></head><body>${html}</body></html>`,
+        `<!DOCTYPE html><html><head></head><body>${html}</body></html>`
       )
       return document
     }
@@ -169,7 +172,10 @@ class TestRange {
   }
 
   toString() {
-    if (this.startContainer === this.endContainer && this.startContainer.nodeType === Node.TEXT_NODE) {
+    if (
+      this.startContainer === this.endContainer &&
+      this.startContainer.nodeType === Node.TEXT_NODE
+    ) {
       const text = this.startContainer.textContent ?? ''
       return text.slice(this.startOffset, this.endOffset)
     }

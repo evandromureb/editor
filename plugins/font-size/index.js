@@ -55,7 +55,7 @@ function resolveConfig(config) {
     (item) => ({
       label: item.label,
       value: item.value,
-    }),
+    })
   )
 
   return {

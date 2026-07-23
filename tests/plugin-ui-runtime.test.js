@@ -85,7 +85,16 @@ describe('PluginUiRuntime', () => {
   it('openPopover clamps to the runtime default boundary', () => {
     const boundary = document.createElement('div')
     root.appendChild(boundary)
-    boundary.getBoundingClientRect = () => ({ left: 0, right: 200, top: 0, bottom: 400, width: 200, height: 400, x: 0, y: 0 })
+    boundary.getBoundingClientRect = () => ({
+      left: 0,
+      right: 200,
+      top: 0,
+      bottom: 400,
+      width: 200,
+      height: 400,
+      x: 0,
+      y: 0,
+    })
 
     const runtime = createRuntimeWithBoundary(boundary)
 
@@ -93,7 +102,16 @@ describe('PluginUiRuntime', () => {
     root.appendChild(anchor)
     // Anchored far past the boundary's right edge (e.g. a toolbar button
     // near the editor's own right edge, outside a narrower content pane).
-    anchor.getBoundingClientRect = () => ({ left: 300, right: 330, top: 10, bottom: 30, width: 30, height: 20, x: 300, y: 10 })
+    anchor.getBoundingClientRect = () => ({
+      left: 300,
+      right: 330,
+      top: 10,
+      bottom: 30,
+      width: 30,
+      height: 20,
+      x: 300,
+      y: 10,
+    })
 
     runtime.openPopover('my-plugin', { id: 'pop-2', anchor, content: 'popover' })
     const popover = overlayRoot.querySelector('[role="dialog"]')

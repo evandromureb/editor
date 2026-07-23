@@ -32,7 +32,10 @@ const historyCalls = { undo: 0, redo: 0, canUndo: true, canRedo: true }
 
 function mockCtx() {
   return {
-    getState: () => ({ doc: { type: 'doc', content: [] }, selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } } }),
+    getState: () => ({
+      doc: { type: 'doc', content: [] },
+      selection: { anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } },
+    }),
     selection: () => ({ anchor: { block: 0, offset: 0 }, focus: { block: 0, offset: 0 } }),
     getMode: () => 'editor',
     getActiveMarks: () => [],
@@ -47,8 +50,12 @@ function mockCtx() {
     ui: {},
     services: {
       history: {
-        undo: () => { historyCalls.undo += 1 },
-        redo: () => { historyCalls.redo += 1 },
+        undo: () => {
+          historyCalls.undo += 1
+        },
+        redo: () => {
+          historyCalls.redo += 1
+        },
         canUndo: () => historyCalls.canUndo,
         canRedo: () => historyCalls.canRedo,
       },
@@ -87,7 +94,10 @@ describe('Real plugins (plugins/*/index.js)', () => {
       const i18n = new I18n({ locale: 'pt' })
       const runtime = new PluginRuntime({ registries, i18n })
 
-      assert.doesNotThrow(() => runtime.register(loaded.get(id), mockCtx()), `registration of ${id} should not throw`)
+      assert.doesNotThrow(
+        () => runtime.register(loaded.get(id), mockCtx()),
+        `registration of ${id} should not throw`
+      )
       assert.ok(runtime.has(id))
     }
   })
@@ -110,7 +120,10 @@ describe('Real plugins (plugins/*/index.js)', () => {
       const runtime = new PluginRuntime({ registries, i18n: new I18n({ locale: 'pt' }) })
       runtime.register(loaded.get(pluginId), mockCtx())
 
-      assert.ok(registries.marks.getMarkByName(markName), `${pluginId} should register mark "${markName}"`)
+      assert.ok(
+        registries.marks.getMarkByName(markName),
+        `${pluginId} should register mark "${markName}"`
+      )
     }
   })
 
@@ -135,7 +148,9 @@ describe('Real plugins (plugins/*/index.js)', () => {
   })
 
   it('each plugin with toolbar exposes at least 1 toolbar item', () => {
-    const withToolbar = PLUGIN_IDS.filter((id) => (loaded.get(id).capabilities.toolbar ?? []).length > 0)
+    const withToolbar = PLUGIN_IDS.filter(
+      (id) => (loaded.get(id).capabilities.toolbar ?? []).length > 0
+    )
     assert.ok(withToolbar.length > 0)
 
     for (const id of withToolbar) {
@@ -235,7 +250,10 @@ describe('Real plugins (plugins/*/index.js)', () => {
     const ctx = mockCtx()
 
     for (const id of PLUGIN_IDS) {
-      assert.doesNotThrow(() => runtime.register(loaded.get(id), ctx), `${id} should register together with others without collision`)
+      assert.doesNotThrow(
+        () => runtime.register(loaded.get(id), ctx),
+        `${id} should register together with others without collision`
+      )
     }
 
     assert.equal(runtime.getAll().length, PLUGIN_IDS.length)

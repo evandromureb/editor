@@ -138,7 +138,7 @@ function findLogicalPointIn(parent, offset) {
  */
 export function getBlockChildren(surface) {
   return [...surface.querySelectorAll(':scope > [data-block-index]')].filter(
-    (node) => node instanceof HTMLElement,
+    (node) => node instanceof HTMLElement
   )
 }
 
@@ -151,7 +151,7 @@ export function getBlockChildren(surface) {
  */
 export function getContainerChildren(containerElement) {
   return [...containerElement.querySelectorAll(':scope > [data-child-index]')].filter(
-    (node) => node instanceof HTMLElement,
+    (node) => node instanceof HTMLElement
   )
 }
 
@@ -247,9 +247,7 @@ export function resolveBlockElementForPos(surface, pos) {
 
   if (pos.childIndex === undefined) return blockElement
 
-  const childElement = blockElement.querySelector(
-    `:scope > [data-child-index="${pos.childIndex}"]`,
-  )
+  const childElement = blockElement.querySelector(`:scope > [data-child-index="${pos.childIndex}"]`)
   return childElement instanceof HTMLElement ? childElement : blockElement
 }
 
@@ -442,7 +440,7 @@ export function textOffsetWithinBlock(blockElement, container, offset) {
   return measureTextOffsetInBlock(
     blockElement,
     blockElement,
-    Math.min(offset, blockElement.childNodes.length),
+    Math.min(offset, blockElement.childNodes.length)
   )
 }
 

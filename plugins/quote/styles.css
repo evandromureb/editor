@@ -51,21 +51,21 @@
   margin-left: auto;
 }
 
-.editor__surface blockquote[data-block="quote"],
-.editor__preview blockquote[data-block="quote"],
-.editor__surface blockquote[data-block="quote-info"],
-.editor__preview blockquote[data-block="quote-info"],
-.editor__surface blockquote[data-block="quote-warning"],
-.editor__preview blockquote[data-block="quote-warning"],
-.editor__surface blockquote[data-block="quote-danger"],
-.editor__preview blockquote[data-block="quote-danger"] {
+.editor__surface blockquote[data-block='quote'],
+.editor__preview blockquote[data-block='quote'],
+.editor__surface blockquote[data-block='quote-info'],
+.editor__preview blockquote[data-block='quote-info'],
+.editor__surface blockquote[data-block='quote-warning'],
+.editor__preview blockquote[data-block='quote-warning'],
+.editor__surface blockquote[data-block='quote-danger'],
+.editor__preview blockquote[data-block='quote-danger'] {
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
 
 /* Quote Default — Gray */
-.editor__surface blockquote[data-block="quote"],
-.editor__preview blockquote[data-block="quote"] {
+.editor__surface blockquote[data-block='quote'],
+.editor__preview blockquote[data-block='quote'] {
   border-left: 4px solid #374151;
   background-color: #f3f4f6;
   padding: 16px 20px;
@@ -76,8 +76,8 @@
 }
 
 /* Quote Info — Blue */
-.editor__surface blockquote[data-block="quote-info"],
-.editor__preview blockquote[data-block="quote-info"] {
+.editor__surface blockquote[data-block='quote-info'],
+.editor__preview blockquote[data-block='quote-info'] {
   border-left: 4px solid #1e3a8a;
   background-color: #dbeafe;
   padding: 16px 20px;
@@ -88,8 +88,8 @@
 }
 
 /* Quote Warning — Orange */
-.editor__surface blockquote[data-block="quote-warning"],
-.editor__preview blockquote[data-block="quote-warning"] {
+.editor__surface blockquote[data-block='quote-warning'],
+.editor__preview blockquote[data-block='quote-warning'] {
   border-left: 4px solid #b45309;
   background-color: #fef3c7;
   padding: 16px 20px;
@@ -100,8 +100,8 @@
 }
 
 /* Quote Danger — Red */
-.editor__surface blockquote[data-block="quote-danger"],
-.editor__preview blockquote[data-block="quote-danger"] {
+.editor__surface blockquote[data-block='quote-danger'],
+.editor__preview blockquote[data-block='quote-danger'] {
   border-left: 4px solid #991b1b;
   background-color: #fee2e2;
   padding: 16px 20px;

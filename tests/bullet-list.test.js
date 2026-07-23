@@ -126,10 +126,21 @@ function registerPlugins(stateRef) {
 
 describe('bullet-list plugin', () => {
   it('parses and serializes bullet list styles', () => {
-    const stateRef = { current: { doc: createDoc('circle'), selection: { anchor: { block: 0, childIndex: 0, offset: 0 }, focus: { block: 0, childIndex: 2, offset: 5 } } } }
+    const stateRef = {
+      current: {
+        doc: createDoc('circle'),
+        selection: {
+          anchor: { block: 0, childIndex: 0, offset: 0 },
+          focus: { block: 0, childIndex: 2, offset: 5 },
+        },
+      },
+    }
     const { registries } = registerPlugins(stateRef)
 
-    const doc = parse('<ul style="list-style-type: circle;"><li>One</li><li>Two</li></ul>', registries)
+    const doc = parse(
+      '<ul style="list-style-type: circle;"><li>One</li><li>Two</li></ul>',
+      registries
+    )
     assert.equal(doc.content[0].type, 'bullet-list')
     assert.equal(/** @type {any} */ (doc.content[0]).style['list-style-type'], 'circle')
     assert.equal(doc.content[0].children.length, 2)
@@ -141,10 +152,21 @@ describe('bullet-list plugin', () => {
   })
 
   it('keeps task-list parsing separate from plain bullet lists', () => {
-    const stateRef = { current: { doc: createTaskDoc(), selection: { anchor: { block: 0, childIndex: 0, offset: 0 }, focus: { block: 0, childIndex: 0, offset: 0 } } } }
+    const stateRef = {
+      current: {
+        doc: createTaskDoc(),
+        selection: {
+          anchor: { block: 0, childIndex: 0, offset: 0 },
+          focus: { block: 0, childIndex: 0, offset: 0 },
+        },
+      },
+    }
     const { registries } = registerPlugins(stateRef)
 
-    const taskDoc = parse('<ul data-task-list="true"><li data-checked="false">Task</li></ul>', registries)
+    const taskDoc = parse(
+      '<ul data-task-list="true"><li data-checked="false">Task</li></ul>',
+      registries
+    )
     assert.equal(taskDoc.content[0].type, 'task-list')
 
     const bulletDoc = parse('<ul><li>One</li><li>Two</li></ul>', registries)
@@ -197,13 +219,17 @@ describe('bullet-list plugin', () => {
 
     // round-trips back to the "star" popover option being the one marked active
     stateRef.current = starState
-    const entry = runtime.getToolbarEntries().find((item) => item.type === 'item' && item.item.id === 'bullet-list')
+    const entry = runtime
+      .getToolbarEntries()
+      .find((item) => item.type === 'item' && item.item.id === 'bullet-list')
     const wrapper = entry.item.render(entry.ctx)
     document.body.appendChild(wrapper)
     wrapper.sync?.()
     wrapper.querySelector('button').click()
 
-    const active = document.body.querySelector('.editor__bullet-list-popover .editor__bullet-list-option.is-active')
+    const active = document.body.querySelector(
+      '.editor__bullet-list-popover .editor__bullet-list-option.is-active'
+    )
     assert.equal(active?.dataset.style, 'star')
 
     wrapper.querySelector('button').click()
@@ -284,7 +310,7 @@ describe('bullet-list plugin', () => {
     assert.equal(/** @type {any} */ (next.doc.content[0]).style['list-style-type'], 'square')
     assert.deepEqual(
       next.doc.content[0].children.map((c) => c.content[0].text),
-      ['One', 'Two', 'Three'],
+      ['One', 'Two', 'Three']
     )
   })
 
@@ -313,7 +339,9 @@ describe('bullet-list plugin', () => {
       },
     }
     const { registries, runtime } = registerPlugins(stateRef)
-    const entry = runtime.getToolbarEntries().find((item) => item.type === 'item' && item.item.id === 'bullet-list')
+    const entry = runtime
+      .getToolbarEntries()
+      .find((item) => item.type === 'item' && item.item.id === 'bullet-list')
     const wrapper = entry.item.render(entry.ctx)
     document.body.appendChild(wrapper)
     wrapper.sync?.()
@@ -323,7 +351,7 @@ describe('bullet-list plugin', () => {
     assert.equal(popover.querySelector('.editor__bullet-list-option.is-active'), null)
     assert.equal(
       [...popover.querySelectorAll('.editor__bullet-list-option')].every((el) => !el.disabled),
-      true,
+      true
     )
 
     const setStyle = registries.commands.getCommand('bullet-list.setStyle')
@@ -348,13 +376,18 @@ describe('bullet-list plugin', () => {
       },
     }
     const { runtime } = registerPlugins(stateRef)
-    const entry = runtime.getToolbarEntries().find((item) => item.type === 'item' && item.item.id === 'bullet-list')
+    const entry = runtime
+      .getToolbarEntries()
+      .find((item) => item.type === 'item' && item.item.id === 'bullet-list')
     const wrapper = entry.item.render(entry.ctx)
     document.body.appendChild(wrapper)
     wrapper.sync?.()
 
     const button = wrapper.querySelector('button')
-    assert.ok(button.classList.contains('is-active'), 'Default is still a selected bullet option, button must be marked')
+    assert.ok(
+      button.classList.contains('is-active'),
+      'Default is still a selected bullet option, button must be marked'
+    )
 
     stateRef.current = {
       doc: {
@@ -367,7 +400,11 @@ describe('bullet-list plugin', () => {
       },
     }
     wrapper.sync?.()
-    assert.equal(button.classList.contains('is-active'), false, 'outside a list the button must not be marked')
+    assert.equal(
+      button.classList.contains('is-active'),
+      false,
+      'outside a list the button must not be marked'
+    )
   })
 
   it('toolbar popover reflects active style, disables on multi-block selection, and creates a list from a plain paragraph', () => {
@@ -381,7 +418,9 @@ describe('bullet-list plugin', () => {
       },
     }
     const { runtime } = registerPlugins(stateRef)
-    const entry = runtime.getToolbarEntries().find((item) => item.type === 'item' && item.item.id === 'bullet-list')
+    const entry = runtime
+      .getToolbarEntries()
+      .find((item) => item.type === 'item' && item.item.id === 'bullet-list')
     assert.ok(entry && entry.type === 'item')
 
     const wrapper = entry.item.render(entry.ctx)
@@ -390,7 +429,10 @@ describe('bullet-list plugin', () => {
 
     const button = wrapper.querySelector('button')
     assert.ok(button)
-    assert.ok(button.classList.contains('is-active'), 'toolbar button should be marked while inside a bullet-list')
+    assert.ok(
+      button.classList.contains('is-active'),
+      'toolbar button should be marked while inside a bullet-list'
+    )
     button.click()
 
     const popover = document.body.querySelector('.editor__bullet-list-popover')
@@ -404,7 +446,10 @@ describe('bullet-list plugin', () => {
       style: button.dataset.style,
       disabled: button.disabled,
     }))
-    assert.deepEqual(styles.map((item) => item.disabled), [false, false, false, false])
+    assert.deepEqual(
+      styles.map((item) => item.disabled),
+      [false, false, false, false]
+    )
 
     button.click()
 
@@ -416,7 +461,13 @@ describe('bullet-list plugin', () => {
           { type: 'paragraph', content: [textNode('One')] },
           {
             type: 'task-list',
-            children: [{ type: 'task-item', content: [textNode('Task')], attrs: { 'data-checked': 'false' } }],
+            children: [
+              {
+                type: 'task-item',
+                content: [textNode('Task')],
+                attrs: { 'data-checked': 'false' },
+              },
+            ],
           },
         ],
       },
@@ -432,8 +483,10 @@ describe('bullet-list plugin', () => {
     const disabledPopover = document.body.querySelector('.editor__bullet-list-popover')
     assert.ok(disabledPopover)
     assert.equal(
-      [...disabledPopover.querySelectorAll('.editor__bullet-list-option')].every((el) => el.disabled),
-      true,
+      [...disabledPopover.querySelectorAll('.editor__bullet-list-option')].every(
+        (el) => el.disabled
+      ),
+      true
     )
 
     button.click()
@@ -457,8 +510,10 @@ describe('bullet-list plugin', () => {
     const convertPopover = document.body.querySelector('.editor__bullet-list-popover')
     assert.ok(convertPopover)
     assert.equal(
-      [...convertPopover.querySelectorAll('.editor__bullet-list-option')].every((el) => !el.disabled),
-      true,
+      [...convertPopover.querySelectorAll('.editor__bullet-list-option')].every(
+        (el) => !el.disabled
+      ),
+      true
     )
     assert.equal(convertPopover.querySelector('.editor__bullet-list-option.is-active'), null)
 
@@ -471,7 +526,15 @@ describe('bullet-list plugin', () => {
   })
 
   it('sanitize preserves allowed bullet list style and strips invalid styles', () => {
-    const stateRef = { current: { doc: createDoc('disc'), selection: { anchor: { block: 0, childIndex: 0, offset: 0 }, focus: { block: 0, childIndex: 0, offset: 0 } } } }
+    const stateRef = {
+      current: {
+        doc: createDoc('disc'),
+        selection: {
+          anchor: { block: 0, childIndex: 0, offset: 0 },
+          focus: { block: 0, childIndex: 0, offset: 0 },
+        },
+      },
+    }
     const { registries } = registerPlugins(stateRef)
 
     const safe = sanitizeHtml('<ul style="list-style-type: square;"><li>One</li></ul>', registries)
@@ -480,13 +543,27 @@ describe('bullet-list plugin', () => {
   })
 
   it('sanitize preserves a short quoted custom marker (e.g. the star option) and strips longer/unquoted junk', () => {
-    const stateRef = { current: { doc: createDoc(), selection: { anchor: { block: 0, childIndex: 0, offset: 0 }, focus: { block: 0, childIndex: 0, offset: 0 } } } }
+    const stateRef = {
+      current: {
+        doc: createDoc(),
+        selection: {
+          anchor: { block: 0, childIndex: 0, offset: 0 },
+          focus: { block: 0, childIndex: 0, offset: 0 },
+        },
+      },
+    }
     const { registries } = registerPlugins(stateRef)
 
-    const star = sanitizeHtml('<ul style="list-style-type: &quot;★&quot;;"><li>One</li></ul>', registries)
+    const star = sanitizeHtml(
+      '<ul style="list-style-type: &quot;★&quot;;"><li>One</li></ul>',
+      registries
+    )
     assert.match(star, /list-style-type:&quot;★&quot;/)
 
-    const junk = sanitizeHtml('<ul style="list-style-type: not-a-real-value;"><li>One</li></ul>', registries)
+    const junk = sanitizeHtml(
+      '<ul style="list-style-type: not-a-real-value;"><li>One</li></ul>',
+      registries
+    )
     assert.doesNotMatch(junk, /list-style-type/)
   })
 })

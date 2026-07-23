@@ -45,7 +45,7 @@ export function writeToDom(surface, selection) {
       anchorPoint.node,
       anchorPoint.offset,
       focusPoint.node,
-      focusPoint.offset,
+      focusPoint.offset
     )
     return
   }

@@ -224,7 +224,7 @@ export function filterToolbarEntries(entries, layout, allItemPluginMap = new Map
       const pluginId = allItemPluginMap.get(token)
       if (pluginId) {
         console.warn(
-          `[BaseLab]\nToolbar item "${token}" requires plugin "${pluginId}".\nButton removed automatically.`,
+          `[BaseLab]\nToolbar item "${token}" requires plugin "${pluginId}".\nButton removed automatically.`
         )
       }
     }

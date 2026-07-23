@@ -9,7 +9,12 @@ import { insertBlock } from '../src/core/operations/blocks.js'
 import { toggleMark } from '../src/core/operations/formatting.js'
 import { block } from '../src/sdk/helpers.js'
 import { docNode, textNode } from '../src/core/document/nodes.js'
-import { createTestRegistries, emptyState, stateWithText, withSelection } from './helpers/fixtures.js'
+import {
+  createTestRegistries,
+  emptyState,
+  stateWithText,
+  withSelection,
+} from './helpers/fixtures.js'
 
 describe('operations', () => {
   const registries = createTestRegistries()
@@ -47,7 +52,9 @@ describe('operations', () => {
   it('toggleMark applies to a ranged selection inside a container child (e.g. a bullet-list item)', () => {
     const listRegistries = createTestRegistries()
     listRegistries.blocks.registerBlock(block('list-item', { childOnly: true }))
-    listRegistries.blocks.registerBlock(block('bullet-list', { isContainer: true, childType: 'list-item' }))
+    listRegistries.blocks.registerBlock(
+      block('bullet-list', { isContainer: true, childType: 'list-item' })
+    )
 
     const before = {
       doc: docNode([
@@ -69,7 +76,9 @@ describe('operations', () => {
   it('toggleMark applies to every item when the selection spans multiple children of the same container', () => {
     const listRegistries = createTestRegistries()
     listRegistries.blocks.registerBlock(block('list-item', { childOnly: true }))
-    listRegistries.blocks.registerBlock(block('bullet-list', { isContainer: true, childType: 'list-item' }))
+    listRegistries.blocks.registerBlock(
+      block('bullet-list', { isContainer: true, childType: 'list-item' })
+    )
 
     const before = {
       doc: docNode([
@@ -91,21 +100,29 @@ describe('operations', () => {
     const after = toggleMark(before, listRegistries, 'bold')
     const children = after.doc.content[0].children
     // "O" of One, all of Two, "Th" of Three get bold; the untouched edges stay plain
-    assert.deepEqual(children[0].content.map((n) => [n.text, n.marks]), [
-      ['O', undefined],
-      ['ne', ['bold']],
-    ])
+    assert.deepEqual(
+      children[0].content.map((n) => [n.text, n.marks]),
+      [
+        ['O', undefined],
+        ['ne', ['bold']],
+      ]
+    )
     assert.deepEqual(children[1].content[0].marks, ['bold'])
-    assert.deepEqual(children[2].content.map((n) => [n.text, n.marks]), [
-      ['Th', ['bold']],
-      ['ree', undefined],
-    ])
+    assert.deepEqual(
+      children[2].content.map((n) => [n.text, n.marks]),
+      [
+        ['Th', ['bold']],
+        ['ree', undefined],
+      ]
+    )
   })
 
   it('insertText replaces a selection spanning multiple items of the same container, merging into one item', () => {
     const listRegistries = createTestRegistries()
     listRegistries.blocks.registerBlock(block('list-item', { childOnly: true }))
-    listRegistries.blocks.registerBlock(block('bullet-list', { isContainer: true, childType: 'list-item' }))
+    listRegistries.blocks.registerBlock(
+      block('bullet-list', { isContainer: true, childType: 'list-item' })
+    )
 
     const before = {
       doc: docNode([
@@ -165,7 +182,9 @@ describe('operations', () => {
   it('deleteBackward at the start of a paragraph re-enters the previous container, appending onto its last item', () => {
     const listRegistries = createTestRegistries()
     listRegistries.blocks.registerBlock(block('list-item', { childOnly: true }))
-    listRegistries.blocks.registerBlock(block('bullet-list', { isContainer: true, childType: 'list-item' }))
+    listRegistries.blocks.registerBlock(
+      block('bullet-list', { isContainer: true, childType: 'list-item' })
+    )
 
     const before = {
       doc: docNode([

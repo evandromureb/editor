@@ -2,9 +2,9 @@
 name: i18n-localization
 description: Use when adding or changing translation keys, locale files, or locale-aware UI strings in the editor, plugins, themes, or page UI.
 paths:
-  - "**/lang/*.json"
-  - "src/core/lang/**"
-  - "src/core/i18n/**"
+  - '**/lang/*.json'
+  - 'src/core/lang/**'
+  - 'src/core/i18n/**'
 ---
 
 # I18n Localization

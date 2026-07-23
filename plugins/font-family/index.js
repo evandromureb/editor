@@ -43,7 +43,7 @@ function resolveConfig(config) {
       label: item.label,
       value: item.value,
       fontFamily: item.fontFamily ?? item.value,
-    }),
+    })
   )
 
   const defaultLabel = input.default ?? DEFAULT_FONT_FAMILY_CONFIG.defaultLabel

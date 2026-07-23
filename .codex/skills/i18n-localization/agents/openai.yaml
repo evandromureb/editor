@@ -1,5 +1,4 @@
 interface:
-  display_name: "I18n Localization"
-  short_description: "Manage translations and locale keys"
+  display_name: 'I18n Localization'
+  short_description: 'Manage translations and locale keys'
   default_prompt: "Use $i18n-localization to add or adjust translation keys and locale files while keeping the repo's translation parity intact."
-

@@ -11,10 +11,7 @@ import { jsBundles, paths } from '../config.js'
  * @param {{ minify?: boolean, sourcemap?: boolean }} options
  */
 function buildJsBundle(bundle, options = {}) {
-  const outfile = join(
-    paths.dist,
-    options.minify ? bundle.minName : bundle.name,
-  )
+  const outfile = join(paths.dist, options.minify ? bundle.minName : bundle.name)
 
   /** @type {import('esbuild').BuildOptions} */
   const buildOptions = {

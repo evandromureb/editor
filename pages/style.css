@@ -240,7 +240,9 @@ code {
   border-radius: 6px;
   cursor: grab;
   background: var(--bg-panel);
-  transition: border-color 0.1s ease, background-color 0.1s ease;
+  transition:
+    border-color 0.1s ease,
+    background-color 0.1s ease;
 }
 
 .plugin-item:hover {
@@ -355,7 +357,9 @@ code {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 8px;
-  transition: border-color 0.1s ease, background-color 0.1s ease;
+  transition:
+    border-color 0.1s ease,
+    background-color 0.1s ease;
 }
 
 .toolbar-row.is-drag-over {
@@ -385,7 +389,9 @@ code {
   border: 1px dashed transparent;
   border-radius: 6px;
   padding: 4px;
-  transition: border-color 0.1s ease, background-color 0.1s ease;
+  transition:
+    border-color 0.1s ease,
+    background-color 0.1s ease;
 }
 
 .toolbar-tokens:empty::before {

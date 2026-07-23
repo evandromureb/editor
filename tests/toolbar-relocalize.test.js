@@ -70,9 +70,7 @@ describe('Toolbar relocalize', () => {
 
     assert.equal(button.querySelectorAll('.editor__icon svg').length, 2)
 
-    toolbar.relocalize((key) =>
-      key === 'appearance-toggle.button' ? 'Toggle appearance' : key,
-    )
+    toolbar.relocalize((key) => (key === 'appearance-toggle.button' ? 'Toggle appearance' : key))
 
     assert.equal(button.querySelectorAll('.editor__icon svg').length, 2)
     assert.equal(button.textContent.trim(), '')

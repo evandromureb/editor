@@ -34,7 +34,9 @@ function posToHtmlOffset(doc, pos, registries) {
 
       const chars = Math.min(node.text.length, pos.offset - textOffset)
       if (chars < node.text.length) {
-        return base + serializeTextNode({ ...node, text: node.text.slice(0, chars) }, registries).length
+        return (
+          base + serializeTextNode({ ...node, text: node.text.slice(0, chars) }, registries).length
+        )
       }
 
       base += serializeTextNode(node, registries).length
@@ -54,7 +56,9 @@ function posToHtmlOffset(doc, pos, registries) {
 
     const chars = Math.min(node.text.length, pos.offset - textOffset)
     if (chars < node.text.length) {
-      return base + serializeTextNode({ ...node, text: node.text.slice(0, chars) }, registries).length
+      return (
+        base + serializeTextNode({ ...node, text: node.text.slice(0, chars) }, registries).length
+      )
     }
 
     base += serializeTextNode(node, registries).length

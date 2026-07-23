@@ -60,7 +60,7 @@ export default definePlugin({
   id: 'bad-import',
   name: 'Bad Import',
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -77,7 +77,7 @@ export default definePlugin({
   id: 'bad-external',
   name: 'Bad External',
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -96,7 +96,7 @@ export default definePlugin({
     marks: [mark('local-imports-mark', { tag: 'em' })],
   },
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, true)
@@ -117,7 +117,7 @@ export default definePlugin({
   id: 'other-id',
   name: 'Mismatched',
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -133,7 +133,7 @@ export default definePlugin({
   name: 'Unknown Cap',
   capabilities: { bogus: {} },
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -149,7 +149,7 @@ export default definePlugin({
   name: 'Mark A',
   capabilities: { marks: [mark('dup-mark', { tag: 'em' })] },
 })
-`,
+`
     )
     write(
       'plugins/mark-b/index.js',
@@ -159,7 +159,7 @@ export default definePlugin({
   name: 'Mark B',
   capabilities: { marks: [mark('dup-mark', { tag: 'strong' })] },
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -175,7 +175,7 @@ export default definePlugin({
   name: 'Block A',
   capabilities: { blocks: [block('dup-block')] },
 })
-`,
+`
     )
     write(
       'plugins/block-b/index.js',
@@ -185,7 +185,7 @@ export default definePlugin({
   name: 'Block B',
   capabilities: { blocks: [block('dup-block')] },
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -201,7 +201,7 @@ export default definePlugin({
   name: 'Cmd A',
   capabilities: { commands: { dupCommand: command(() => {}) } },
 })
-`,
+`
     )
     write(
       'plugins/cmd-b/index.js',
@@ -211,7 +211,7 @@ export default definePlugin({
   name: 'Cmd B',
   capabilities: { commands: { dupCommand: command(() => {}) } },
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -227,7 +227,7 @@ export default definePlugin({
   name: 'Toolbar A',
   capabilities: { toolbar: [toolbarItem({ id: 'dup-toolbar', label: 'A' })] },
 })
-`,
+`
     )
     write(
       'plugins/toolbar-b/index.js',
@@ -237,7 +237,7 @@ export default definePlugin({
   name: 'Toolbar B',
   capabilities: { toolbar: [toolbarItem({ id: 'dup-toolbar', label: 'B' })] },
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -253,7 +253,7 @@ export default definePlugin({
   name: 'Short A',
   capabilities: { shortcuts: shortcut('Mod-x', 'commandA') },
 })
-`,
+`
     )
     write(
       'plugins/short-b/index.js',
@@ -263,7 +263,7 @@ export default definePlugin({
   name: 'Short B',
   capabilities: { shortcuts: shortcut('Mod-x', 'commandB') },
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -280,7 +280,7 @@ export default definePlugin({
   name: 'Inline I18n',
   capabilities: { i18n: { en: { farewell: 'bye' }, pt: { greeting: 'oi', farewell: 'tchau' } } },
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, true)
@@ -299,7 +299,7 @@ export default definePlugin({
   id: 'lang-with-readme',
   name: 'Lang With Readme',
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, true)
@@ -312,13 +312,19 @@ export default definePlugin({
   })
 
   it('registers theme without theme.css with null cssPath', () => {
-    write('themes/no-css/index.js', `import { theme } from '@baselab/plugin-sdk'\n\nexport default theme('no-css', 'Sem CSS')\n`)
+    write(
+      'themes/no-css/index.js',
+      `import { theme } from '@baselab/plugin-sdk'\n\nexport default theme('no-css', 'Sem CSS')\n`
+    )
     const result = run()
     assert.equal(result.ok, true)
   })
 
   it('includes theme.css when present in theme folder', () => {
-    write('themes/with-css/index.js', `import { theme } from '@baselab/plugin-sdk'\n\nexport default theme('with-css', 'Com CSS')\n`)
+    write(
+      'themes/with-css/index.js',
+      `import { theme } from '@baselab/plugin-sdk'\n\nexport default theme('with-css', 'Com CSS')\n`
+    )
     write('themes/with-css/theme.css', '.foo { color: red; }')
     const result = run()
     assert.equal(result.ok, true)
@@ -335,7 +341,7 @@ export default definePlugin({
   id: 'bad-json',
   name: 'Bad Json',
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -352,7 +358,7 @@ export default definePlugin({
   id: 'parity',
   name: 'Parity',
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -383,7 +389,7 @@ export default definePlugin({
   it('throws error when theme id does not match folder', () => {
     write(
       'themes/mismatched-theme/index.js',
-      `import { theme } from '@baselab/plugin-sdk'\n\nexport default theme('other-theme-id', 'Label')\n`,
+      `import { theme } from '@baselab/plugin-sdk'\n\nexport default theme('other-theme-id', 'Label')\n`
     )
     const result = run()
     assert.equal(result.ok, false)
@@ -401,7 +407,7 @@ export default definePlugin({
   id: 'with-assets',
   name: 'With Assets',
 })
-`,
+`
     )
     const result = run()
     assert.equal(result.ok, true)

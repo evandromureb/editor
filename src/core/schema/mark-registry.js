@@ -70,9 +70,7 @@ export function createMarkRegistry() {
 
   /** @returns {MarkDefinition[]} */
   function getAllMarks() {
-    return [...marksByName.values()].sort(
-      (a, b) => (a.priority ?? 0) - (b.priority ?? 0),
-    )
+    return [...marksByName.values()].sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0))
   }
 
   /**

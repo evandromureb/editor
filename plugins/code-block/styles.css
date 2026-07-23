@@ -1,5 +1,5 @@
-.editor__surface pre[data-block="code-block"],
-.editor__preview pre[data-block="code-block"] {
+.editor__surface pre[data-block='code-block'],
+.editor__preview pre[data-block='code-block'] {
   --editor-code-block-bg: #1e1e2e;
   --editor-code-block-fg: #e5e7eb;
   --editor-code-block-gutter-fg: #64748b;
@@ -19,8 +19,8 @@
   tab-size: 2;
 }
 
-.editor[data-appearance='light'] .editor__surface pre[data-block="code-block"],
-.editor[data-appearance='light'] .editor__preview pre[data-block="code-block"] {
+.editor[data-appearance='light'] .editor__surface pre[data-block='code-block'],
+.editor[data-appearance='light'] .editor__preview pre[data-block='code-block'] {
   --editor-code-block-bg: #f1f5f9;
   --editor-code-block-fg: #1e293b;
   --editor-code-block-gutter-fg: #94a3b8;

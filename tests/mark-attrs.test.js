@@ -9,16 +9,24 @@ import './helpers/dom.js'
 
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { setMarkAttr, clearMarkAttr, getMarkAttrInSelection } from '../src/core/operations/mark-attrs.js'
+import {
+  setMarkAttr,
+  clearMarkAttr,
+  getMarkAttrInSelection,
+} from '../src/core/operations/mark-attrs.js'
 import { createEditorRegistries } from '../src/core/schema/index.js'
 import { mark, block } from '../src/sdk/helpers.js'
 import { docNode, textNode } from '../src/core/document/nodes.js'
 
 function createRegistries() {
   const registries = createEditorRegistries()
-  registries.marks.registerMark(mark('text-color', { tag: 'span', styleAttr: 'color', priority: 0 }))
+  registries.marks.registerMark(
+    mark('text-color', { tag: 'span', styleAttr: 'color', priority: 0 })
+  )
   registries.blocks.registerBlock(block('list-item', { childOnly: true }))
-  registries.blocks.registerBlock(block('bullet-list', { isContainer: true, childType: 'list-item' }))
+  registries.blocks.registerBlock(
+    block('bullet-list', { isContainer: true, childType: 'list-item' })
+  )
   return registries
 }
 

@@ -1,6 +1,6 @@
 ---
 name: repo-workflow
-description: "Use when working anywhere in this repository and you need the safe default workflow: inspect the codebase, find the right files, keep edits narrow, and respect existing conventions."
+description: 'Use when working anywhere in this repository and you need the safe default workflow: inspect the codebase, find the right files, keep edits narrow, and respect existing conventions.'
 ---
 
 # Repo Workflow

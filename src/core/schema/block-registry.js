@@ -83,9 +83,7 @@ export function createBlockRegistry() {
 
   /** @returns {BlockDefinition[]} */
   function getAllBlocks() {
-    return [...blocksByType.values()].sort(
-      (a, b) => (a.priority ?? 0) - (b.priority ?? 0),
-    )
+    return [...blocksByType.values()].sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0))
   }
 
   /**

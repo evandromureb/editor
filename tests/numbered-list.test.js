@@ -129,12 +129,18 @@ describe('numbered-list plugin', () => {
     const stateRef = {
       current: {
         doc: createDoc('lower-alpha'),
-        selection: { anchor: { block: 0, childIndex: 0, offset: 0 }, focus: { block: 0, childIndex: 2, offset: 5 } },
+        selection: {
+          anchor: { block: 0, childIndex: 0, offset: 0 },
+          focus: { block: 0, childIndex: 2, offset: 5 },
+        },
       },
     }
     const { registries } = registerPlugins(stateRef)
 
-    const doc = parse('<ol style="list-style-type: lower-alpha;"><li>One</li><li>Two</li></ol>', registries)
+    const doc = parse(
+      '<ol style="list-style-type: lower-alpha;"><li>One</li><li>Two</li></ol>',
+      registries
+    )
     assert.equal(doc.content[0].type, 'numbered-list')
     assert.equal(/** @type {any} */ (doc.content[0]).style['list-style-type'], 'lower-alpha')
     assert.equal(doc.content[0].children.length, 2)
@@ -147,7 +153,13 @@ describe('numbered-list plugin', () => {
 
   it('keeps task-list parsing separate from plain numbered lists', () => {
     const stateRef = {
-      current: { doc: createTaskDoc(), selection: { anchor: { block: 0, childIndex: 0, offset: 0 }, focus: { block: 0, childIndex: 0, offset: 0 } } },
+      current: {
+        doc: createTaskDoc(),
+        selection: {
+          anchor: { block: 0, childIndex: 0, offset: 0 },
+          focus: { block: 0, childIndex: 0, offset: 0 },
+        },
+      },
     }
     const { registries } = registerPlugins(stateRef)
 
@@ -172,7 +184,10 @@ describe('numbered-list plugin', () => {
 
     const alphaState = setStyle(stateRef.current, registries, 'lower-alpha')
     assert.equal(alphaState.doc.content[0].type, 'numbered-list')
-    assert.equal(/** @type {any} */ (alphaState.doc.content[0]).style['list-style-type'], 'lower-alpha')
+    assert.equal(
+      /** @type {any} */ (alphaState.doc.content[0]).style['list-style-type'],
+      'lower-alpha'
+    )
     assert.equal(alphaState.doc.content[0].children[0].content[0].text, 'One')
 
     const defaultState = setStyle(alphaState, registries, 'default')
@@ -185,13 +200,22 @@ describe('numbered-list plugin', () => {
     const stateRef = {
       current: {
         doc: createDoc(),
-        selection: { anchor: { block: 0, childIndex: 0, offset: 0 }, focus: { block: 0, childIndex: 0, offset: 0 } },
+        selection: {
+          anchor: { block: 0, childIndex: 0, offset: 0 },
+          focus: { block: 0, childIndex: 0, offset: 0 },
+        },
       },
     }
     const { registries } = registerPlugins(stateRef)
     const setStyle = registries.commands.getCommand('numbered-list.setStyle')
 
-    for (const style of ['lower-alpha', 'lower-greek', 'lower-roman', 'upper-alpha', 'upper-roman']) {
+    for (const style of [
+      'lower-alpha',
+      'lower-greek',
+      'lower-roman',
+      'upper-alpha',
+      'upper-roman',
+    ]) {
       const next = setStyle(stateRef.current, registries, style)
       assert.equal(/** @type {any} */ (next.doc.content[0]).style['list-style-type'], style)
     }
@@ -290,7 +314,7 @@ describe('numbered-list plugin', () => {
     assert.equal(/** @type {any} */ (next.doc.content[0]).style['list-style-type'], 'upper-roman')
     assert.deepEqual(
       next.doc.content[0].children.map((c) => c.content[0].text),
-      ['One', 'Two', 'Three'],
+      ['One', 'Two', 'Three']
     )
   })
 
@@ -319,7 +343,9 @@ describe('numbered-list plugin', () => {
       },
     }
     const { registries, runtime } = registerPlugins(stateRef)
-    const entry = runtime.getToolbarEntries().find((item) => item.type === 'item' && item.item.id === 'numbered-list')
+    const entry = runtime
+      .getToolbarEntries()
+      .find((item) => item.type === 'item' && item.item.id === 'numbered-list')
     const wrapper = entry.item.render(entry.ctx)
     document.body.appendChild(wrapper)
     wrapper.sync?.()
@@ -329,7 +355,7 @@ describe('numbered-list plugin', () => {
     assert.equal(popover.querySelector('.editor__numbered-list-option.is-active'), null)
     assert.equal(
       [...popover.querySelectorAll('.editor__numbered-list-option')].every((el) => !el.disabled),
-      true,
+      true
     )
 
     const setStyle = registries.commands.getCommand('numbered-list.setStyle')
@@ -354,13 +380,18 @@ describe('numbered-list plugin', () => {
       },
     }
     const { runtime } = registerPlugins(stateRef)
-    const entry = runtime.getToolbarEntries().find((item) => item.type === 'item' && item.item.id === 'numbered-list')
+    const entry = runtime
+      .getToolbarEntries()
+      .find((item) => item.type === 'item' && item.item.id === 'numbered-list')
     const wrapper = entry.item.render(entry.ctx)
     document.body.appendChild(wrapper)
     wrapper.sync?.()
 
     const button = wrapper.querySelector('button')
-    assert.ok(button.classList.contains('is-active'), 'Default is still a selected numbering option, button must be marked')
+    assert.ok(
+      button.classList.contains('is-active'),
+      'Default is still a selected numbering option, button must be marked'
+    )
 
     stateRef.current = {
       doc: {
@@ -373,7 +404,11 @@ describe('numbered-list plugin', () => {
       },
     }
     wrapper.sync?.()
-    assert.equal(button.classList.contains('is-active'), false, 'outside a list the button must not be marked')
+    assert.equal(
+      button.classList.contains('is-active'),
+      false,
+      'outside a list the button must not be marked'
+    )
   })
 
   it('toolbar popover reflects active style, disables on multi-block selection, and creates a list from a plain paragraph', () => {
@@ -387,7 +422,9 @@ describe('numbered-list plugin', () => {
       },
     }
     const { runtime } = registerPlugins(stateRef)
-    const entry = runtime.getToolbarEntries().find((item) => item.type === 'item' && item.item.id === 'numbered-list')
+    const entry = runtime
+      .getToolbarEntries()
+      .find((item) => item.type === 'item' && item.item.id === 'numbered-list')
     assert.ok(entry && entry.type === 'item')
 
     const wrapper = entry.item.render(entry.ctx)
@@ -396,7 +433,10 @@ describe('numbered-list plugin', () => {
 
     const button = wrapper.querySelector('button')
     assert.ok(button)
-    assert.ok(button.classList.contains('is-active'), 'toolbar button should be marked while inside a numbered-list')
+    assert.ok(
+      button.classList.contains('is-active'),
+      'toolbar button should be marked while inside a numbered-list'
+    )
     button.click()
 
     const popover = document.body.querySelector('.editor__numbered-list-popover')
@@ -412,7 +452,7 @@ describe('numbered-list plugin', () => {
     }))
     assert.deepEqual(
       styles.map((item) => item.disabled),
-      [false, false, false, false, false, false],
+      [false, false, false, false, false, false]
     )
     assert.equal(styles.length, 6)
 
@@ -426,7 +466,13 @@ describe('numbered-list plugin', () => {
           { type: 'paragraph', content: [textNode('One')] },
           {
             type: 'task-list',
-            children: [{ type: 'task-item', content: [textNode('Task')], attrs: { 'data-checked': 'false' } }],
+            children: [
+              {
+                type: 'task-item',
+                content: [textNode('Task')],
+                attrs: { 'data-checked': 'false' },
+              },
+            ],
           },
         ],
       },
@@ -442,8 +488,10 @@ describe('numbered-list plugin', () => {
     const disabledPopover = document.body.querySelector('.editor__numbered-list-popover')
     assert.ok(disabledPopover)
     assert.equal(
-      [...disabledPopover.querySelectorAll('.editor__numbered-list-option')].every((el) => el.disabled),
-      true,
+      [...disabledPopover.querySelectorAll('.editor__numbered-list-option')].every(
+        (el) => el.disabled
+      ),
+      true
     )
 
     button.click()
@@ -467,8 +515,10 @@ describe('numbered-list plugin', () => {
     const convertPopover = document.body.querySelector('.editor__numbered-list-popover')
     assert.ok(convertPopover)
     assert.equal(
-      [...convertPopover.querySelectorAll('.editor__numbered-list-option')].every((el) => !el.disabled),
-      true,
+      [...convertPopover.querySelectorAll('.editor__numbered-list-option')].every(
+        (el) => !el.disabled
+      ),
+      true
     )
     assert.equal(convertPopover.querySelector('.editor__numbered-list-option.is-active'), null)
 
@@ -481,10 +531,21 @@ describe('numbered-list plugin', () => {
   })
 
   it('sanitize preserves allowed numbered list styles', () => {
-    const stateRef = { current: { doc: createDoc('lower-roman'), selection: { anchor: { block: 0, childIndex: 0, offset: 0 }, focus: { block: 0, childIndex: 0, offset: 0 } } } }
+    const stateRef = {
+      current: {
+        doc: createDoc('lower-roman'),
+        selection: {
+          anchor: { block: 0, childIndex: 0, offset: 0 },
+          focus: { block: 0, childIndex: 0, offset: 0 },
+        },
+      },
+    }
     const { registries } = registerPlugins(stateRef)
 
-    const safe = sanitizeHtml('<ol style="list-style-type: upper-alpha;"><li>One</li></ol>', registries)
+    const safe = sanitizeHtml(
+      '<ol style="list-style-type: upper-alpha;"><li>One</li></ol>',
+      registries
+    )
     assert.match(safe, /style="list-style-type:upper-alpha"/)
     assert.match(safe, /<li>One<\/li>/)
   })

@@ -34,7 +34,12 @@ const VIEWPORT_MARGIN = 8
  * @param {HTMLElement} [boundary]
  */
 function getBoundaryRect(boundary) {
-  const viewport = { left: VIEWPORT_MARGIN, top: VIEWPORT_MARGIN, right: window.innerWidth - VIEWPORT_MARGIN, bottom: window.innerHeight - VIEWPORT_MARGIN }
+  const viewport = {
+    left: VIEWPORT_MARGIN,
+    top: VIEWPORT_MARGIN,
+    right: window.innerWidth - VIEWPORT_MARGIN,
+    bottom: window.innerHeight - VIEWPORT_MARGIN,
+  }
   if (!boundary) return viewport
 
   const rect = boundary.getBoundingClientRect()
@@ -92,7 +97,14 @@ export function flipPlacement(anchor, element, preferred = 'bottom', boundary) {
 /**
  * @param {PositionOpts} opts
  */
-export function positionElement({ anchor, element, placement = 'bottom', offset = 4, boundary, lockPlacement = false }) {
+export function positionElement({
+  anchor,
+  element,
+  placement = 'bottom',
+  offset = 4,
+  boundary,
+  lockPlacement = false,
+}) {
   const anchorRect = anchor.getBoundingClientRect()
   const elRect = element.getBoundingClientRect()
   const bounds = getBoundaryRect(boundary)
@@ -127,11 +139,12 @@ export function positionElement({ anchor, element, placement = 'bottom', offset 
   // 'bottom' placement, bottom edge for 'top' placement) is pinned and
   // never flipped to the opposite side — the popover shrinks (and scrolls
   // internally, via overflow) to fit the remaining space instead.
-  const maxHeight = lockPlacement && placement === 'bottom'
-    ? Math.max(0, bounds.bottom - top)
-    : lockPlacement && placement === 'top'
-      ? Math.max(0, anchorRect.top - offset - bounds.top)
-      : Math.max(0, bounds.bottom - bounds.top)
+  const maxHeight =
+    lockPlacement && placement === 'bottom'
+      ? Math.max(0, bounds.bottom - top)
+      : lockPlacement && placement === 'top'
+        ? Math.max(0, anchorRect.top - offset - bounds.top)
+        : Math.max(0, bounds.bottom - bounds.top)
   const width = Math.min(elRect.width, maxWidth)
   const height = Math.min(elRect.height, maxHeight)
 

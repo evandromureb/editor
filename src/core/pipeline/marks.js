@@ -226,7 +226,8 @@ function appendMarkedTextSegment(parent, text, marks, registries, markAttrs = {}
     } else if (def.attrs?.length && markAttrs[def.name]) {
       const values = parseAttrsValue(markAttrs[def.name])
       for (const name of def.attrs) {
-        if (values[name] && isSafeAttrValue(name, values[name])) element.setAttribute(name, values[name])
+        if (values[name] && isSafeAttrValue(name, values[name]))
+          element.setAttribute(name, values[name])
       }
     }
 

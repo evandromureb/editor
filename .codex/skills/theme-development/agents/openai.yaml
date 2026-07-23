@@ -1,5 +1,4 @@
 interface:
-  display_name: "Theme Development"
-  short_description: "Create and update themes"
-  default_prompt: "Use $theme-development to add or adjust editor themes, theme CSS, and theme loading behavior without breaking the appearance system."
-
+  display_name: 'Theme Development'
+  short_description: 'Create and update themes'
+  default_prompt: 'Use $theme-development to add or adjust editor themes, theme CSS, and theme loading behavior without breaking the appearance system.'

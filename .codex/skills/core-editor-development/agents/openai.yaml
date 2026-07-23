@@ -1,5 +1,4 @@
 interface:
-  display_name: "Core Editor Development"
-  short_description: "Work on the editor core"
-  default_prompt: "Use $core-editor-development to change the editor core, shared SDK, embed layer, or UI primitives while preserving the public contracts."
-
+  display_name: 'Core Editor Development'
+  short_description: 'Work on the editor core'
+  default_prompt: 'Use $core-editor-development to change the editor core, shared SDK, embed layer, or UI primitives while preserving the public contracts.'

@@ -9,8 +9,8 @@ export function createToolbarItemPluginMap(plugins) {
     plugins.flatMap((plugin) =>
       (plugin.capabilities?.toolbar ?? [])
         .filter((item) => item.type !== 'separator' && item.id)
-        .map((item) => [item.id, plugin.id]),
-    ),
+        .map((item) => [item.id, plugin.id])
+    )
   )
 }
 

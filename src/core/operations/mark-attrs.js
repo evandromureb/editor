@@ -2,11 +2,7 @@
 /** @typedef {import('../schema/editor-registries.js').EditorRegistries} EditorRegistries */
 
 import { addMark, removeMark, removeMarkAttr } from '../document/marks.js'
-import {
-  getBlockLength,
-  getChildBlocks,
-  isTextBlock,
-} from '../document/block-utils.js'
+import { getBlockLength, getChildBlocks, isTextBlock } from '../document/block-utils.js'
 import {
   setMarkAttrInRange,
   clearMarkAttrInRange,
@@ -28,8 +24,14 @@ import { normalize } from '../cursor/index.js'
 function setMarkAttrInDoc(doc, from, to, markName, value, registries) {
   if (from.block === to.block && from.childIndex != null) {
     const toChildIndex = to.childIndex ?? from.childIndex
-    return mapContainerChildrenRange(doc, from.block, from.childIndex, toChildIndex, from.offset, to.offset, (content, start, end) =>
-      setMarkAttrInRange(content, start, end, markName, value, registries),
+    return mapContainerChildrenRange(
+      doc,
+      from.block,
+      from.childIndex,
+      toChildIndex,
+      from.offset,
+      to.offset,
+      (content, start, end) => setMarkAttrInRange(content, start, end, markName, value, registries)
     )
   }
 
@@ -62,8 +64,14 @@ function setMarkAttrInDoc(doc, from, to, markName, value, registries) {
 function clearMarkAttrInDoc(doc, from, to, markName, registries) {
   if (from.block === to.block && from.childIndex != null) {
     const toChildIndex = to.childIndex ?? from.childIndex
-    return mapContainerChildrenRange(doc, from.block, from.childIndex, toChildIndex, from.offset, to.offset, (content, start, end) =>
-      clearMarkAttrInRange(content, start, end, markName, registries),
+    return mapContainerChildrenRange(
+      doc,
+      from.block,
+      from.childIndex,
+      toChildIndex,
+      from.offset,
+      to.offset,
+      (content, start, end) => clearMarkAttrInRange(content, start, end, markName, registries)
     )
   }
 

@@ -11,7 +11,9 @@ import { docNode, paragraphNode, textNode } from '../../src/core/document/nodes.
  */
 export function createTestRegistries() {
   const registries = createEditorRegistries()
-  registries.marks.registerMark(mark('bold', { tag: 'strong', parseTags: ['strong', 'b'], priority: 0 }))
+  registries.marks.registerMark(
+    mark('bold', { tag: 'strong', parseTags: ['strong', 'b'], priority: 0 })
+  )
   registries.blocks.registerBlock(block('hr', { void: true }))
   return registries
 }
@@ -37,9 +39,7 @@ export function emptyState(registries) {
  * @returns {import('../../src/core/operations/types.js').EditorState}
  */
 export function stateWithText(text, registries, marks = []) {
-  const content = marks.length
-    ? [textNode(text, marks, registries)]
-    : [textNode(text)]
+  const content = marks.length ? [textNode(text, marks, registries)] : [textNode(text)]
 
   return {
     doc: docNode([paragraphNode(content)]),

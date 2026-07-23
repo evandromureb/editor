@@ -21,9 +21,10 @@ export const DEFAULT_MAX_HEIGHT = 1200
  * @returns {{ minWidth: number, maxWidth: number, minHeight: number, maxHeight: number }}
  */
 export function getSizeLimits(ctx) {
-  const options = /** @type {{ minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number }} | undefined */ (
-    ctx.getOption('image')
-  )
+  const options =
+    /** @type {{ minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number }} | undefined */ (
+      ctx.getOption('image')
+    )
   return {
     minWidth: options?.minWidth ?? DEFAULT_MIN_WIDTH,
     maxWidth: options?.maxWidth ?? DEFAULT_MAX_WIDTH,
@@ -90,14 +91,16 @@ export const insertImage = command((state, registries, payload) => {
 })
 
 export const updateImage = command((state, registries, payload) => {
-  const data = /** @type {{ blockIndex?: number, patch?: Record<string, unknown> }} */ (payload ?? {})
+  const data = /** @type {{ blockIndex?: number, patch?: Record<string, unknown> }} */ (
+    payload ?? {}
+  )
   const index = data.blockIndex
   if (typeof index !== 'number') return state
 
   const existing = state.doc.content[index]
   if (!existing || existing.type !== BLOCK_TYPE) return state
 
-  const nextAttrs = { ...(/** @type {any} */ (existing).attrs ?? {}) }
+  const nextAttrs = { .../** @type {any} */ (existing.attrs ?? {}) }
   const patch = data.patch ?? {}
 
   for (const key of ATTR_KEYS) {
@@ -112,7 +115,8 @@ export const updateImage = command((state, registries, payload) => {
     nextAttrs[key] = String(value)
   }
 
-  const nextCaption = 'caption' in patch ? String(patch.caption ?? '') : /** @type {any} */ (existing).caption
+  const nextCaption =
+    'caption' in patch ? String(patch.caption ?? '') : /** @type {any} */ (existing).caption
 
   const nextBlock = {
     type: BLOCK_TYPE,

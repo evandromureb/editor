@@ -18,7 +18,7 @@ function createRegistries() {
       tag: 'pre',
       softBreakOnEnter: true,
       softBreakSeparator: '\n',
-    }),
+    })
   )
   return registries
 }
@@ -97,7 +97,8 @@ describe('code-block — HTML serialization and preview', () => {
   })
 
   it('enhanceCodeBlockPreElements adds gutter for preview rendering', async () => {
-    const { enhanceCodeBlockPreElements } = await import('../src/core/pipeline/code-block-render.js')
+    const { enhanceCodeBlockPreElements } =
+      await import('../src/core/pipeline/code-block-render.js')
     const preview = document.createElement('div')
     preview.innerHTML = '<pre data-block="code-block">a<br>b</pre>'
 

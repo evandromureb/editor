@@ -15,7 +15,7 @@ import { block, mark } from '../src/sdk/helpers.js'
 function createRegistriesWithLink() {
   const registries = createTestRegistries()
   registries.marks.registerMark(
-    mark('link', { tag: 'a', parseTags: ['a'], attrs: ['href'], priority: -1 }),
+    mark('link', { tag: 'a', parseTags: ['a'], attrs: ['href'], priority: -1 })
   )
   return registries
 }
@@ -31,7 +31,7 @@ function createRegistriesWithImage() {
       void: true,
       parseTags: ['img', 'figure'],
       attrs: ['src'],
-    }),
+    })
   )
   return registries
 }
@@ -52,7 +52,10 @@ describe('sanitizeHtml', () => {
 
   it('removes event attributes (onerror/onclick) even on allowed tags', () => {
     const registries = createTestRegistries()
-    const out = sanitizeHtml('<strong onclick="alert(1)" onmouseover="alert(2)">x</strong>', registries)
+    const out = sanitizeHtml(
+      '<strong onclick="alert(1)" onmouseover="alert(2)">x</strong>',
+      registries
+    )
     assert.ok(!out.includes('onclick'))
     assert.ok(!out.includes('onmouseover'))
   })
@@ -81,7 +84,10 @@ describe('sanitizeHtml', () => {
 
   it('recursively removes unknown nested tags, preserving only allowed text/tags', () => {
     const registries = createTestRegistries()
-    const out = sanitizeHtml('<div><span onclick="x()"><strong>bold</strong> texto</span></div>', registries)
+    const out = sanitizeHtml(
+      '<div><span onclick="x()"><strong>bold</strong> texto</span></div>',
+      registries
+    )
     assert.ok(!out.includes('onclick'))
     assert.ok(!out.includes('<div'))
     assert.ok(!out.includes('<span'))
@@ -103,7 +109,10 @@ describe('sanitizeHtml', () => {
 
   it('copies only allowed style (mark styleAttr) and ignores other styles', () => {
     const registries = createTestRegistries()
-    const out = sanitizeHtml('<strong style="color: red; font-weight: bold;">x</strong>', registries)
+    const out = sanitizeHtml(
+      '<strong style="color: red; font-weight: bold;">x</strong>',
+      registries
+    )
     assert.ok(!out.includes('color'))
   })
 
@@ -129,9 +138,17 @@ describe('sanitizeHtml', () => {
 
   it('preserves safe schemes (https:, mailto:, tel:) in link href', () => {
     const registries = createRegistriesWithLink()
-    assert.ok(sanitizeHtml('<a href="https://example.com">x</a>', registries).includes('href="https://example.com"'))
-    assert.ok(sanitizeHtml('<a href="mailto:a@b.com">x</a>', registries).includes('href="mailto:a@b.com"'))
-    assert.ok(sanitizeHtml('<a href="tel:+123456789">x</a>', registries).includes('href="tel:+123456789"'))
+    assert.ok(
+      sanitizeHtml('<a href="https://example.com">x</a>', registries).includes(
+        'href="https://example.com"'
+      )
+    )
+    assert.ok(
+      sanitizeHtml('<a href="mailto:a@b.com">x</a>', registries).includes('href="mailto:a@b.com"')
+    )
+    assert.ok(
+      sanitizeHtml('<a href="tel:+123456789">x</a>', registries).includes('href="tel:+123456789"')
+    )
   })
 
   it('strips blob: URLs from link href', () => {

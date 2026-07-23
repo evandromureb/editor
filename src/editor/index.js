@@ -31,7 +31,10 @@ import { ThemeManager } from '../ui/themes/index.js'
 import { Toolbar } from '../ui/toolbar/index.js'
 import { PluginUiRuntime } from '../ui/runtime/index.js'
 import { SelectionMenuController } from '../ui/runtime/selection-menu-controller.js'
-import { getDefaultAssetBaseUrl, resolvePluginAssetUrl } from '../ui/assets/resolve-plugin-asset-url.js'
+import {
+  getDefaultAssetBaseUrl,
+  resolvePluginAssetUrl,
+} from '../ui/assets/resolve-plugin-asset-url.js'
 import { coreI18n } from '../generated/core.i18n.registry.js'
 import { parseToolbar, resolveEditorConfig } from '../core/presets/resolve-config.js'
 import '../core/presets/index.js'
@@ -60,7 +63,9 @@ const TEXT_EDITING_TAGS = new Set(['INPUT', 'TEXTAREA', 'SELECT'])
  * @returns {boolean}
  */
 function isTextEditingElement(element) {
-  return TEXT_EDITING_TAGS.has(element.tagName) || /** @type {HTMLElement} */ (element).isContentEditable
+  return (
+    TEXT_EDITING_TAGS.has(element.tagName) || /** @type {HTMLElement} */ (element).isContentEditable
+  )
 }
 
 /**
@@ -281,7 +286,8 @@ export class Editor {
       this.#plugins.register(plugin, ctx)
     }
 
-    this.#pluginContext = this.#pluginContexts.values().next().value ?? this.#createPluginContext('default')
+    this.#pluginContext =
+      this.#pluginContexts.values().next().value ?? this.#createPluginContext('default')
 
     // Parsed only after plugin registration so marks/blocks declared by
     // plugins (bold, quote, code-block, ...) are already in the registries —
@@ -291,7 +297,11 @@ export class Editor {
 
     this.#toolbar = new Toolbar({
       root: shell.toolbar,
-      lines: getFilteredToolbarEntries({ plugins: this.#plugins, layout: this.#toolbarLayout, itemPluginMap: allItemPluginMap }),
+      lines: getFilteredToolbarEntries({
+        plugins: this.#plugins,
+        layout: this.#toolbarLayout,
+        itemPluginMap: allItemPluginMap,
+      }),
       t: (key) => this.#i18n.t(key),
     })
 
@@ -390,7 +400,11 @@ export class Editor {
     this.#pluginContexts.set(plugin.id, ctx)
     this.#plugins.register(plugin, ctx)
     this.#toolbar.setEntries(
-      getFilteredToolbarEntries({ plugins: this.#plugins, layout: this.#toolbarLayout, itemPluginMap: allItemPluginMap }),
+      getFilteredToolbarEntries({
+        plugins: this.#plugins,
+        layout: this.#toolbarLayout,
+        itemPluginMap: allItemPluginMap,
+      })
     )
     this.#refreshUi()
   }
@@ -400,7 +414,11 @@ export class Editor {
     this.#plugins.unregister(id)
     this.#pluginContexts.delete(id)
     this.#toolbar.setEntries(
-      getFilteredToolbarEntries({ plugins: this.#plugins, layout: this.#toolbarLayout, itemPluginMap: allItemPluginMap }),
+      getFilteredToolbarEntries({
+        plugins: this.#plugins,
+        layout: this.#toolbarLayout,
+        itemPluginMap: allItemPluginMap,
+      })
     )
     this.#refreshUi()
   }
@@ -698,7 +716,7 @@ export class Editor {
     if (hadFocus) {
       this.#htmlSource.setSelectionRange(
         Math.min(anchor, html.length),
-        Math.min(focus, html.length),
+        Math.min(focus, html.length)
       )
     }
   }
@@ -728,12 +746,16 @@ export class Editor {
    * @param {...unknown} args
    */
   #dispatch(operation, ...args) {
-    dispatchOperation({
-      getState: () => this.#getState(),
-      registries: this.#registries,
-      history: this.#history,
-      applyState: (state) => this.#applyState(state),
-    }, operation, args)
+    dispatchOperation(
+      {
+        getState: () => this.#getState(),
+        registries: this.#registries,
+        history: this.#history,
+        applyState: (state) => this.#applyState(state),
+      },
+      operation,
+      args
+    )
   }
 
   /** @returns {EditorState} */
@@ -862,9 +884,10 @@ export class Editor {
       }
     }
 
-    this.#textarea.value = this.#mode === 'html'
-      ? this.#htmlSource.value
-      : serialize(this.#document.toJSON(), this.#registries)
+    this.#textarea.value =
+      this.#mode === 'html'
+        ? this.#htmlSource.value
+        : serialize(this.#document.toJSON(), this.#registries)
   }
 
   #paintSelection() {
@@ -881,7 +904,10 @@ export class Editor {
     writeToDom(this.#surface, this.#selection)
     scrollIntoView(this.#surface, this.#selection.focus)
 
-    if (document.activeElement === this.#surface || this.#surface.contains(document.activeElement)) {
+    if (
+      document.activeElement === this.#surface ||
+      this.#surface.contains(document.activeElement)
+    ) {
       this.#surface.focus()
     }
   }
@@ -973,12 +999,7 @@ export class Editor {
       if (start >= end || !isTextBlock(block)) continue
 
       found = true
-      const slice = sliceContentRange(
-        getBlockContent(block),
-        start,
-        end,
-        this.#registries,
-      )
+      const slice = sliceContentRange(getBlockContent(block), start, end, this.#registries)
       if (!slice.every((node) => node.marks?.includes(mark))) {
         return false
       }
@@ -1000,4 +1021,3 @@ export class Editor {
     })
   }
 }
-
