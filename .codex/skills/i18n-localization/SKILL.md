@@ -26,7 +26,7 @@ Use this skill when changing `lang/*.json`, core locale files, or any locale-awa
 - `src/core/lang/*.json` for core UI strings.
 - `plugins/<name>/lang/*.json` for plugin strings.
 - `themes/*` when theme names or labels are translated.
-- `page/app.js` when the playground has bilingual labels.
+- `pages/app.js` when the playground has bilingual labels.
 
 ## Guardrails
 

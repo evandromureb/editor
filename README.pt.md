@@ -43,7 +43,7 @@ npm run dev          # servidor HTTP na porta 3000 (sobrescreva com PORT=…)
 |-----|------|
 | `http://localhost:3000/` | Redireciona para o demo |
 | `http://localhost:3000/demo/` | Demo de desenvolvimento (ESM a partir de `src/`) |
-| `http://localhost:3000/page/` | Playground de configuração (precisa de um build prévio) |
+| `http://localhost:3000/pages/` | Playground de configuração (precisa de um build prévio) |
 | `http://localhost:3000/dist/embed.html` | Embed empacotado com `<wysiwyg-editor>` |
 
 `make demo` é alias de `make dev` (roda testes + lint + build e sobe o servidor). `make preview` faz o build e abre a página de embed do dist.
@@ -212,7 +212,7 @@ toolbar: [
 | `src/` | Core do editor, embed, SDK, UI compartilhada |
 | `plugins/` | Plugins de funcionalidade |
 | `themes/` | Pacotes de tema |
-| `page/`, `demo/` | Playground de config e demo |
+| `pages/`, `demo/` | Playground de config e demo |
 | `scripts/` | Discovery, build, validação do dist |
 | `tests/` | Suite de testes |
 | `dist/`, `.build/`, `src/generated/` | Saídas geradas — não edite à mão |
@@ -340,7 +340,7 @@ Ordem de validação recomendada para contribuidores: [`.cursor/skills/verify-ch
 ## Contribuindo
 
 1. Mantenha mudanças estreitas e siga os padrões do arquivo irmão mais próximo.
-2. Prefira a skill de domínio correspondente em [`.cursor/skills/`](.cursor/skills/) (plugins, themes, core, page, i18n, build, verify).
+2. Prefira a skill de domínio correspondente em [`.cursor/skills/`](.cursor/skills/) (plugins, themes, core, pages, i18n, build, verify).
 3. Adicione ou atualize testes para comportamento visível ao usuário.
 4. Antes do push, rode `npm run prepush` ou `make fix`.
 

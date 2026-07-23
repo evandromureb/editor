@@ -19,7 +19,7 @@ Use this skill for general repository work before editing code, reviewing change
 
 ## Repository Rules
 
-- Main source lives in `src/`, `plugins/`, `themes/`, `page/`, `scripts/`, and `tests/`.
+- Main source lives in `src/`, `plugins/`, `themes/`, `pages/`, `scripts/`, and `tests/`.
 - Build artifacts live in `dist/` and `.build/`; treat them as generated.
 - Discovery output is generated into `src/generated/`.
 - Prefer small, targeted edits over broad rewrites.

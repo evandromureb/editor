@@ -815,8 +815,8 @@ const OTHER_OPTIONS_CODE = `
     persistTheme: true, // default value
     appearance: 'light', // default value (follows system preference)
     persistAppearance: false, // default value
-    width: 500, // default value (no fixed width)
-    height: 500, // default value (no fixed height)
+    width: 1024, // default value (no fixed width)
+    height: 800, // default value (no fixed height)
     responsive: true, // default value
     fontFamily: {
       // default values from the font-family plugin
@@ -839,9 +839,32 @@ const OTHER_OPTIONS_CODE = `
     },
     footer: true, // default value`
 
+// Wraps the embeddable snippet (shown as-is in the "Código" tab, meant to be
+// pasted into an existing page) in a full HTML document — DOCTYPE, head,
+// body — for the ZIP download's index.html. Without a DOCTYPE, browsers
+// render the standalone file in Quirks Mode.
+function buildStandaloneHtml(snippet, locale) {
+  const indented = snippet
+    .split('\n')
+    .map((line) => (line ? `    ${line}` : line))
+    .join('\n')
+  return `<!DOCTYPE html>
+<html lang="${locale === 'pt' ? 'pt-BR' : 'en'}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor</title>
+  </head>
+  <body>
+${indented}
+  </body>
+</html>
+`
+}
+
 function renderCode({ plugins, toolbar, locale }) {
   const code = `<link rel="stylesheet" href="./dist/editor.min.css" />
-<textarea id="content"></textarea>
+<textarea id="content" class="editor-source"></textarea>
 <div id="app"></div>
 
 <script src="./dist/editor.standalone.min.js"></script>
@@ -942,6 +965,56 @@ document.getElementById('copy-btn').addEventListener('click', async () => {
     }, 1200)
   } catch (err) {
     console.error('Falha ao copiar', err)
+  }
+})
+
+document.getElementById('download-zip-btn').addEventListener('click', async () => {
+  const btn = document.getElementById('download-zip-btn')
+  const errorEl = document.getElementById('download-error')
+  const originalLabel = btn.textContent
+
+  errorEl.hidden = true
+  btn.disabled = true
+  btn.classList.add('is-loading')
+  btn.textContent = 'Gerando...'
+
+  // Yields a frame so the loading state above actually paints before the
+  // zip assembly below (synchronous, CPU-bound CRC32 + byte copying) runs.
+  await new Promise((resolve) => requestAnimationFrame(resolve))
+
+  try {
+    // DIST_ASSETS comes from pages/dist-assets.generated.js (written by
+    // `npm run build`, see scripts/build/steps/pages-assets.js). It's
+    // inlined at build time — not fetched at runtime — so this works both
+    // over HTTP and when this page is opened directly via file://.
+    if (typeof DIST_ASSETS === 'undefined') {
+      throw new Error('Pacote não encontrado. Rode "npm run build" para gerar os arquivos de dist/.')
+    }
+
+    const snippet = document.querySelector('#output-code code').textContent
+    const html = buildStandaloneHtml(snippet, currentLocale)
+    const encoder = new TextEncoder()
+
+    const zipBlob = createZip([
+      { path: 'index.html', data: encoder.encode(html) },
+      { path: 'dist/editor.min.css', data: encoder.encode(DIST_ASSETS['editor.min.css']) },
+      { path: 'dist/editor.standalone.min.js', data: encoder.encode(DIST_ASSETS['editor.standalone.min.js']) },
+    ])
+
+    const url = URL.createObjectURL(zipBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'editor-embed.zip'
+    link.click()
+    URL.revokeObjectURL(url)
+  } catch (err) {
+    console.error('Falha ao gerar o pacote ZIP', err)
+    errorEl.textContent = err instanceof Error ? err.message : String(err)
+    errorEl.hidden = false
+  } finally {
+    btn.disabled = false
+    btn.classList.remove('is-loading')
+    btn.textContent = originalLabel
   }
 })
 

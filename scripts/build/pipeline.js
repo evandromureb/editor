@@ -13,6 +13,7 @@ import { minifyCss } from './steps/minify-css.js'
 import { copyTypes } from './steps/copy-types.js'
 import { copyPluginAssets } from './steps/assets.js'
 import { writeEmbedHtml } from './steps/html.js'
+import { writePagesDistAssets } from './steps/pages-assets.js'
 import { validateDist } from './steps/validate.js'
 
 mkdirSync(paths.dist, { recursive: true })
@@ -27,6 +28,7 @@ await runStep('7/8 — Copiar tipos (.d.ts) para dist/types/', copyTypes)
 await runStep('Extras — Assets de plugins e HTML de embed', () => {
   copyPluginAssets()
   writeEmbedHtml()
+  writePagesDistAssets()
 })
 await runStep('8/8 — Validar artefatos da dist', validateDist)
 

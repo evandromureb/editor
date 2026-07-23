@@ -43,7 +43,7 @@ npm run dev          # HTTP server on port 3000 (override with PORT=…)
 |-----|------|
 | `http://localhost:3000/` | Redirects to the demo |
 | `http://localhost:3000/demo/` | Dev demo (ESM from `src/`) |
-| `http://localhost:3000/page/` | Configuration playground (needs a prior build) |
+| `http://localhost:3000/pages/` | Configuration playground (needs a prior build) |
 | `http://localhost:3000/dist/embed.html` | Bundled embed with `<wysiwyg-editor>` |
 
 `make demo` is an alias for `make dev` (runs tests + lint + build, then serves). `make preview` builds and opens the dist embed page.
@@ -212,7 +212,7 @@ toolbar: [
 | `src/` | Editor core, embed, SDK, shared UI |
 | `plugins/` | Feature plugins |
 | `themes/` | Theme packages |
-| `page/`, `demo/` | Config playground and demo |
+| `pages/`, `demo/` | Config playground and demo |
 | `scripts/` | Discovery, build, dist validation |
 | `tests/` | Test suite |
 | `dist/`, `.build/`, `src/generated/` | Generated outputs — do not edit by hand |
@@ -340,7 +340,7 @@ Recommended validation order for contributors: see [`.cursor/skills/verify-chang
 ## Contributing
 
 1. Keep changes narrow and match existing patterns in the nearest sibling file.
-2. Prefer the matching domain skill under [`.cursor/skills/`](.cursor/skills/) (plugins, themes, core, page, i18n, build, verify).
+2. Prefer the matching domain skill under [`.cursor/skills/`](.cursor/skills/) (plugins, themes, core, pages, i18n, build, verify).
 3. Add or update tests for user-facing behavior.
 4. Before pushing, run `npm run prepush` or `make fix`.
 

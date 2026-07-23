@@ -4,6 +4,7 @@ dist/
 
 # Gerado automaticamente pelo build — não versionar
 src/generated/
+pages/dist-assets.generated.js
 
 # Dependências
 node_modules/
