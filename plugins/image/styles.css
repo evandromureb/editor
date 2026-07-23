@@ -62,21 +62,13 @@
   margin-top: 2px;
 }
 
-/* Insert dialog — compact, ~460-500px, tight vertical rhythm */
-.editor__dialog.editor__image-dialog-shell {
-  width: min(460px, calc(100vw - 2rem));
+/* Insert popover — compact, ~360-460px, tight vertical rhythm */
+.editor__popover:has(> .editor__image-insert-panel) {
+  width: min(360px, calc(100vw - 2rem));
   min-width: min(300px, calc(100vw - 2rem));
 }
 
-.editor__dialog.editor__image-dialog-shell .editor__dialog-header {
-  padding: var(--editor-spacing-sm) var(--editor-spacing-md);
-}
-
-.editor__dialog.editor__image-dialog-shell .editor__dialog-body {
-  padding: var(--editor-spacing-md);
-}
-
-.editor__image-dialog {
+.editor__image-insert-panel {
   display: flex;
   flex-direction: column;
   gap: var(--editor-spacing-sm);

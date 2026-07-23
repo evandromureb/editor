@@ -5,9 +5,9 @@
  * (parsed/serialized generically by Core as `<img>` or `<figure><img><figcaption>`).
  *
  * Split across flat local modules (no subfolders, matching this repo's
- * convention): commands.js (state transitions), dialog.js (insert-only,
- * opened from the toolbar), popover.js (edit-only, opened by clicking an
- * existing image).
+ * convention): commands.js (state transitions), dialog.js (insert-only
+ * popover, opened from the toolbar), popover.js (edit-only popover, opened
+ * by clicking an existing image).
  */
 
 import { definePlugin, block, toolbarItem } from '@baselab/plugin-sdk'
@@ -54,7 +54,7 @@ function mountImageButton(ctx) {
       label: 'image.button',
       title: 'image.button',
       icon: ICON,
-      onClick: () => openInsertDialog(ctx),
+      onClick: () => openInsertDialog(ctx, buttonEl),
     })
   )
 
@@ -137,6 +137,6 @@ export default definePlugin({
     closeImagePopover()
     buttonEl = null
     ctx.services.overlay.closePopover('image-panel')
-    ctx.services.overlay.closeDialog('image-insert-dialog')
+    ctx.services.overlay.closePopover('image-insert-panel')
   },
 })
