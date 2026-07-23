@@ -754,15 +754,13 @@ function currentConfig() {
 // EditorOptions` in src/editor/index.js and the theme/appearance managers)
 // with a trailing comment flagging it as such, so the snippet stays
 // copy-pasteable while still documenting the full option surface.
-const OTHER_OPTIONS_CODE = `    preset: undefined, // valor padrão — nenhum preset (usa os plugins/toolbar acima)
-    theme: 'padrao', // valor padrão
+const OTHER_OPTIONS_CODE = `    theme: 'padrao', // valor padrão
     persistTheme: false, // valor padrão
     appearance: 'light', // valor padrão (segue a preferência do sistema)
     persistAppearance: false, // valor padrão
-    assetBaseUrl: undefined, // valor padrão (detectado a partir do <script src="...">)
-    width: undefined, // valor padrão (sem largura fixa)
-    height: undefined, // valor padrão (sem altura fixa)
-    responsive: false, // valor padrão
+    width: 500, // valor padrão (sem largura fixa)
+    height: 500, // valor padrão (sem altura fixa)
+    responsive: true, // valor padrão
     fontFamily: {
       // valores padrão do plugin font-family
       default: 'Arial',
@@ -776,9 +774,9 @@ const OTHER_OPTIONS_CODE = `    preset: undefined, // valor padrão — nenhum p
       ],
     },
     image: {
-      upload: undefined, // valor padrão (sem upload customizado)
-      maxSize: 5 * 1024 * 1024, // valor padrão (5 MB)
-    },`
+      maxSize: 1 * 1024 * 1024, // valor padrão (5 MB)
+    },
+    footer: false, // valor padrão`
 
 function renderCode({ plugins, toolbar, locale }) {
   const code = `<link rel="stylesheet" href="./dist/editor.min.css" />

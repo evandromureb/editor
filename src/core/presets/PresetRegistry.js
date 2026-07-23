@@ -14,6 +14,7 @@ import { DEFAULT_LOCALE } from '../i18n/constants.js'
  * @property {string[]} [plugins]
  * @property {string[]} [toolbar]
  * @property {boolean} [responsive]
+ * @property {boolean} [footer]
  */
 
 /** @type {Map<string, EditorPreset>} */

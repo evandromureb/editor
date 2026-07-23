@@ -731,6 +731,10 @@ wysiwyg-editor {
   min-width: 0;
 }
 
+.editor__statusbar[hidden] {
+  display: none !important;
+}
+
 .editor__theme {
   flex: 0 0 auto;
   position: relative;
