@@ -79,6 +79,7 @@ function isTextEditingElement(element) {
  * @property {number} [height]
  * @property {string | string[]} [toolbar]
  * @property {boolean} [responsive]
+ * @property {boolean} [footer] - Shows the editor's footer (status bar). Defaults to `true`.
  * @property {{ default?: string, items?: { label: string, value: string }[] }} [fontFamily]
  * @property {{ upload?: (file: File) => Promise<string | { url: string, width?: number, height?: number }>, maxSize?: number }} [image]
  *   `maxSize` overrides the image plugin's default max upload size, in bytes
@@ -130,6 +131,9 @@ export class Editor {
 
   /** @type {Statusbar} */
   #statusbar
+
+  /** @type {HTMLElement} */
+  #statusbarOuter
 
   /** @type {Modes} */
   #modes
@@ -213,6 +217,9 @@ export class Editor {
     this.#preview = shell.preview
     this.#pane = shell.pane
     this.#overlayRoot = shell.overlayRoot
+    this.#statusbarOuter = shell.statusbar
+
+    this.#statusbarOuter.hidden = options.footer === false
 
     if (options.width) {
       this.#root.style.width = `${options.width}px`
@@ -462,6 +469,16 @@ export class Editor {
   setTheme(themeId) {
     this.#themeManager.setTheme(themeId)
     this.#refreshUi()
+  }
+
+  /** @param {boolean} visible */
+  setFooterVisible(visible) {
+    this.#statusbarOuter.hidden = !visible
+  }
+
+  /** @returns {boolean} */
+  isFooterVisible() {
+    return !this.#statusbarOuter.hidden
   }
 
   /** @returns {boolean} */

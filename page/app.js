@@ -89,7 +89,63 @@ const SEPARATOR = '|'
 
 // The editor's real default locale is 'pt' (see src/core/i18n/constants.js),
 // but this page defaults to English as requested; 'pt' is offered as PT-BR.
-let currentLocale = 'en'
+// The choice is persisted across reloads (see LOCALE_STORAGE_KEY below).
+const LOCALE_STORAGE_KEY = 'editor-config-builder:locale'
+
+function loadSavedLocale() {
+  try {
+    const raw = localStorage.getItem(LOCALE_STORAGE_KEY)
+    return raw === 'en' || raw === 'pt' ? raw : null
+  } catch (err) {
+    console.error('Falha ao carregar idioma salvo:', err)
+    return null
+  }
+}
+
+let currentLocale = loadSavedLocale() ?? 'en'
+
+// ---------------------------------------------------------------------------
+// Page theme (light/dark) — independent from the editor's own appearance
+// option, this only affects this playground page's own chrome. Persisted
+// across reloads; defaults to the system preference on first visit.
+// ---------------------------------------------------------------------------
+const THEME_STORAGE_KEY = 'editor-config-builder:page-theme'
+
+function loadSavedTheme() {
+  try {
+    const raw = localStorage.getItem(THEME_STORAGE_KEY)
+    return raw === 'light' || raw === 'dark' ? raw : null
+  } catch (err) {
+    console.error('Falha ao carregar tema salvo:', err)
+    return null
+  }
+}
+
+function systemPrefersDarkTheme() {
+  return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme)
+  document.getElementById('theme-toggle-btn')?.setAttribute('aria-pressed', String(theme === 'dark'))
+}
+
+let currentTheme = loadSavedTheme() ?? (systemPrefersDarkTheme() ? 'dark' : 'light')
+applyTheme(currentTheme)
+
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark'
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, currentTheme)
+  } catch (err) {
+    console.error('Falha ao salvar tema:', err)
+  }
+  applyTheme(currentTheme)
+  // Keeps the live preview editor's own appearance in sync with the page's
+  // theme — declared with `let` further below, but safe to reference here
+  // since this function only runs later, in response to the button click.
+  previewEditor?.setAppearance?.(currentTheme)
+}
 
 function labelForEntry(entry) {
   if (entry.groupLabel) return entry.groupLabel[currentLocale] || entry.groupLabel.en
@@ -748,6 +804,37 @@ function currentConfig() {
   return { plugins: ALL_PLUGINS, toolbar, locale: currentLocale }
 }
 
+// Every createEditor() option this builder's UI doesn't expose (preset,
+// theme, appearance, size, upload handler, etc.) rendered as real, valid
+// fields — each set to the editor's actual default (see `@typedef
+// EditorOptions` in src/editor/index.js and the theme/appearance managers)
+// with a trailing comment flagging it as such, so the snippet stays
+// copy-pasteable while still documenting the full option surface.
+const OTHER_OPTIONS_CODE = `
+    theme: 'padrao', // default value
+    persistTheme: true, // default value
+    appearance: 'light', // default value (follows system preference)
+    persistAppearance: false, // default value
+    width: 500, // default value (no fixed width)
+    height: 500, // default value (no fixed height)
+    responsive: true, // default value
+    fontFamily: {
+      // default values from the font-family plugin
+      default: 'Arial',
+      items: [
+        { label: 'Arial', value: 'Arial, sans-serif' },
+        { label: 'Helvetica', value: 'Helvetica, Arial, sans-serif' },
+        { label: 'Times New Roman', value: "'Times New Roman', serif" },
+        { label: 'Georgia', value: 'Georgia, serif' },
+        { label: 'Verdana', value: 'Verdana, sans-serif' },
+        { label: 'Courier New', value: "'Courier New', monospace" },
+      ],
+    },
+    image: {
+      maxSize: 1 * 1024 * 1024, // default value (5 MB)
+    },
+    footer: true, // default value`
+
 function renderCode({ plugins, toolbar, locale }) {
   const code = `<link rel="stylesheet" href="./dist/editor.min.css" />
 <textarea id="content"></textarea>
@@ -765,6 +852,7 @@ function renderCode({ plugins, toolbar, locale }) {
     locale: ${JSON.stringify(locale)},
     plugins,
     toolbar,
+${OTHER_OPTIONS_CODE}
   })
 </script>`
   document.querySelector('#output-code code').textContent = code
@@ -788,6 +876,8 @@ function renderPreview({ plugins, toolbar, locale }) {
       locale,
       plugins,
       toolbar,
+      appearance: currentTheme,
+      persistAppearance: false,
     })
   } catch (err) {
     previewEditor = null
@@ -869,6 +959,11 @@ document.querySelectorAll('.tab-btn').forEach((btn) => {
 function setLocale(locale) {
   if (locale === currentLocale) return
   currentLocale = locale
+  try {
+    localStorage.setItem(LOCALE_STORAGE_KEY, locale)
+  } catch (err) {
+    console.error('Falha ao salvar idioma:', err)
+  }
   document.querySelectorAll('.locale-btn').forEach((btn) => {
     btn.classList.toggle('is-active', btn.dataset.locale === locale)
   })
@@ -882,6 +977,8 @@ document.querySelectorAll('.locale-btn').forEach((btn) => {
   btn.addEventListener('click', () => setLocale(btn.dataset.locale))
 })
 
+document.getElementById('theme-toggle-btn').addEventListener('click', toggleTheme)
+
 // Safety net: if a drag ends without a drop landing on a row (e.g. released
 // over the browser chrome or outside any drop target), make sure the caret
 // doesn't linger.
@@ -891,6 +988,9 @@ window.addEventListener('dragend', hideDropCaret)
 // Boot
 // ---------------------------------------------------------------------------
 
+document.querySelectorAll('.locale-btn').forEach((btn) => {
+  btn.classList.toggle('is-active', btn.dataset.locale === currentLocale)
+})
 extractIcons(currentLocale)
 setupTrashZone()
 renderPresets()

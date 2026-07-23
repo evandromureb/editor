@@ -39,9 +39,10 @@ try {
     plugins,
     toolbar,
     image: {
-      // Demo-only: no host upload endpoint configured, so uploads fall back
-      // to a local Blob URL (plugins/image/index.js resolveUploadedSrc()).
+      upload: undefined, // valor padrão (sem upload customizado)
+      maxSize: 1 * 1024 * 1024, // valor padrão (5 MB)
     },
+    footer: true,
   })
   window.__editor = editor
 } catch (error) {

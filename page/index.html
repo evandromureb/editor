@@ -19,9 +19,32 @@
             preview ao vivo.
           </p>
         </div>
-        <div class="locale-switch" id="locale-switch" role="group" aria-label="Idioma do editor">
-          <button type="button" class="locale-btn is-active" data-locale="en">EN</button>
-          <button type="button" class="locale-btn" data-locale="pt">PT-BR</button>
+        <div class="header-controls">
+          <div class="locale-switch" id="locale-switch" role="group" aria-label="Idioma do editor">
+            <button type="button" class="locale-btn is-active" data-locale="en">EN</button>
+            <button type="button" class="locale-btn" data-locale="pt">PT-BR</button>
+          </div>
+          <button
+            type="button"
+            class="theme-toggle-btn"
+            id="theme-toggle-btn"
+            aria-label="Alternar tema claro/escuro"
+            title="Alternar tema claro/escuro"
+          >
+            <svg class="theme-icon theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+              <circle cx="8" cy="8" r="3.5" />
+              <path
+                d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06"
+                stroke="currentColor"
+                stroke-width="1.2"
+                fill="none"
+                stroke-linecap="round"
+              />
+            </svg>
+            <svg class="theme-icon theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 1.5a5 5 0 0 1 0 10V3z" />
+            </svg>
+          </button>
         </div>
       </div>
     </header>
