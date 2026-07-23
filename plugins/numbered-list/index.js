@@ -161,13 +161,7 @@ function buildOptionButton(ctx, style, disabled, active) {
   button.title = label
   button.setAttribute('aria-label', label)
 
-  const preview = buildPreviewSample(style)
-  const caption = document.createElement('span')
-  caption.className = 'editor__numbered-list-option-label'
-  caption.textContent = label
-
-  button.appendChild(preview)
-  button.appendChild(caption)
+  button.appendChild(buildPreviewSample(style))
 
   button.addEventListener('click', () => {
     if (button.disabled) return
