@@ -261,7 +261,7 @@ function cssEscape(value) {
   return window.CSS && CSS.escape ? CSS.escape(value) : value.replace(/[^a-zA-Z0-9_-]/g, '\\$&')
 }
 
-// Default toolbar mirrors demo/main.js, which already covers every plugin —
+// Default toolbar mirrors demo/index.html, which already covers every plugin —
 // a fitting starting point now that all plugins are always active.
 const DEFAULT_TOOLBAR = [
   ['undo', 'redo', SEPARATOR, 'font-family', 'font-size', 'paragraph', SEPARATOR, 'bold', 'italic', 'underline', 'subscript', 'superscript'],
