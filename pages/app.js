@@ -815,8 +815,8 @@ const OTHER_OPTIONS_CODE = `
     persistTheme: true, // default value
     appearance: 'light', // default value (follows system preference)
     persistAppearance: false, // default value
-    width: 500, // default value (no fixed width)
-    height: 500, // default value (no fixed height)
+    width: 1024, // default value (no fixed width)
+    height: 800, // default value (no fixed height)
     responsive: true, // default value
     fontFamily: {
       // default values from the font-family plugin
@@ -839,9 +839,32 @@ const OTHER_OPTIONS_CODE = `
     },
     footer: true, // default value`
 
+// Wraps the embeddable snippet (shown as-is in the "Código" tab, meant to be
+// pasted into an existing page) in a full HTML document — DOCTYPE, head,
+// body — for the ZIP download's index.html. Without a DOCTYPE, browsers
+// render the standalone file in Quirks Mode.
+function buildStandaloneHtml(snippet, locale) {
+  const indented = snippet
+    .split('\n')
+    .map((line) => (line ? `    ${line}` : line))
+    .join('\n')
+  return `<!DOCTYPE html>
+<html lang="${locale === 'pt' ? 'pt-BR' : 'en'}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor</title>
+  </head>
+  <body>
+${indented}
+  </body>
+</html>
+`
+}
+
 function renderCode({ plugins, toolbar, locale }) {
   const code = `<link rel="stylesheet" href="./dist/editor.min.css" />
-<textarea id="content"></textarea>
+<textarea id="content" class="editor-source"></textarea>
 <div id="app"></div>
 
 <script src="./dist/editor.standalone.min.js"></script>
@@ -968,7 +991,8 @@ document.getElementById('download-zip-btn').addEventListener('click', async () =
       throw new Error('Pacote não encontrado. Rode "npm run build" para gerar os arquivos de dist/.')
     }
 
-    const html = document.querySelector('#output-code code').textContent
+    const snippet = document.querySelector('#output-code code').textContent
+    const html = buildStandaloneHtml(snippet, currentLocale)
     const encoder = new TextEncoder()
 
     const zipBlob = createZip([
