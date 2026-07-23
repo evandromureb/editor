@@ -6,6 +6,8 @@
  * block-level "this image is active" concept has to live in the plugin.
  */
 
+import { getSizeLimits, clampSize } from './commands.js'
+
 const BLOCK_TYPE = 'image'
 
 const ALIGN_ICONS = {
@@ -62,6 +64,7 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
   const naturalWidth = Number(attrs.width) || imgEl?.naturalWidth || 0
   const naturalHeight = Number(attrs.height) || imgEl?.naturalHeight || 0
   const aspect = naturalWidth && naturalHeight ? naturalWidth / naturalHeight : 0
+  const sizeLimits = getSizeLimits(ctx)
 
   const root = document.createElement('div')
   root.className = 'editor__image-panel-content'
@@ -115,20 +118,30 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
 
   const widthRange = document.createElement('input')
   widthRange.type = 'range'
-  widthRange.min = '10'
-  widthRange.max = String(Math.max(naturalWidth || 800, 800))
-  widthRange.value = String(naturalWidth || 300)
+  widthRange.min = String(sizeLimits.minWidth)
+  widthRange.max = String(sizeLimits.maxWidth)
+  widthRange.value = String(clampSize(naturalWidth || 300, sizeLimits.minWidth, sizeLimits.maxWidth))
   widthRange.className = 'editor__image-range'
   root.appendChild(widthRange)
 
   const sizeRow = document.createElement('div')
   sizeRow.className = 'editor__image-row'
-  const widthNumber = ctx.ui.Input({ type: 'number', value: widthRange.value, className: 'editor__image-input editor__image-input--number' })
-  const heightNumber = ctx.ui.Input({
+  const widthNumber = ctx.ui.Input({
     type: 'number',
-    value: String(naturalHeight || Math.round(Number(widthRange.value) / (aspect || 1))),
+    value: widthRange.value,
     className: 'editor__image-input editor__image-input--number',
   })
+  widthNumber.min = String(sizeLimits.minWidth)
+  widthNumber.max = String(sizeLimits.maxWidth)
+  const heightNumber = ctx.ui.Input({
+    type: 'number',
+    value: String(
+      clampSize(naturalHeight || Math.round(Number(widthRange.value) / (aspect || 1)), sizeLimits.minHeight, sizeLimits.maxHeight),
+    ),
+    className: 'editor__image-input editor__image-input--number',
+  })
+  heightNumber.min = String(sizeLimits.minHeight)
+  heightNumber.max = String(sizeLimits.maxHeight)
   sizeRow.append(widthNumber, heightNumber)
   root.appendChild(sizeRow)
 
@@ -137,9 +150,10 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
   root.appendChild(keepAspectField)
 
   function applyWidth(width) {
+    width = clampSize(width, sizeLimits.minWidth, sizeLimits.maxWidth)
     const patch = { width: String(width) }
     if (keepAspectInput.checked && aspect) {
-      const height = Math.round(width / aspect)
+      const height = clampSize(Math.round(width / aspect), sizeLimits.minHeight, sizeLimits.maxHeight)
       heightNumber.value = String(height)
       patch.height = String(height)
     }
@@ -149,9 +163,10 @@ export function openImagePopover(ctx, anchorEl, blockIndex) {
   }
 
   function applyHeight(height) {
+    height = clampSize(height, sizeLimits.minHeight, sizeLimits.maxHeight)
     const patch = { height: String(height) }
     if (keepAspectInput.checked && aspect) {
-      const width = Math.round(height * aspect)
+      const width = clampSize(Math.round(height * aspect), sizeLimits.minWidth, sizeLimits.maxWidth)
       widthNumber.value = String(width)
       widthRange.value = String(width)
       patch.width = String(width)

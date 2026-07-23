@@ -146,7 +146,7 @@ Exemplo completo: [`embed.file.html`](embed.file.html).
 | `footer` | Exibe a barra de status (padrão `true`) |
 | `responsive` | Flag de layout responsivo |
 | `fontFamily` | Fonte padrão e itens do seletor |
-| `image` | `{ upload, maxSize }` para o plugin de imagem |
+| `image` | `{ upload, maxSize, minWidth, maxWidth, minHeight, maxHeight }` para o plugin de imagem |
 | `assetBaseUrl` | URL base para assets de plugins |
 | `persistTheme` / `persistAppearance` | Persiste escolhas de UI |
 
