@@ -1,6 +1,7 @@
 /**
- * @file Insert dialog — URL/Upload tabs, drag & drop, shared size/title/
- * caption fields. Only ever creates new images; never used for editing.
+ * @file Insert popover — URL/Upload tabs, drag & drop, shared size/title/
+ * caption fields. Anchored to the toolbar button, same as the link plugin's
+ * popover. Only ever creates new images; never used for editing.
  */
 
 import { isSafeUrl } from './commands.js'
@@ -33,7 +34,7 @@ function formatFileSize(bytes) {
 }
 
 /** @type {{ close: () => void, destroy: () => void } | null} */
-let dialogApi = null
+let popoverApi = null
 
 /**
  * @param {string} src
@@ -76,15 +77,16 @@ async function resolveUploadedSrc(ctx, file) {
  * @param {PluginContext} ctx
  */
 export function closeInsertDialog(ctx) {
-  const api = dialogApi
-  dialogApi = null
+  const api = popoverApi
+  popoverApi = null
   api?.close()
 }
 
 /**
  * @param {PluginContext} ctx
+ * @param {HTMLElement} anchorEl
  */
-export function openInsertDialog(ctx) {
+export function openInsertDialog(ctx, anchorEl) {
   closeInsertDialog(ctx)
 
   let mode = 'url'
@@ -95,7 +97,7 @@ export function openInsertDialog(ctx) {
   let previewObjectUrl = ''
 
   const root = document.createElement('div')
-  root.className = 'editor__image-dialog'
+  root.className = 'editor__image-insert-panel'
 
   const tabs = document.createElement('div')
   tabs.className = 'editor__image-tabs'
@@ -343,16 +345,16 @@ export function openInsertDialog(ctx) {
   })
   submitBtn.addEventListener('click', () => submit())
 
-  dialogApi = ctx.ui.createDialog({
-    id: 'image-insert-dialog',
-    title: ctx.t('image.button'),
+  popoverApi = ctx.ui.createPopover({
+    id: 'image-insert-panel',
+    anchor: anchorEl,
     content: root,
-    className: 'editor__image-dialog-shell',
+    boundary: ctx.services.viewport.getPane(),
     onClose: () => {
-      dialogApi = null
+      popoverApi = null
       if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl)
     },
   })
-  dialogApi.open()
+  popoverApi.open()
   urlInput.focus()
 }
