@@ -4,7 +4,7 @@
  * popover. Only ever creates new images; never used for editing.
  */
 
-import { isSafeUrl } from './commands.js'
+import { isSafeUrl, getSizeLimits, clampSize } from './commands.js'
 
 /** @typedef {import('@baselab/plugin-sdk').PluginContext} PluginContext */
 
@@ -95,6 +95,7 @@ export function openInsertDialog(ctx, anchorEl) {
   /** @type {{ width: number, height: number } | null} */
   let naturalSize = null
   let previewObjectUrl = ''
+  const sizeLimits = getSizeLimits(ctx)
 
   const root = document.createElement('div')
   root.className = 'editor__image-insert-panel'
@@ -153,6 +154,8 @@ export function openInsertDialog(ctx, anchorEl) {
   widthLabel.className = 'editor__image-label'
   widthLabel.textContent = ctx.t('image.width')
   const widthInput = ctx.ui.Input({ type: 'number', className: 'editor__image-input editor__image-input--number' })
+  widthInput.min = String(sizeLimits.minWidth)
+  widthInput.max = String(sizeLimits.maxWidth)
   widthField.append(widthLabel, widthInput)
 
   const heightField = document.createElement('label')
@@ -161,6 +164,8 @@ export function openInsertDialog(ctx, anchorEl) {
   heightLabel.className = 'editor__image-label'
   heightLabel.textContent = ctx.t('image.height')
   const heightInput = ctx.ui.Input({ type: 'number', className: 'editor__image-input editor__image-input--number' })
+  heightInput.min = String(sizeLimits.minHeight)
+  heightInput.max = String(sizeLimits.maxHeight)
   heightField.append(heightLabel, heightInput)
 
   const dimensionsRow = document.createElement('div')
@@ -229,22 +234,28 @@ export function openInsertDialog(ctx, anchorEl) {
     naturalSize = size
     if (!size?.width || !size?.height) return
     if (widthInput.value || heightInput.value) return
-    widthInput.value = String(DEFAULT_INSERT_WIDTH)
-    heightInput.value = String(Math.round((DEFAULT_INSERT_WIDTH * size.height) / size.width))
+    const width = clampSize(DEFAULT_INSERT_WIDTH, sizeLimits.minWidth, sizeLimits.maxWidth)
+    const height = clampSize(Math.round((width * size.height) / size.width), sizeLimits.minHeight, sizeLimits.maxHeight)
+    widthInput.value = String(width)
+    heightInput.value = String(height)
   }
 
   function onWidthChange() {
-    if (!keepAspectInput.checked || !naturalSize?.width) return
     const width = Number(widthInput.value)
     if (!width) return
-    heightInput.value = String(Math.round((width * naturalSize.height) / naturalSize.width))
+    const clamped = clampSize(width, sizeLimits.minWidth, sizeLimits.maxWidth)
+    widthInput.value = String(clamped)
+    if (!keepAspectInput.checked || !naturalSize?.width) return
+    heightInput.value = String(Math.round((clamped * naturalSize.height) / naturalSize.width))
   }
 
   function onHeightChange() {
-    if (!keepAspectInput.checked || !naturalSize?.height) return
     const height = Number(heightInput.value)
     if (!height) return
-    widthInput.value = String(Math.round((height * naturalSize.width) / naturalSize.height))
+    const clamped = clampSize(height, sizeLimits.minHeight, sizeLimits.maxHeight)
+    heightInput.value = String(clamped)
+    if (!keepAspectInput.checked || !naturalSize?.height) return
+    widthInput.value = String(Math.round((clamped * naturalSize.width) / naturalSize.height))
   }
 
   function setPendingFile(file) {
@@ -310,8 +321,8 @@ export function openInsertDialog(ctx, anchorEl) {
 
     ctx.execCommand('image.insert', {
       src,
-      width,
-      height,
+      width: width ? String(clampSize(Number(width), sizeLimits.minWidth, sizeLimits.maxWidth)) : width,
+      height: height ? String(clampSize(Number(height), sizeLimits.minHeight, sizeLimits.maxHeight)) : height,
       title: titleInput.value.trim(),
       caption: captionInput.value.trim(),
     })

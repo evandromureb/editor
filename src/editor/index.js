@@ -81,9 +81,12 @@ function isTextEditingElement(element) {
  * @property {boolean} [responsive]
  * @property {boolean} [footer] - Shows the editor's footer (status bar). Defaults to `true`.
  * @property {{ default?: string, items?: { label: string, value: string }[] }} [fontFamily]
- * @property {{ upload?: (file: File) => Promise<string | { url: string, width?: number, height?: number }>, maxSize?: number }} [image]
+ * @property {{ upload?: (file: File) => Promise<string | { url: string, width?: number, height?: number }>, maxSize?: number, minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number }} [image]
  *   `maxSize` overrides the image plugin's default max upload size, in bytes
  *   (see `DEFAULT_MAX_FILE_SIZE` in plugins/image/dialog.js).
+ *   `minWidth`/`maxWidth`/`minHeight`/`maxHeight` clamp the image resize
+ *   range, in pixels (see `DEFAULT_MIN_WIDTH`/`DEFAULT_MAX_WIDTH`/
+ *   `DEFAULT_MIN_HEIGHT`/`DEFAULT_MAX_HEIGHT` in plugins/image/commands.js).
  */
 
 /** @typedef {import('../sdk/types.js').PluginDefinition} PluginDefinition */

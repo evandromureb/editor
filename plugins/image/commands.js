@@ -10,6 +10,38 @@ export const ALIGN_VALUES = new Set(['left', 'center', 'right'])
 export const ATTR_KEYS = ['src', 'width', 'height', 'alt', 'title', 'align']
 export const DEFAULT_ALIGN = 'left'
 
+// Overridable via `createEditor({ image: { minWidth, maxWidth, minHeight, maxHeight } })`, in pixels.
+export const DEFAULT_MIN_WIDTH = 100
+export const DEFAULT_MAX_WIDTH = 1200
+export const DEFAULT_MIN_HEIGHT = 100
+export const DEFAULT_MAX_HEIGHT = 1200
+
+/**
+ * @param {import('@baselab/plugin-sdk').PluginContext} ctx
+ * @returns {{ minWidth: number, maxWidth: number, minHeight: number, maxHeight: number }}
+ */
+export function getSizeLimits(ctx) {
+  const options = /** @type {{ minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number }} | undefined */ (
+    ctx.getOption('image')
+  )
+  return {
+    minWidth: options?.minWidth ?? DEFAULT_MIN_WIDTH,
+    maxWidth: options?.maxWidth ?? DEFAULT_MAX_WIDTH,
+    minHeight: options?.minHeight ?? DEFAULT_MIN_HEIGHT,
+    maxHeight: options?.maxHeight ?? DEFAULT_MAX_HEIGHT,
+  }
+}
+
+/**
+ * @param {number} value
+ * @param {number} min
+ * @param {number} max
+ * @returns {number}
+ */
+export function clampSize(value, min, max) {
+  return Math.min(Math.max(value, min), max)
+}
+
 // blob: is browser-generated (URL.createObjectURL for the local upload
 // fallback in dialog.js), never attacker-injectable, so it is allowed only
 // for image `src` alongside http(s)/mailto/tel.

@@ -40,7 +40,11 @@ try {
     toolbar,
     image: {
       upload: undefined, // valor padrão (sem upload customizado)
-      maxSize: 1 * 1024 * 1024, // valor padrão (5 MB)
+      maxSize: 5 * 1024 * 1024, // valor padrão (5 MB)
+      minWidth: 100, // valor padrão
+      maxWidth: 1200, // valor padrão
+      minHeight: 100, // valor padrão
+      maxHeight: 1200, // valor padrão
     },
     footer: true,
   })

@@ -831,7 +831,11 @@ const OTHER_OPTIONS_CODE = `
       ],
     },
     image: {
-      maxSize: 1 * 1024 * 1024, // default value (5 MB)
+      maxSize: 1 * 1024 * 1024, // default value (1 MB)
+      minWidth: 100, // default value
+      maxWidth: 1200, // default value
+      minHeight: 100, // default value
+      maxHeight: 1200, // default value
     },
     footer: true, // default value`
 
