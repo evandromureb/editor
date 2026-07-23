@@ -233,6 +233,10 @@ function togglePopover(ctx) {
     id: 'bullet-list-popover',
     anchor: buttonEl,
     content: popoverEl,
+    // Always render below the button — never flip above it, even when the
+    // editor is short on vertical space (it shrinks with internal scroll
+    // instead).
+    lockPlacement: true,
     onClose: () => {
       popoverApi = null
       popoverEl = null

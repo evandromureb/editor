@@ -14,6 +14,11 @@
  * @property {number} [offset=4]
  * @property {HTMLElement} [boundary] Element the popover must stay within
  *   (e.g. the editor root). Falls back to the viewport when omitted.
+ * @property {boolean} [lockPlacement=false] When true (only meaningful for
+ *   'top'/'bottom'), the popover is never pushed to the anchor's opposite
+ *   side to make room — it always renders on the given `placement` side,
+ *   shrinking (with internal scroll) instead of flipping when the boundary
+ *   doesn't have enough space.
  */
 
 const VIEWPORT_MARGIN = 8
@@ -87,7 +92,7 @@ export function flipPlacement(anchor, element, preferred = 'bottom', boundary) {
 /**
  * @param {PositionOpts} opts
  */
-export function positionElement({ anchor, element, placement = 'bottom', offset = 4, boundary }) {
+export function positionElement({ anchor, element, placement = 'bottom', offset = 4, boundary, lockPlacement = false }) {
   const anchorRect = anchor.getBoundingClientRect()
   const elRect = element.getBoundingClientRect()
   const bounds = getBoundaryRect(boundary)
@@ -118,12 +123,27 @@ export function positionElement({ anchor, element, placement = 'bottom', offset 
   let { top, left } = positions[placement] ?? positions.bottom
 
   const maxWidth = Math.max(0, bounds.right - bounds.left)
-  const maxHeight = Math.max(0, bounds.bottom - bounds.top)
+  // With lockPlacement, the edge touching the anchor (top edge for
+  // 'bottom' placement, bottom edge for 'top' placement) is pinned and
+  // never flipped to the opposite side — the popover shrinks (and scrolls
+  // internally, via overflow) to fit the remaining space instead.
+  const maxHeight = lockPlacement && placement === 'bottom'
+    ? Math.max(0, bounds.bottom - top)
+    : lockPlacement && placement === 'top'
+      ? Math.max(0, anchorRect.top - offset - bounds.top)
+      : Math.max(0, bounds.bottom - bounds.top)
   const width = Math.min(elRect.width, maxWidth)
   const height = Math.min(elRect.height, maxHeight)
 
+  if (lockPlacement && placement === 'top') {
+    // Keep the bottom edge pinned to the anchor as height shrinks.
+    top = anchorRect.top - offset - height
+  }
+
   left = Math.max(bounds.left, Math.min(left, bounds.right - width))
-  top = Math.max(bounds.top, Math.min(top, bounds.bottom - height))
+  top = lockPlacement
+    ? Math.max(bounds.top, top)
+    : Math.max(bounds.top, Math.min(top, bounds.bottom - height))
 
   element.style.position = 'fixed'
   element.style.top = `${top}px`

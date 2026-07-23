@@ -47,6 +47,9 @@ const CLOSE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="1
  * @property {HTMLElement} [boundary] Overrides the runtime's default
  *   boundary for this popover only (e.g. the editable pane, so it never
  *   covers the toolbar/statusbar).
+ * @property {boolean} [lockPlacement] Forces `placement` (e.g. always
+ *   'bottom') and never flips to the anchor's opposite side when there
+ *   isn't enough room — the popover shrinks with internal scroll instead.
  */
 
 /**
@@ -237,10 +240,14 @@ export class PluginUiRuntime {
     // element's getBoundingClientRect() is always zero-sized, which would
     // throw off the anchor-centered/flip math below.
     const boundary = opts.boundary ?? this.#boundary
-    const placement = flipPlacement(opts.anchor, popover, opts.placement ?? 'bottom', boundary)
-    positionElement({ anchor: opts.anchor, element: popover, placement, boundary })
+    const preferredPlacement = opts.placement ?? 'bottom'
+    const placement = opts.lockPlacement
+      ? preferredPlacement
+      : flipPlacement(opts.anchor, popover, preferredPlacement, boundary)
+    positionElement({ anchor: opts.anchor, element: popover, placement, boundary, lockPlacement: opts.lockPlacement })
 
-    const handler = () => positionElement({ anchor: opts.anchor, element: popover, placement, boundary })
+    const handler = () =>
+      positionElement({ anchor: opts.anchor, element: popover, placement, boundary, lockPlacement: opts.lockPlacement })
     window.addEventListener('scroll', handler, true)
     window.addEventListener('resize', handler)
     this.#repositionHandlers.set(opts.id, () => {
