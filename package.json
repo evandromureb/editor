@@ -1,11 +1,37 @@
 {
-  "name": "@baselab/editor",
+  "name": "baselabeditor",
   "version": "0.1.0",
   "type": "module",
+  "description": "Modular WYSIWYG editor with a plugin-based architecture, embeddable via ESM, custom element, or IIFE.",
+  "keywords": [
+    "wysiwyg",
+    "editor",
+    "rich-text",
+    "rte",
+    "plugin",
+    "contenteditable"
+  ],
+  "homepage": "https://github.com/evandromureb/editor#readme",
+  "bugs": {
+    "url": "https://github.com/evandromureb/editor/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evandromureb/editor.git"
+  },
+  "license": "MIT",
+  "author": "Evandro Macedo Mureb <evandromureb@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22"
+  },
   "main": "./dist/editor.standalone.min.js",
   "types": "./dist/types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "exports": {
     ".": {
